@@ -19,7 +19,7 @@
                     <a href="#" class="py-5 px-3 hover:text-black">Pour les entreprises</a>
                     <a href="#" class="py-5 px-3 hover:text-black">Publier</a>
                     @auth
-                    <a href="#" class="py-5 px-3 hover:text-black">{{Auth::user()->username}}</a>
+                    <a href="{{route('auth.show')}}" class="py-5 px-3 hover:text-black">{{Auth::user()->username}}</a>
                     <form action="{{route('auth.logout')}}" method="POST">
                         @method('delete')
                         @csrf
