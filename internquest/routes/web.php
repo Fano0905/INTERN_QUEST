@@ -51,19 +51,3 @@ Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout')
 
 Route::get('/', [AuthController::class, 'show'])->name('auth.show')->middleware('auth');
 
-Route::prefix('/blog')->name('blog.')->controller(BlogController::class)->group(function() {
-    Route::get('/', 'index')->name('index');
-
-    Route::get('/new', 'create')->name('create')->middleware('auth');
-
-    Route::post('/new', 'store')->middleware('auth');
-
-    Route::get('/{user}/edit', 'edit')->name('edit')->middleware('auth');
-
-    Route::put('/{user}/edit', 'update')->middleware('auth');
-
-    Route::get('/{slug}-{post}', [BlogController::class, 'show'])->where([
-        'post' => '[0-9]+', 
-        'slug' => '[a-z0-9A-Z\-]+'
-    ])->name('show');
-});
