@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Unique;
 
 class RegisterRequest extends FormRequest
 {
@@ -20,14 +19,15 @@ class RegisterRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
     public function rules(): array
     {
         return [
-            'nom' => 'required|min:2',
-            'prenom' => 'required|min:3',
+            'nom' => ['required','min:3'],
+            'prenom' => ['required','min:4'],
             'email' => ['required','unique:users,email'],
             'password' => ['required', 'min:6'],
-            'username' => ['required', 'unique:users,username']
+            'username' => ['required','unique:users,username']
         ];
     }
 }

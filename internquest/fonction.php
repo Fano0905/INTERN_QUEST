@@ -73,3 +73,12 @@ Schema::create('post_tag', function(Blueprint $table){
 @error('category_id')
 
 dd(Auth::user()); // Vérifier si un utilisateur est connecté
+
+
+{
+    $request->validate([
+        'nom' => ['required','min:3'],
+        'prenom' => ['required','min:4'],
+        'email' => ['required','unique:users,email', Rule::unique('users')->ignore($this->route()->parameter('user'))],
+        'password' => ['required', 'min:6'],
+        'username' => ['required','unique:users,username', Rule::unique('users')->ignore($this->route()->parameter('user'))]]);
