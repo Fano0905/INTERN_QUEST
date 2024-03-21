@@ -50,19 +50,20 @@ class UserController extends Controller
             'email' => [
                 'required',
                 Rule::unique('users', 'email')->ignore(request()->route('user')),
-            ],            
+            ],
             'password' => ['required', 'min:6'],
             'username' => [
                 'required',
                 Rule::unique('users')->ignore(request()->route('user')),
-            ],            
+            ],
+            'id_role' => ['max:3']
         ]);
 
         $user = User::find($id);
         $user->update($request->all());
 
         return redirect()->route('users.index')
-            ->with('success', 'User updated successfully.');
+            ->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     /**

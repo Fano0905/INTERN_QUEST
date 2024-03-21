@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return \redirect()->intended(route('blog.index'))->with('success', 'Connexion établie avec succès');
+            return \redirect()->intended(route('auth.show'))->with('success', 'Connexion établie avec succès');
         }
         return \to_route('auth.login')->withErrors([
             'email' => 'Email invalide',

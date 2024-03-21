@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
     <title>Register</title>
 </head>
 <body>
-    <h2>Register</h2>
 
     <?php if($errors->any()): ?> {
         <div>
@@ -20,7 +20,7 @@
         </div>
     }
     <?php endif; ?>
-    <form action="" method="POST">
+    <form action="<?php echo e(route('users.store')); ?>" method="POST">
         <?php echo csrf_field(); ?>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nom</label>
@@ -96,8 +96,22 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
         </div>
+        <div class="relative mb-6">
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Role</label>
+            <input type="number" name="role" id="role" required value="<?php echo e(Auth::user()->id_role); ?>" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <?php $__errorArgs = ['id_role'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+            <p style="color: red;"><?php echo e($message); ?></p>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
         <div>
-            <button>Submit</button>
+            <<button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">S'enregistrer</button>
         </div>
     </form>
 </body>
