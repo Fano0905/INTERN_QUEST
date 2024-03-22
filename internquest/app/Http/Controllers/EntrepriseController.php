@@ -92,7 +92,7 @@ class EntrepriseController extends Controller
      */
     public function create()
     {
-        return view('entreprises.create');
+        return view('entreprise.create');
     }
 
 
@@ -106,7 +106,7 @@ class EntrepriseController extends Controller
     {
         $entreprise = Entreprise::find($id);
 
-        return view('entreprises.show', compact('entreprise'));
+        return view('entreprise.show', compact('entreprise'));
     }
 
     /**
@@ -119,6 +119,6 @@ class EntrepriseController extends Controller
     {
         $entreprise = Entreprise::find($id);
 
-        return view('entreprises.edit', compact('entreprise'));
+        return view('entreprise.edit', compact('entreprise'));
     }
 }

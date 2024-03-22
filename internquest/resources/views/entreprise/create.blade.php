@@ -31,7 +31,7 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Secteur</label>
-            <input type="text" name="secteur" id="secteur" required placeholder="Prenom" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="secteur" id="secteur" required placeholder="secteur" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('secteur')
             <p style="color: red;">{{$message}}</p>
             @enderror
@@ -56,7 +56,7 @@
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Pilote Assigné</label>
             <input type="number" name="pilote" id="pilote" required value="{{Auth::user()->id_role}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('id_pilote')
-            <p style="color: red;">{{$message}}</p>
+                <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div>

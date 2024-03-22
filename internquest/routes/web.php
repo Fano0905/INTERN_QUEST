@@ -31,32 +31,32 @@ Route::prefix('/user')->name('users.')->controller(UserController::class)->group
     // adds a user to the database
     Route::post('/create', 'store')->name('store');
     // returns a page that shows a full user
-    Route::get('/{user}', [UserController::class .'@show'])->name('show');
+    Route::get('/{user}', [UserController::class, 'show'])->name('show');
     // returns the form for editing a user
-    Route::get('/{user}/edit', UserController::class .'@edit')->name('edit')->middleware('auth');
+    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('auth');
     // updates a user
-    Route::put('/{user}', UserController::class .'@update')->name('update')->middleware('auth');
+    Route::put('/{user}', [UserController::class, 'update'])->name('update')->middleware('auth');
     // deletes a user
-    Route::delete('/{user}', [UserController::class .'@destroy'])->name('destroy');
+    Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
 
-    Route::get('/', [UserController::class .'@index'])->name('index');
+    Route::get('/', [UserController::class, 'index'])->name('index');
 });
 
 Route::prefix('/entreprise')->name('entreprises.')->controller(EntrepriseController::class)->group(function(){
     // returns the form for adding a user
-    Route::get('/create', 'create')->name('create');
+    Route::get('/create', 'create')->name('create')->middleware('auth');
     // adds a user to the database
     Route::post('/create', 'store')->name('store');
     // returns a page that shows a full user
-    Route::get('/{entreprise}', [EntrepriseController::class .'@show'])->name('show');
+    Route::get('/{entreprise}', [EntrepriseController::class, 'show'])->name('show');
     // returns the form for editing a user
-    Route::get('/{entreprise}/edit', EntrepriseController::class .'@edit')->name('edit')->middleware('auth');
+    Route::get('/{entreprise}/edit', [EntrepriseController::class, 'edit'])->name('edit')->middleware('auth');
     // updates a user
-    Route::put('/{entreprise}', EntrepriseController::class .'@update')->name('update')->middleware('auth');
+    Route::put('/{entreprise}', [EntrepriseController::class, 'update'])->name('update')->middleware('auth');
     // deletes a user
-    Route::delete('/{entreprise}', [EntrepriseController::class .'@destroy'])->name('destroy');
+    Route::delete('/{entreprise}', [EntrepriseController::class, 'destroy'])->name('destroy');
 
-    Route::get('/', [EntrepriseController::class .'@index'])->name('index');
+    Route::get('/', [EntrepriseController::class, 'index'])->name('index');
 });
 
 Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(function(){
@@ -66,6 +66,6 @@ Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(
     
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
     
-    Route::get('/', AuthController::class. '@show')->name('show')->middleware('auth');
+    Route::get('/', [AuthController::class, 'show'])->name('show')->middleware('auth');
 });
 
