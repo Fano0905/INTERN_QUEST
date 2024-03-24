@@ -98,8 +98,22 @@ unset($__errorArgs, $__bag); ?>
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Role</label>
-            <input type="number" name="role" id="role" required value="<?php echo e(Auth::user()->id_role); ?>" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="number" name="role" id="role" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             <?php $__errorArgs = ['id_role'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+            <p style="color: red;"><?php echo e($message); ?></p>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+        <div class="relative mb-6">
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Centre</label>
+            <input type="text" name="centre" id="centre" required placeholder="Centre" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <?php $__errorArgs = ['centre'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }

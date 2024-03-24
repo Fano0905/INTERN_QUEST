@@ -13,10 +13,10 @@
         <div class="flex justify-center">
             <div class="flex ">   
                 <div class="text-gray-700 hidden md:flex space-x-16">
-                    <a href="#" class="py-5 px-3 hover:text-black">Accueil</a>
-                    <a href="#" class="py-5 px-3 hover:text-black">Offres</a>
+                    <a href="<?php echo e(route('internquest/')); ?>" class="py-5 px-3 hover:text-black">Accueil</a>
+                    <a href="<?php echo e(route('offres.index')); ?>" class="py-5 px-3 hover:text-black">Offres</a>
                     <a href="#" class="py-5 px-3 hover:text-black">Notifications</a>   
-                    <a href="#" class="py-5 px-3 hover:text-black">Pour les entreprises</a>
+                    <a href="<?php echo e(route('entreprises.index')); ?>" class="py-5 px-3 hover:text-black">Pour les entreprises</a>
                     <a href="#" class="py-5 px-3 hover:text-black">Publier</a>
                     <?php if(auth()->guard()->check()): ?>
                     <a href="<?php echo e(route('auth.show')); ?>" class="py-5 px-3 hover:text-black"><?php echo e(Auth::user()->username); ?></a>
@@ -51,5 +51,6 @@
     <?php endif; ?>
     <?php echo $__env->yieldContent('content'); ?>
 </div>
+<script></script>
 </body>
 </html><?php /**PATH C:\Users\Randrianaivo\Repo\INTERN_QUEST\internquest\resources\views/accueil.blade.php ENDPATH**/ ?>

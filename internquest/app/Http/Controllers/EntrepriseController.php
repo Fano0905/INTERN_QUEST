@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Entreprise;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class EntrepriseController extends Controller
@@ -29,12 +30,12 @@ class EntrepriseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required', 'min:3', 'unique:entreprises, nom',
+            'nom' => 'required', 'min:3', 'unique:entreprises,nom',
             'secteur' => 'required',
             'site' => 'nullable',
-            'id_pilote' => 'nullable',
+            'pilote' => Rule::exists('users', 'username'),
             'localite' => 'nullable',
-            'evaluation' => 'nullable'
+            'evaluation' => ['nullable', 'integer']
         ]);
 
         Entreprise::create($request->all());
@@ -53,12 +54,16 @@ class EntrepriseController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nom' => ['required', 'min:3', 'unique:entreprises, nom', Rule::unique('entreprises', 'nom')->ignore(request()->route('entreprise'))],
+            'nom' => [
+                'required',
+                'min:3',
+                Rule::unique('entreprises', 'nom')->ignore($id, 'id'),
+            ],
             'secteur' => 'required',
-            'site' => 'nullable',
-            'id_pilote' => 'nullable',
+            'site' => 'nullable|string',
+            'pilote' => Rule::exists('users', 'username'),
             'localite' => 'nullable',
-            'evaluation' => 'nullable'
+            'evaluation' => 'integer|nullable'
         ]);
 
         $entreprise = Entreprise::find($id);
@@ -99,7 +104,7 @@ class EntrepriseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $$id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -121,4 +126,39 @@ class EntrepriseController extends Controller
 
         return view('entreprise.edit', compact('entreprise'));
     }
+
+    /**
+     * Show the form for editing the specified entreprise.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function evaluate($id){
+
+        $entreprise = Entreprise::find($id);
+
+        return \view('entreprise.avis', \compact('entreprise'));
+    }
+
+        /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    
+     public function e_store(Request $request, $id)
+     {
+        $request->validate([
+            'evaluation' => 'required, numeric'
+        ]);
+ 
+        $entreprise = Entreprise::find($id);
+        $entreprise->update($request->all());
+ 
+        return redirect()->route('entreprises.index')
+            ->with('success', 'Entreprise updated successfully.');
+     }
 }

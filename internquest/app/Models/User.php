@@ -29,7 +29,8 @@ class User extends Authenticatable
         'email',
         'password',
         'username',
-        'id_role'
+        'id_role',
+        'centre'
     ];
 
     /**
@@ -51,4 +52,64 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //Fonctions Admin
+
+    public function admin(){
+        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Admin') {
+            // Si l'utilisateur a le rôle "pilote", retourner la relation
+            return [$this->hasMany(Entreprise::class), $this->hasMany(Promotion::class), $this->belongsToMany(Promotion::class)];
+        }
+    }
+
+    //Fonctions Pilote
+
+    public function role(){
+        return $this->hasOne(Role::class);
+    }
+
+    public function entreprise() {
+        // Vérifier si l'utilisateur est authentifié et s'il a un rôle
+        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Pilote') {
+            // Si l'utilisateur a le rôle "pilote", retourner la relation
+            return $this->hasOne(Entreprise::class);
+        } else {
+            // Sinon, retourner null ou une autre valeur selon votre logique
+            return null;
+        }
+    }
+    public function promo_pilote() {
+        // Vérifier si l'utilisateur est authentifié et s'il a un rôle
+        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Pilote') {
+            // Si l'utilisateur a le rôle "pilote", retourner la relation
+            return $this->hasOne(Promotion::class);
+        } else {
+            // Sinon, retourner null ou une autre valeur selon votre logique
+            return null;
+        }
+    }
+
+    //Fonctions Etudiant
+
+    public function candidature() {
+        // Vérifier si l'utilisateur est authentifié et s'il a un rôle
+        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Etudiant') {
+            // Si l'utilisateur a le rôle "pilote", retourner la relation
+            return $this->hasMany(Candidature::class);
+        } else {
+            // Sinon, retourner null ou une autre valeur selon votre logique
+            return null;
+        }
+    }
+
+    public function promo_etudiant() {
+        // Vérifier si l'utilisateur est authentifié et s'il a un rôle
+        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Etudiant') {
+            // Si l'utilisateur a le rôle "pilote", retourner la relation
+            return $this->belongsTo(Promotion::class);
+        } else {
+            // Sinon, retourner null ou une autre valeur selon votre logique
+            return null;
+        }
+    }
 }

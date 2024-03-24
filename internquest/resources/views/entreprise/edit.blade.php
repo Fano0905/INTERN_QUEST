@@ -20,33 +20,33 @@
         </div>
     }
     @endif
-    <form action="{{route('entreprises.update')}}" method="POST">
+    <form action="{{route('entreprises.update', $entreprise->id)}}" method="POST">
         @csrf
         @method('put')
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nom</label>
-            <input type="text" name="nom" id="nom" required placeholder="Nom" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="nom" id="nom" required placeholder="Nom" value="{{$entreprise->nom}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('nom')
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Secteur</label>
-            <input type="text" name="secteur" id="secteur" required placeholder="secteur" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="secteur" id="secteur" required placeholder="secteur" value="{{$entreprise->secteur}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('secteur')
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Site</label>
-            <input type="text" name="site" id="site" required placeholder="site@example.fr" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="site" id="site" required placeholder="site@example.fr" value="{{$entreprise->site}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('site')
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">localite</label>
-            <input type="text" name="localite" id="localite" required placeholder="localite" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="localite" id="localite" required placeholder="localite" value="{{$entreprise->localite}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             <span>
                 @error('localite')
                 <p style="color: red;">{{$message}}</p>
@@ -55,8 +55,8 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Pilote Assigné</label>
-            <input type="number" name="pilote" id="pilote" required value="{{Auth::user()->id_role}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-            @error('id_pilote')
+            <input type="text" name="pilote" id="pilote" required value="rkevin" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            @error('pilote')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>

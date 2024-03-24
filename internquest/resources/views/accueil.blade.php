@@ -13,10 +13,10 @@
         <div class="flex justify-center">
             <div class="flex ">   
                 <div class="text-gray-700 hidden md:flex space-x-16">
-                    <a href="#" class="py-5 px-3 hover:text-black">Accueil</a>
-                    <a href="#" class="py-5 px-3 hover:text-black">Offres</a>
+                    <a href="{{route('internquest/')}}" class="py-5 px-3 hover:text-black">Accueil</a>
+                    <a href="{{route('offres.index')}}" class="py-5 px-3 hover:text-black">Offres</a>
                     <a href="#" class="py-5 px-3 hover:text-black">Notifications</a>   
-                    <a href="#" class="py-5 px-3 hover:text-black">Pour les entreprises</a>
+                    <a href="{{route('entreprises.index')}}" class="py-5 px-3 hover:text-black">Pour les entreprises</a>
                     <a href="#" class="py-5 px-3 hover:text-black">Publier</a>
                     @auth
                     <a href="{{route('auth.show')}}" class="py-5 px-3 hover:text-black">{{Auth::user()->username}}</a>
@@ -49,5 +49,6 @@
     @endif
     @yield('content')
 </div>
+<script></script>
 </body>
 </html>

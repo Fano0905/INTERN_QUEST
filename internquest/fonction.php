@@ -74,6 +74,15 @@ Schema::create('post_tag', function(Blueprint $table){
 
 dd(Auth::user()); // Vérifier si un utilisateur est connecté
 
+@if (Auth::user()->id_role == 1)
+<p>Role: Admin</p>
+@endif
+@if (Auth::user()->id_role == 2)
+<p>Role: Pilote</p>
+@endif
+@if (Auth::user()->id_role == 3)
+<p>Role: Etudiant</p>
+@endif
 
 {
     $request->validate([

@@ -13,9 +13,8 @@
         <img src="" alt="pdp">
         <p>Nom: {{Auth::user()->nom}}</p>
         <p>Prenom: {{Auth::user()->prenom}}</p>
-        <p>Email: {{Auth::user()->email}}</p>
-        <p>Role: {{Auth::user()->id_role}}</p>
-
+        <p>E-mail: {{Auth::user()->email}}</p>
+        <p>Vous êtes connecté en tant que: {{Auth::user()->role->titre}}</p>
         <div class="control" style="display: flex; flex-direction:row;">
             <a href="{{route('users.edit', Auth::user()->id)}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Modifier</button></a>
             <form action="{{ route('users.destroy', Auth::user()->id) }}" method="post">

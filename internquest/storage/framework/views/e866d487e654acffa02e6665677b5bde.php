@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title', 'Login'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -45,7 +44,7 @@ unset($__errorArgs, $__bag); ?>
             </div>
             <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Login</button>
             <div class="text-center text-sm text-gray-700 mt-4">
-                je n'ai pas de compte <a href="#" class="font-bold hover:underline">s'inscrire</a>
+                je n'ai pas de compte <a href="<?php echo e(route('users.create')); ?>" class="font-bold hover:underline">s'inscrire</a>
             </div> 
         </form>
     </div>

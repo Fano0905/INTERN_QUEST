@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
-    <title>Register</title>
+    <title>Création entreprise</title>
 </head>
 <body>
 
@@ -54,8 +54,8 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Pilote Assigné</label>
-            <input type="number" name="pilote" id="pilote" required value="{{Auth::user()->id_role}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-            @error('id_pilote')
+            <input type="text" name="pilote" id="pilote" required value="rkevin" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            @error('pilote')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>

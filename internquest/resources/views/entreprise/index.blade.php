@@ -8,7 +8,7 @@
         <p>Nom {{$entreprise->nom}}</p>
         <p>Secteur {{$entreprise->secteur}}</p>
         <p>Localite {{$entreprise->localite}}</p>
-        <p>Pilote Assigné {{$entreprise?->id_pilote}}</p>
+        <p>Pilote Assigné {{$entreprise->user?->username}}</p>
         <p>Site {{$entreprise->site}}</p>
         <p>Evaluation {{$entreprise->evaluation}}</p>
         <form action="{{route('entreprises.show', $entreprise->id)}}" method="GET">
