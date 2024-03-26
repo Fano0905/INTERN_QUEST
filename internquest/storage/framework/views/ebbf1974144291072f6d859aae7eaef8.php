@@ -14,13 +14,26 @@
         <div class="flex justify-center">
             <div class="flex ">   
                 <div class="text-gray-700 hidden md:flex space-x-16">
-                    <a href="<?php echo e(route('internquest/')); ?>" class="py-5 px-3 hover:text-black">Accueil</a>
-                    <a href="<?php echo e(route('offres.index')); ?>" class="py-5 px-3 hover:text-black">Offres</a>
-                    <a href="#" class="py-5 px-3 hover:text-black">Notifications</a>   
-                    <a href="<?php echo e(route('entreprises.index')); ?>" class="py-5 px-3 hover:text-black">Pour les entreprises</a>
+                    <div class="py-5 px-3 hover:text-black">
+                        <a href="<?php echo e(route('internquest/')); ?>">
+                        <ion-icon name="home"></ion-icon>
+                        Accueil</a>
+                    </div>
+                    <div class="py-5 px-3 hover:text-black">
+                        <a href="<?php echo e(route('offres.index')); ?>"><ion-icon name="briefcase"></ion-icon>
+                            Offres</a>
+                    </div>
+                    <a href="#" class="py-5 px-3 hover:text-black">Notifications</a>
+                    <div class="py-5 px-3 hover:text-black"><a href="<?php echo e(route('entreprises.index')); ?>">
+                        <ion-icon name="business"></ion-icon>
+                        Entreprises</a>
+                    </div>
                     <a href="#" class="py-5 px-3 hover:text-black">Publier</a>
                     <?php if(auth()->guard()->check()): ?>
-                    <a href="<?php echo e(route('auth.show')); ?>" class="py-5 px-3 hover:text-black"><?php echo e(Auth::user()->username); ?></a>
+                    <div class="py-5 px-3 hover:text-black">
+                        <ion-icon name="person-circle"></ion-icon>
+                        <a href="<?php echo e(route('auth.show')); ?>"><?php echo e(Auth::user()->username); ?></a>
+                    </div>
                     <form action="<?php echo e(route('auth.logout')); ?>" method="POST">
                         <?php echo method_field('delete'); ?>
                         <?php echo csrf_field(); ?>
@@ -193,5 +206,7 @@ unset($__errorArgs, $__bag); ?>
                 event.preventDefault();
     }
 </script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html><?php /**PATH C:\Users\Randrianaivo\Repo\INTERN_QUEST\internquest\resources\views/accueil.blade.php ENDPATH**/ ?>
