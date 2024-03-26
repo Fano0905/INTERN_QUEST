@@ -91,3 +91,22 @@ dd(Auth::user()); // Vérifier si un utilisateur est connecté
         'email' => ['required','unique:users,email', Rule::unique('users')->ignore($this->route()->parameter('user'))],
         'password' => ['required', 'min:6'],
         'username' => ['required','unique:users,username', Rule::unique('users')->ignore($this->route()->parameter('user'))]]);
+
+
+        <script>
+        function toggleDialog() {
+            const registerButton = document.getElementById('register');
+            const signInDialog = document.getElementById('signin_dialog');
+            const nav_bar = document.getElementById('nav_bar');
+
+
+            
+            signInDialog.style.display = 'block';
+            nav_bar.style.display = 'none';
+
+            registerButton.addEventListener('click', function() {
+                signInDialog.style.display = 'none';
+            nav_bar.style.display = 'block';
+            });
+        }
+    </script>

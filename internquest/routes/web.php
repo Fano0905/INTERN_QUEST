@@ -25,11 +25,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('internquest/');
 
-Route::prefix('/user')->name('users.')->controller(UserController::class)->group(function(){
+Route::prefix('/internquest/')->name('users.')->controller(UserController::class)->group(function(){
     // returns the form for adding a user
-    Route::get('/create', 'create')->name('create');
+    Route::get('user/', 'create')->name('create');
     // adds a user to the database
-    Route::post('/create', 'store')->name('store');
+    Route::post('user/', 'store')->name('store');
     // returns a page that shows a full user
     Route::get('/{user}', [UserController::class, 'show'])->name('show');
     // returns the form for editing a user
