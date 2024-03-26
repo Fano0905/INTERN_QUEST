@@ -34,4 +34,8 @@ class Entreprise extends Model
     public function offre(){
         return $this->hasMany(Offre::class);
     }
+
+    public function evaluation(){
+        return $this->hasMany(Evaluation::class);
+    }
 }

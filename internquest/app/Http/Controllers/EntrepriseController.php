@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Entreprise;
+use App\Models\Evaluation;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -152,11 +153,11 @@ class EntrepriseController extends Controller
      public function e_store(Request $request, $id)
      {
         $request->validate([
-            'evaluation' => 'required, numeric'
+            'note' => 'numeric', 'commentaire' => 'required', 'id_entreprise' => ['required', 'numeric'], 'objet' => 'required'
         ]);
  
         $entreprise = Entreprise::find($id);
-        $entreprise->update($request->all());
+        $evaluation = Evaluation::create($request->all());
  
         return redirect()->route('entreprises.index')
             ->with('success', 'Entreprise updated successfully.');
