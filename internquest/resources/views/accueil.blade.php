@@ -6,7 +6,9 @@
   <title>@yield('title', 'Accueil')</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+
+
+<body class="w-full h-screen bg-no-repeat bg-cover" style="background-image: url('/img/image-bg.jpg')">
 
 
 <nav class="bg-gray-100" id ="nav_bar">
@@ -20,11 +22,11 @@
                         Accueil</a>
                     </div>
                     <div class="py-5 px-3 hover:text-black">
-                        <a href="{{route('offres.index')}}"><ion-icon name="briefcase"></ion-icon>
+                        <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
                             Offres</a>
                     </div>
                     <a href="#" class="py-5 px-3 hover:text-black">Notifications</a>
-                    <div class="py-5 px-3 hover:text-black"><a href="{{route('entreprises.index')}}">
+                    <div class="py-5 px-3 hover:text-black"><a href="{{route('companies.index')}}">
                         <ion-icon name="business"></ion-icon>
                         Entreprises</a>
                     </div>
@@ -37,13 +39,19 @@
                     <form action="{{route('auth.logout')}}" method="POST">
                         @method('delete')
                         @csrf
-                        <button class="py-5 px-3 hover:text-black">Se déconnecter</button>
+                        <div class="py-5 px-3 hover:text-black">
+                            <ion-icon name="log-out"></ion-icon>
+                            <button>Log Out</button>
+                        </div>
                     </form>
                     @endauth
                     @guest
                         <div class="text-gray-700 items-center hidden md:flex space-x-8">
                             <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" > se connecter</a>
-                            <a href="#" class="py-2 px-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300" onclick="signin(), preventReload(event)">S'inscrire</a>
+                            <div class="py-5 px-3 hover:text-black">
+                                <ion-icon name="person-add"></ion-icon>
+                                <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
+                            </div>
                         </div>
                     @endguest
                 </div>
@@ -51,7 +59,9 @@
         </div>
     </div>
 </nav>
-<div class="w-full h-screen bg-no-repeat bg-cover" style="background-image: url('/img/image-bg.jpg')" > </div>
+
+<div> </div>
+
 <div class="container">
     @if (session('success'))
         <div class="alert alert-success">

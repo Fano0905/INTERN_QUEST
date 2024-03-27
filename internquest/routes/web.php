@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use App\Http\Controllers\EntrepriseController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Auth\Events\Logout;
 use Whoops\Run;
@@ -42,41 +42,41 @@ Route::prefix('/internquest/')->name('users.')->controller(UserController::class
     Route::get('/', [UserController::class, 'index'])->name('index');
 });
 
-Route::prefix('/entreprise')->name('entreprises.')->controller(EntrepriseController::class)->group(function(){
+Route::prefix('/company')->name('companies.')->controller(CompanyController::class)->group(function(){
     
     Route::get('/create', 'create')->name('create')->middleware('auth');
     
     Route::post('/create', 'store')->name('store');
     
-    Route::get('/{entreprise}', [EntrepriseController::class, 'show'])->name('show');
+    Route::get('/{company}', [CompanyController::class, 'show'])->name('show');
     
-    Route::get('/{entreprise}/edit', [EntrepriseController::class, 'edit'])->name('edit')->middleware('auth');
+    Route::get('/{company}/edit', [CompanyController::class, 'edit'])->name('edit')->middleware('auth');
     
-    Route::put('/{entreprise}', [EntrepriseController::class, 'update'])->name('update')->middleware('auth');
+    Route::put('/{company}', [CompanyController::class, 'update'])->name('update')->middleware('auth');
 
-    Route::delete('/{entreprise}', [EntrepriseController::class, 'destroy'])->name('destroy');
+    Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy');
 
-    Route::get('/', [EntrepriseController::class, 'index'])->name('index');
+    Route::get('/', [CompanyController::class, 'index'])->name('index');
 
-    Route::get('/{entreprise}/evaluate', 'evaluate')->name('evaluate')->middleware('auth');
+    Route::get('/{company}/evaluate', 'evaluate')->name('evaluate')->middleware('auth');
 
-    Route::post('/{entreprise}', 'e_store')->name('e_store');
+    Route::post('/{company}', 'e_store')->name('e_store');
 });
 
-Route::prefix('/offre')->name('offres.')->controller(OffreController::class)->group(function(){
+Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->group(function(){
     Route::get('/create', 'create')->name('create')->middleware('auth');
 
     Route::post('/create', 'store')->name('store');
 
-    Route::get('/{offre}', [OffreController::class, 'show'])->name('show');
+    Route::get('/{offer}', [OfferController::class, 'show'])->name('show');
     
-    Route::get('/{offre}/edit', [OffreController::class, 'edit'])->name('edit')->middleware('auth');
+    Route::get('/{offer}/edit', [OfferController::class, 'edit'])->name('edit')->middleware('auth');
     
-    Route::put('/{offre}', [OffreController::class, 'update'])->name('update')->middleware('auth');
+    Route::put('/{offer}', [OfferController::class, 'update'])->name('update')->middleware('auth');
     
-    Route::delete('/{offre}', [OffreController::class, 'destroy'])->name('destroy');
+    Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy');
 
-    Route::get('/', [OffreController::class, 'index'])->name('index');
+    Route::get('/', [OfferController::class, 'index'])->name('index');
 });
 
 Route::prefix('/candidature')->name('candidatures.')->controller(CandidatureController::class)->group(function(){

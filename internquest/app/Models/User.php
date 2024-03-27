@@ -58,21 +58,17 @@ class User extends Authenticatable
     public function admin(){
         if(auth()->check() && auth()->user()->role == 'Admin') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
-            return [$this->hasMany(Entreprise::class), $this->hasMany(Promotion::class), $this->belongsToMany(Promotion::class)];
+            return [$this->hasMany(Company::class), $this->hasMany(Promotion::class), $this->belongsToMany(Promotion::class)];
         }
     }
 
     //Fonctions Pilote
 
-    public function role(){
-        return $this->hasOne(Role::class);
-    }
-
     public function entreprise() {
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
         if(auth()->check() && auth()->user()->role == 'Pilote') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
-            return $this->hasOne(Entreprise::class);
+            return $this->hasOne(Company::class);
         } else {
             // Sinon, retourner null ou une autre valeur selon votre logique
             return null;
