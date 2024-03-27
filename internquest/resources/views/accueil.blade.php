@@ -47,10 +47,10 @@
                     @endauth
                     @guest
                         <div class="text-gray-700 items-center hidden md:flex space-x-8">
-                            <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" > se connecter</a>
+                            <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Sign in</a>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-add"></ion-icon>
-                                <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
+                                <a href="#" onclick="signin(), preventReload(event)">Sign up</a>
                             </div>
                         </div>
                     @endguest
@@ -86,6 +86,7 @@
             </div>
         }
         @endif
+
         <dialog id="signin_dialog" class="fixed inset-0 m-auto w-100 h-110 bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
             <div class="w-full p-10 flex flex-col items-center">
             <button class="absolute top-0 right-0 mt-4 mr-4 bg-gray-300 text-gray-700 hover:bg-gray-400 rounded-2xl p-2 focus:outline-none" onclick="closesignin(), preventReload(event)">

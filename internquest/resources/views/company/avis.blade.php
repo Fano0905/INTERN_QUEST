@@ -9,7 +9,7 @@
 <p>Nous vous invitions à laisser votre avis</p>
 
 <div class="evaluation"">
-    <form action="{{route('entreprises.e_store', $company->id)}}" method="POST">
+    <form action="{{route('companies.e_store', $company->id)}}" method="POST">
         @csrf
         <div class="relative mb-6">
             <label for="note" class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Username</label>
