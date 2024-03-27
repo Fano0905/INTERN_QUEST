@@ -10,7 +10,7 @@
 <body>
 
     @auth
-        <img src="" alt="pdp">
+        <img src="" alt="pdp" height="50" width="50">
         <p>Nom: {{Auth::user()->nom}}</p>
         <p>Prenom: {{Auth::user()->prenom}}</p>
         <p>E-mail: {{Auth::user()->email}}</p>
