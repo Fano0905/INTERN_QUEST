@@ -154,21 +154,24 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    </div>
-                    <div class="relative mb-6">
-                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Role</label>
-                        <input type="number" name="role" id="role" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                        <?php $__errorArgs = ['id_role'];
+                        <div class="relative mb-6">
+                            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Role</label>
+                            <select name="role" id="role" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                                <option value="Admin">Admin</option>
+                                <option value="Pilote">Pilote</option>
+                                <option value="Etudiant">Etudiant</option>
+                            </select>
+                            <?php $__errorArgs = ['role'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <p style="color: red;"><?php echo e($message); ?></p>
-                        <?php unset($message);
+                            <p style="color: red;"><?php echo e($message); ?></p>
+                            <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    </div>
+                        </div>
                     <div class="relative mb-6">
                         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Centre</label>
                         <input type="text" name="centre" id="centre" required placeholder="Centre" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">

@@ -29,7 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'username',
-        'id_role',
+        'role',
         'centre'
     ];
 
@@ -56,7 +56,7 @@ class User extends Authenticatable
     //Fonctions Admin
 
     public function admin(){
-        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Admin') {
+        if(auth()->check() && auth()->user()->role == 'Admin') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
             return [$this->hasMany(Entreprise::class), $this->hasMany(Promotion::class), $this->belongsToMany(Promotion::class)];
         }
@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function entreprise() {
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
-        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Pilote') {
+        if(auth()->check() && auth()->user()->role == 'Pilote') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
             return $this->hasOne(Entreprise::class);
         } else {
@@ -80,7 +80,7 @@ class User extends Authenticatable
     }
     public function promo_pilote() {
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
-        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Pilote') {
+        if(auth()->check() && auth()->user()->role == 'Pilote') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
             return $this->hasOne(Promotion::class);
         } else {
@@ -93,7 +93,7 @@ class User extends Authenticatable
 
     public function candidature() {
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
-        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Etudiant') {
+        if(auth()->check() && auth()->user()->role == 'Etudiant') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
             return $this->hasMany(Candidature::class);
         } else {
@@ -104,7 +104,7 @@ class User extends Authenticatable
 
     public function promo_etudiant() {
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
-        if(auth()->check() && auth()->user()->role && auth()->user()->role->titre == 'Etudiant') {
+        if(auth()->check() && auth()->user()->role == 'Etudiant') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
             return $this->belongsTo(Promotion::class);
         } else {

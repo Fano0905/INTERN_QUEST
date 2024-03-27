@@ -56,7 +56,7 @@ class UserController extends Controller
                 'required',
                 Rule::unique('users')->ignore(request()->route('user')),
             ],
-            'id_role' => [Rule::exists('roles', 'user_id')]
+            'role' => ['required']
         ]);
 
         $user = User::find($id);
