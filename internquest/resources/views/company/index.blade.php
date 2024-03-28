@@ -12,15 +12,15 @@
 
 <div class="max-w-7xl mx-auto px-4">
     @foreach ($companies as $company)
-        <p>Nom {{$company->nom}}</p>
-        <p>Secteur {{$company->secteur}}</p>
-        <p>Localite {{$company->localite}}</p>
-        <p>Pilote Assigné {{$company->pilote}}</p>
-        <p>Site {{$company->site}}</p>
+        <p>Name {{$company->name}}</p>
+        <p>Area {{$company->area}}</p>
+        <p>Location {{$company->location}}</p>
+        <p>Assigned Pilot {{$company->pilot}}</p>
+        <p>Website {{$company->website}}</p>
         <p>Evaluation {{$company->evaluation}}</p>
         <form action="{{route('companies.show', $company->id)}}" method="GET">
             @csrf
-            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Plus d'info</button>
+            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Learn More...</button>
         </form>
     @endforeach
 </div>

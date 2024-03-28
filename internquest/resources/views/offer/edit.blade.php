@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
-    <title>Modifier une offre</title>
+    <title>Modifier une offer</title>
 </head>
 <body>
 
@@ -20,74 +20,78 @@
         </div>
     }
     @endif
-    <form action="{{route('offers.update', $offre->id)}}" method="POST">
+    <form action="{{route('offers.update', $offer->id)}}" method="POST">
         @csrf
         @method('put')
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Titre</label>
-            <input type="text" name="titre" id="titre" required placeholder="titre" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Title</label>
+            <input type="text" name="title" id="title" required placeholder="titre" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('titre')
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Localite</label>
-            <input type="text" name="localite" id="localite" value="{{$offre->localite}}" required placeholder="Localite" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-            @error('localite')
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Location</label>
+            <input type="text" name="location" id="location" value="{{$offer->location}}" required placeholder="Localite" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            @error('location')
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Promo concernée</label>
-            <input type="text" name="type_promo" id="type_promo" value="{{$offre->type_promo}}" required placeholder="type_promo" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="type_promo" id="type_promo" value="{{$offer->type_promo}}" required placeholder="type_promo" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('type_promo')
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Duree</label>
-            <input type="text" name="duree" id="duree" value="{{$offre->duree}}" required placeholder="duree" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-            @error('duree')
+            <input type="text" name="duration" id="duration" value="{{$offer->duration}}" required placeholder="duration" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            @error('duration')
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Remuneration</label>
-            <input type="number" name="remuneration" id="remuneration" value="{{$offre->remuneration}}" required placeholder="remuneration" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="number" name="remuneration" id="remuneration" value="{{$offer->remuneration}}" required placeholder="remuneration" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                 @error('remuneration')
                 <p style="color: red;">{{$message}}</p>
                 @enderror
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Date de début</label>
-            <input type="text" name="date_offre" id="date_offre" value="{{$offre->date_offre}}" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                @error('date_offre')
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Starting date</label>
+            <input type="text" name="date_offer" id="date_offer" value="{{$offer->date_offer}}" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                @error('date_offer')
                 <p style="color: red;">{{$message}}</p>
                 @enderror
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nombre de place</label>
-            <input type="number" name="place_offerte" id="place_offerte" value="{{$offre->place_offerte}}" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                @error('place_offerte')
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Place offered</label>
+            <input type="number" name="place_offered" id="place_offered" value="{{$offer->place_offered}}" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                @error('place_offered')
                 <p style="color: red;">{{$message}}</p>
                 @enderror
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Entreprise</label>
-            <input type="number" name="entreprise" id="entreprise" value="{{$offre->}}" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-            @error('id_entreprise')
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Company</label>
+            <select name="company" id="company" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                @foreach ($companies as $company)
+                    <option>{{$company->id}}</option>
+                @endforeach
+            </select>
+            @error('id_company')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Description</label>
-            <textarea type="text" rows="20" cols="100" value="{{$offre->}}" name="description" id="description" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400"></textarea>
+            <textarea type="text" rows="20" cols="100" value="{{$offer->description}}" name="description" id="description" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400"></textarea>
             @error('description')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div>
-            <<button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">S'enregistrer</button>
+            <<button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Edit offer</button>
         </div>
     </form>
 </body>

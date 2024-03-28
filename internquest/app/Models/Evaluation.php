@@ -11,9 +11,9 @@ class Evaluation extends Model
 
     public $timestamps = \false;
 
-    protected $fillable = ['note', 'commentaire', 'id_entreprise', 'objet'];
+    protected $fillable = ['note', 'comment', 'object', 'title'];
 
     public function entreprises(){
-        return $this->belongsTo(Entreprise::class);
+        return $this->belongsTo(Company::class);
     }
 }

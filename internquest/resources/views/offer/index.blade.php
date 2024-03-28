@@ -10,19 +10,14 @@
     @endif
     @endauth
     @foreach ($offers as $offer)
-        <strong><h1>{{$offer->titre}}</h1></strong>
-        <p>Localite: {{$offer->localite}}</p>
-        <p>Promo: <strong>{{$offer->type_promo}}</strong></p>
-        <p>Duree: {{$offer->duree}}</p>
-        <p>Remuneration: {{$offer->remuneration}}</p>
-        <p>Date de début: {{$offer->date_offre}}</p>
-        <p>Nombre de place: {{$offer->place_offerte}}</p>
-        <p>{{$offer->id_entreprises}}</p>
-        <p><strong>Description</strong><br>
-        <textarea rows="20" cols="100">{{$offer->description}}</textarea>
+        <strong><h1>{{$offer->title}}</h1></strong>
+        <p>Location: {{$offer->location}}</p>
+        <p>Duration: {{$offer->duration}}</p>
+        <p>Starting date: {{$offer->date_offre}}</p>
+        <p>Place offered: {{$offer->place_offered}}</p>
     @endforeach
     <form action="{{route('offers.show', $offer->id)}}" method="GET">
         @csrf
-        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Plus d'info</button>
+        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Learn more...</button>
     </form>
 @endsection()

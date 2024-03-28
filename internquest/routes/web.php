@@ -25,7 +25,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('internquest/');
 
-Route::prefix('/internquest/')->name('users.')->controller(UserController::class)->group(function(){
+Route::prefix('/internquest')->name('users.')->controller(UserController::class)->group(function(){
     // returns the form for adding a user
     Route::get('user/', 'create')->name('create');
     // adds a user to the database
@@ -79,13 +79,13 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     Route::get('/', [OfferController::class, 'index'])->name('index');
 });
 
-Route::prefix('/candidature')->name('candidatures.')->controller(CandidatureController::class)->group(function(){
+Route::prefix('/application')->name('applications.')->controller(ApplicationController::class)->group(function(){
     
     Route::get('/create', 'create')->name('create')->middleware('auth');
     
     Route::post('/create', 'store')->name('store');
 
-    Route::get('/', [CandidatureController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
 });
 
 Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(function(){

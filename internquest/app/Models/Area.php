@@ -9,7 +9,7 @@ class Area extends Model
 {
     use HasFactory;
 
-    protected $guard = ['nom'];
+    protected $guard = ['name'];
 
     public function company(){
         return $this->belongsToMany(Company::class);

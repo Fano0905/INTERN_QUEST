@@ -19,18 +19,18 @@
                     <div class="py-5 px-3 hover:text-black">
                         <a href="<?php echo e(route('internquest/')); ?>">
                         <ion-icon name="home"></ion-icon>
-                        Accueil</a>
+                        Home</a>
                     </div>
                     <div class="py-5 px-3 hover:text-black">
                         <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
-                            Offres</a>
+                            Offers</a>
                     </div>
                     <a href="#" class="py-5 px-3 hover:text-black">Notifications</a>
                     <div class="py-5 px-3 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
                         <ion-icon name="business"></ion-icon>
-                        Entreprises</a>
+                        Companies</a>
                     </div>
-                    <a href="#" class="py-5 px-3 hover:text-black">Publier</a>
+                    <a href="#" class="py-5 px-3 hover:text-black">Publish</a>
                     <?php if(auth()->guard()->check()): ?>
                     <div class="py-5 px-3 hover:text-black">
                         <ion-icon name="person-circle"></ion-icon>

@@ -23,47 +23,47 @@
     <form action="{{route('companies.store')}}" method="POST">
         @csrf
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nom</label>
-            <input type="text" name="nom" id="nom" required placeholder="Nom" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-            @error('nom')
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Name</label>
+            <input type="text" name="name" id="name" required placeholder="Nom" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            @error('name')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
-            <label required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">Secteur</label>
+            <label required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">Area</label>
             <select name="area" id="area">
                 @foreach ($areas as $area)
-                    <option value="{{$area->nom}}">{{$area->nom}}</option>
+                    <option value="{{$area->name}}">{{$area->name}}</option>
                 @endforeach
             </select>
-            @error('secteur')
+            @error('area')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Site</label>
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Website</label>
             <input type="text" name="site" id="site" required placeholder="site@example.fr" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('site')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">localite</label>
-            <input type="text" name="localite" id="localite" required placeholder="localite" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                @error('localite')
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Location</label>
+            <input type="text" name="location" id="location" required placeholder="location" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                @error('location')
                 <p style="color: red;">{{$message}}</p>
                 @enderror
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Pilote Assigné</label>
-            <select name="pilote" id="pilote" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Assigned Pilot</label>
+            <select name="pilot" id="pilot" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                 @foreach ($pilotes as $pilote)
                     @if ($pilote->role == 'Pilote' || $pilote->role == 'Admin')
                         <option>{{$pilote->id}}</option>
                     @endif
                 @endforeach
             </select>
-            @error('pilote')
+            @error('id_pilot')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>

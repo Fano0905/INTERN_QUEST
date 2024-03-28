@@ -12,14 +12,14 @@ class Offer extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'titre',
-        'localite',
-        'type_promo',
-        'duree',
+        'title',
+        'location',
+        'class',
+        'duration',
         'remuneration',
-        'date_offre',
-        'place_offerte',
-        'id_entreprises',
+        'date_offer',
+        'place_offered',
+        'id_company',
         'description'
     ];
 
@@ -28,6 +28,6 @@ class Offer extends Model
     }
 
     public function candidature(){
-        return $this->hasMany(Candidature::class);
+        return $this->hasMany(Application::class);
     }
 }

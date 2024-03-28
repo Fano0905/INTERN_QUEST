@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Models\Promotion;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        $user = Promotion::find(1)->users;
 
+        dd($user);
         return view('welcome', compact('users'));
     }
 
@@ -32,7 +35,7 @@ class UserController extends Controller
         User::create($request->validated());
 
         return redirect()->route('auth.login')
-            ->with('success', 'Utilisateur créé avec succès.');
+            ->with('success', 'User created successfully.');
     }
 
     /**
@@ -63,7 +66,7 @@ class UserController extends Controller
         $user->update($request->all());
 
         return redirect()->route('users.index')
-            ->with('success', 'Utilisateur mis à jour avec succès.');
+            ->with('success', 'user uptdated successfully.');
     }
 
     /**
@@ -78,7 +81,7 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('auth.login')
-            ->with('success', 'Utilisateur supprimé avec succès');
+            ->with('success', 'Utilisateur deleted successfully');
     }
 
     // routes functions

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OffreRequest;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use Illuminate\Validation\Rule;
@@ -76,7 +77,8 @@ class OfferController extends Controller
      */
     public function create()
     {
-        return view('offer.create');
+        $companies = Company::all();
+        return view('offer.create', \compact('companies'));
     }
 
 
@@ -102,7 +104,9 @@ class OfferController extends Controller
     public function edit($id)
     {
         $offer = Offer::find($id);
+        $companies = Company::all();
 
-        return view('offer.edit', compact('offer'));
+
+        return view('offer.edit', compact('offer', 'companies'));
     }
 }

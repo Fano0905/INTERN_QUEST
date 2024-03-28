@@ -33,15 +33,15 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => [
+            'name' => [
                 'required',
                 'min:3',
                 Rule::unique('companies', 'nom')
             ],
             'area' => ['required'],
-            'site' => 'nullable|string',
-            'pilote' => ['required'],
-            'localite' => 'nullable',
+            'website' => 'nullable|string',
+            'pilot' => ['required'],
+            'location' => 'nullable',
             'evaluation' => 'integer|nullable'
         ]);
 
@@ -61,15 +61,15 @@ class CompanyController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nom' => [
+            'name' => [
                 'required',
                 'min:3',
                 Rule::unique('companies', 'nom')->ignore($id, 'id'),
             ],
-            'secteur' => 'required',
-            'site' => 'nullable|string',
-            'pilote' => 'required',
-            'localite' => 'nullable',
+            'area' => 'required',
+            'website' => 'nullable|string',
+            'pilot' => 'required',
+            'location' => 'nullable',
             'evaluation' => 'integer|nullable'
         ]);
 
@@ -133,8 +133,10 @@ class CompanyController extends Controller
     public function edit($id)
     {
         $company = Company::find($id);
+        $areas = Area::all();
+        $pilotes = User::where('role', '=', 'Admin');
 
-        return view('company.edit', compact('company'));
+        return view('company.edit', compact('company', 'areas', 'pilotes'));
     }
 
     /**
@@ -162,7 +164,7 @@ class CompanyController extends Controller
      public function e_store(Request $request, $id)
      {
         $request->validate([
-            'note' => 'numeric', 'commentaire' => 'required', 'id_entreprise' => ['required', 'numeric'], 'objet' => 'required'
+            'note' => 'numeric', 'comment' => 'required', 'id_company' => ['required', 'numeric'], 'object' => 'required'
         ]);
  
         $company = Company::find($id);

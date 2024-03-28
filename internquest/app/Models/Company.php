@@ -12,17 +12,17 @@ class Company extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'nom',
-        'secteur',
-        'site',
-        'id_pilote',
-        'localite',
+        'name',
+        'area',
+        'website',
+        'id_pilot',
+        'location',
         'evaluation'
     ];
 
     public function pilote() {
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
-        if(auth()->check() && auth()->user()->titre == 'Pilote') {
+        if(auth()->check() && auth()->user()->role == 'Pilote') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
             return $this->belongsTo(User::class);
         } else {
