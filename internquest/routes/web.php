@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Auth\Events\Logout;
 use Whoops\Run;
 
@@ -76,7 +76,7 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     
     Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy');
 
-    Route::get('/', [OfferController::class, 'index'])->name('index');
+    Route::get('/', [OfferController::class, 'index'])->name('index')->middleware('auth');
 });
 
 Route::prefix('/application')->name('applications.')->controller(ApplicationController::class)->group(function(){

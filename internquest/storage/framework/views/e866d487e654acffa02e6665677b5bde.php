@@ -8,9 +8,9 @@
             <?php echo csrf_field(); ?>
             <div class="relative mb-6">
                 <ion-icon name="mail" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
-                <input type="email" name="email" id="email" required placeholder="" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">email</label>
-            <?php $__errorArgs = ['email'];
+                <input type="email" name="mail" id="mail" required placeholder="" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">mail</label>
+            <?php $__errorArgs = ['mail'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -24,7 +24,7 @@ unset($__errorArgs, $__bag); ?>
             <div class="relative mb-6">
                 <ion-icon name="lock-closed" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
                 <input type="password" name="password" id="password" required placeholder=" " class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">mot de passe</label>
+                <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">password</label>
                 <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -38,13 +38,13 @@ unset($__errorArgs, $__bag); ?>
             </div>
             <div class="flex justify-between items-center mb-4">
                 <label class="flex items-center text-base text-gray-700 font-medium">
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">se rappeler de moi
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Remember me
                 </label>
-                <a href="#" class="text-sm text-gray-700 hover:underline mx-3">mot de passe oublié</a>
+                <a href="#" class="text-sm text-gray-700 hover:underline mx-3">forgot password</a>
             </div>
             <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Login</button>
             <div class="text-center text-sm text-gray-700 mt-4">
-                je n'ai pas de compte <a href="<?php echo e(route('users.create')); ?>" class="font-bold hover:underline">s'inscrire</a>
+                I don't have account<a href="<?php echo e(route('users.create')); ?>" class="font-bold hover:underline">Sign Up</a>
             </div> 
         </form>
     </div>

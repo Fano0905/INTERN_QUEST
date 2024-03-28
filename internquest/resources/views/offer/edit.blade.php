@@ -25,7 +25,7 @@
         @method('put')
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Title</label>
-            <input type="text" name="title" id="title" required placeholder="titre" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="title" id="title" required placeholder="title" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('titre')
             <p style="color: red;">{{$message}}</p>
             @enderror
@@ -38,14 +38,15 @@
             @enderror
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Promo concernée</label>
-            <input type="text" name="type_promo" id="type_promo" value="{{$offer->type_promo}}" required placeholder="type_promo" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-            @error('type_promo')
-            <p style="color: red;">{{$message}}</p>
-            @enderror
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Class aimed by offer</label>
+            <select name="class" id="class" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                @foreach ($classes as $class)
+                    <option>{{$class->class_name}}</option>
+                @endforeach
+            </select>
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Duree</label>
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Duration</label>
             <input type="text" name="duration" id="duration" value="{{$offer->duration}}" required placeholder="duration" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('duration')
             <p style="color: red;">{{$message}}</p>
@@ -91,7 +92,8 @@
             @enderror
         </div>
         <div>
-            <<button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Edit offer</button>
+            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Edit offer</button>
+            <a href="{{route('interquest/')}}"><button class="w-full h-11 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium">Cancel</button>
         </div>
     </form>
 </body>

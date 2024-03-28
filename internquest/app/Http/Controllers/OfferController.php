@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OffreRequest;
+use App\Http\Requests\OfferRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\Offer;
+use App\Models\Promotion;
 use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
@@ -28,10 +29,20 @@ class OfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OffreRequest $request)
+    public function store(Request $request)
     {
 
-        Offer::create($request->validated());
+        $request->validate([
+            'title' => 'required',
+            'location' => 'required',
+            'class' => 'required',
+            'duration' => 'required',
+            'remuneration' => 'required',
+            'date_offer' => ['required'],
+            'place_offered' => 'required',
+            'description' => ['required', 'min:20']
+        ]);
+        Offer::create($request->all());
 
         return redirect()->route('offers.index')
             ->with('success', 'Offer created successfully.');
@@ -44,10 +55,21 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(OffreRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $offer = Offer::find($id);
-        $offer->update($request->validated());
+        $offer->update($request->validated(
+            [
+                'title' => 'required',
+                'location' => 'required',
+                'class' => 'required',
+                'duration' => 'required',
+                'remuneration' => 'required',
+                'date_offer' => ['required'],
+                'place_offered' => 'required',
+                'description' => ['required', 'min:200']
+            ]
+        ));
 
         return redirect()->route('offers.index')
             ->with('success', 'Offer updated successfully.');
@@ -78,7 +100,9 @@ class OfferController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('offer.create', \compact('companies'));
+        $classes = Promotion::all();
+
+        return view('offer.create', \compact('companies', 'classes'));
     }
 
 
@@ -105,8 +129,9 @@ class OfferController extends Controller
     {
         $offer = Offer::find($id);
         $companies = Company::all();
+        $classes = Promotion::all();
 
 
-        return view('offer.edit', compact('offer', 'companies'));
+        return view('offer.edit', compact('offer', 'companies', 'classes'));
     }
 }

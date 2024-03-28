@@ -9,7 +9,7 @@
             @csrf
             <div class="relative mb-6">
                 <ion-icon name="mail" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
-                <input type="email" name="email" id="email" required placeholder="" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                <input type="email" name="mail" id="mail" required placeholder="" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                 <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">mail</label>
             @error('mail')
                 <p style="color: red">{{$message}}</p>

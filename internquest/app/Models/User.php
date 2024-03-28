@@ -26,7 +26,7 @@ class User extends Authenticatable
     protected $fillable = [
         'nom',
         'prenom',
-        'email',
+        'mail',
         'password',
         'username',
         'role',
@@ -91,7 +91,7 @@ class User extends Authenticatable
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
         if(auth()->check() && auth()->user()->role == 'Etudiant') {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
-            return $this->hasMany(Candidature::class);
+            return $this->hasMany(Application::class);
         } else {
             // Sinon, retourner null ou une autre valeur selon votre logique
             return null;

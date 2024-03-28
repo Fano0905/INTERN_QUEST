@@ -36,7 +36,7 @@ class CompanyController extends Controller
             'name' => [
                 'required',
                 'min:3',
-                Rule::unique('companies', 'nom')
+                Rule::unique('companies', 'name')
             ],
             'area' => ['required'],
             'website' => 'nullable|string',
@@ -64,7 +64,7 @@ class CompanyController extends Controller
             'name' => [
                 'required',
                 'min:3',
-                Rule::unique('companies', 'nom')->ignore($id, 'id'),
+                Rule::unique('companies', 'name')->ignore($id, 'id'),
             ],
             'area' => 'required',
             'website' => 'nullable|string',

@@ -40,6 +40,6 @@ class Company extends Model
     }
 
     public function area(){
-        return $this->hasOne(Area::class);
+        return $this->hasOne(Area::class, 'name', 'area');
     }
 }

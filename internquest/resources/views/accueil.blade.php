@@ -98,30 +98,30 @@
                 <form action="{{route('users.store')}}" method="POST" class = w-full>
                     @csrf
                     <div class="relative mb-6">
-                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nom</label>
-                        <input type="text" name="nom" id="nom" required placeholder="Nom" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                        @error('nom')
+                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Last Name</label>
+                        <input type="text" name="lname" id="lname" required placeholder="Nom" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        @error('lname')
                         <p style="color: red;">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="relative mb-6">
-                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Prenom</label>
-                        <input type="text" name="prenom" id="prenom" required placeholder="Prenom" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                        @error('prenom')
+                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">First name</label>
+                        <input type="text" name="fname" id="fname" required placeholder="Prenom" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        @error('fname')
                         <p style="color: red;">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="relative mb-6">
                         <ion-icon name="mail" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
-                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Email</label>
-                        <input type="email" name="email" id="email" required placeholder="email@example.fr" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                        @error('email')
+                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Mail</label>
+                        <input type="email" name="mail" id="mail" required placeholder="email@example.fr" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        @error('mail')
                         <p style="color: red;">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="relative mb-6">
                         <ion-icon name="lock-closed" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
-                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Mot de passe</label>
+                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Password</label>
                         <input type="password" name="password" id="password" required placeholder="password" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                         <span>
                             @error('password')
@@ -130,7 +130,7 @@
                         </span>
                     </div>
                     <div class="relative mb-6">
-                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Identifiant</label>
+                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Username</label>
                         <input type="text" name="username" id="username" required placeholder="Identifiant" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                         @error('username')
                         <p style="color: red;">{{$message}}</p>
@@ -148,20 +148,20 @@
                             @enderror
                         </div>
                     <div class="relative mb-6">
-                        <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Centre</label>
-                        <input type="text" name="centre" id="centre" required placeholder="Centre" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                        @error('centre')
+                        <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Location</label>
+                        <input type="text" name="location" id="location" required placeholder="Location" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        @error('location')
                         <p style="color: red;">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="flex justify-between items-center mb-4">
                 <label class="flex items-center text-base text-gray-700 font-medium">
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">se rappeler de moi
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Remember Me
                 </label>
                 <a href="#" class="text-sm text-gray-700 hover:underline mx-3">Politique de confidentialité</a>
                 </div>
                     <div>
-                        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Soumettre la demande</button>
+                        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Submit request</button>
                     </div>
                 </form>
             </div>
@@ -173,34 +173,34 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
             </button>
-        <h2 class="text-4xl text-blue-600 mb-6">Se connecter</h2>
+        <h2 class="text-4xl text-blue-600 mb-6">Login</h2>
         <form action="{{route('auth.login')}}" class="w-full" method="POST">
             @csrf
             <div class="relative mb-6">
                 <ion-icon name="mail" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
-                <input type="email" name="email" id="email" required placeholder="" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">email</label>
-                @error('email')
+                <input type="email" name="mail" id="mail" required placeholder="" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Mail</label>
+                @error('mail')
                 <p style="color: red">{{$message}}</p>
             @enderror
             </div>
             <div class="relative mb-6">
                 <ion-icon name="lock-closed" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
                 <input type="password" name="password" id="password" required placeholder=" " class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">mot de passe</label>
+                <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Password</label>
                 @error('password')
                 <p style="color: red;">{{$message}}</p>
                 @enderror
             </div>
             <div class="flex justify-between items-center mb-4">
                 <label class="flex items-center text-base text-gray-700 font-medium">
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">se rappeler de moi
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Remember me
                 </label>
-                <a href="#" class="text-sm text-gray-700 hover:underline mx-3">mot de passe oublié</a>
+                <a href="#" class="text-sm text-gray-700 hover:underline mx-3">Forgot password?</a>
             </div>
             <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Login</button>
             <div class="text-center text-sm text-gray-700 mt-4">
-                je n'ai pas de compte <a href="{{route('users.create')}}" class="font-bold hover:underline">s'inscrire</a>
+                I don't have account <a href="{{route('users.create')}}" class="font-bold hover:underline">Sign up</a>
             </div> 
         </form>
     </div>

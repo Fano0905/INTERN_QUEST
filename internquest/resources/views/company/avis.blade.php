@@ -28,6 +28,7 @@
             <textarea name="comment" id="comment" cols="50" rows="10" placeholder="Leave a comment" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400"></textarea>
         </div>
         <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-green-400 font-medium">Evaluate</button>
+        <a href="{{route('interquest/')}}"><button class="w-full h-11 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium">Cancel</button>
     </form>
 </div>
 
