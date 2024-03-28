@@ -150,7 +150,7 @@ class CompanyController extends Controller
 
         $company = Company::find($id);
 
-        return \view('company.avis', \compact('company'));
+        return \view('opinion.avis', \compact('company'));
     }
 
         /**
@@ -171,6 +171,6 @@ class CompanyController extends Controller
         $evaluation = Evaluation::create($request->all());
  
         return redirect()->route('companies.index')
-            ->with('success', 'Company updated successfully.');
+            ->with('success', 'Your opinion has been saved');
      }
 }

@@ -25,7 +25,7 @@ class AuthController extends Controller
             return \redirect()->intended(route('internquest/'))->with('success', 'Connection established successfully');
         }
         return \to_route('auth.login')->withErrors([
-            'email' => 'Your mail is not matching your password.',
+            'mail' => 'Your mail is not matching your password.',
             'password' => 'Password incorrect'
         ])->onlyInput('email');
     }

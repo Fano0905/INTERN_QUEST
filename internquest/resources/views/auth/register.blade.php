@@ -80,4 +80,62 @@
 </body>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<script>
+    // Sélection des éléments du formulaire
+    const lnameInput = document.getElementById("lname");
+    const fnameInput = document.getElementById("fname");
+    const mailInput = document.getElementById("mail");
+    const passwordInput = document.getElementById("password");
+    const usernameInput = document.getElementById("username");
+
+    // Ajout d'un event listener à chaque champ d'entrée
+    lnameInput.addEventListener('input', validateInput);
+    fnameInput.addEventListener('input', validateInput);
+    mailInput.addEventListener('input', validateInput);
+    passwordInput.addEventListener('input', validateInput);
+    usernameInput.addEventListener('input', validateInput);
+
+    // Fonction de validation
+    function validateInput(event) {
+        const input = event.target;
+        const value = input.value.trim(); // Supprimer les espaces vides au début et à la fin
+
+        // Vérification du type demandé pour chaque champ
+        switch (input.id) {
+            case 'lname':
+            case 'fname':
+            case 'username':
+                // Aucune vérification spécifique pour les champs de texte
+                break;
+            case 'mail':
+                // Vérification de l'email
+                if (!isValidEmail(value)) {
+                    input.setCustomValidity('Veuillez entrer une adresse email valide');
+                } else {
+                    input.setCustomValidity('');
+                }
+                break;
+            case 'password':
+                // Vérification de la longueur minimale du mot de passe
+                if (value.length < 8) {
+                    input.setCustomValidity('Le mot de passe doit comporter au moins 8 caractères');
+                } else {
+                    input.setCustomValidity('');
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Fonction pour valider un email
+    function isValidEmail(email) {
+        // Expression régulière pour valider l'email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+</script>
+
 </html>

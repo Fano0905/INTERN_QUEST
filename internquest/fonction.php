@@ -110,3 +110,19 @@ dd(Auth::user()); // Vérifier si un utilisateur est connecté
             });
         }
     </script>
+
+    
+    // Fonction pour afficher le dialogue admin_power
+    function showDialog() {
+        console.log("close Admin");
+        const admin_power = document.getElementById("admin_power");
+        admin_power.style.display = "none";
+        console.log("Open Admin");
+        const admin_power = document.getElementById("admin_power");
+        admin_power.style.display = "flex";
+    };
+    function closeDialog(){
+        console.log("close Admin");
+        const admin_power = document.getElementById("admin_power");
+        admin_power.style.display = "none";
+    };

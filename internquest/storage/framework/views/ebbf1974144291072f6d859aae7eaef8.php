@@ -44,6 +44,11 @@
                             <button>Log Out</button>
                         </div>
                     </form>
+                    <?php if(Auth::user()->role == 'Admin'): ?>
+                        <div class="py-5 px-3 hover:text-black">
+                            <a href="#" onclick="signin(), preventReload(event)"><ion-icon name="person-add-outline"></ion-icon></a>
+                        </div>
+                    <?php endif; ?>
                     <?php endif; ?>
                     <?php if(auth()->guard()->guest()): ?>
                         <div class="text-gray-700 items-center hidden md:flex space-x-8">
@@ -59,8 +64,6 @@
         </div>
     </div>
 </nav>
-
-<div> </div>
 
 <div class="container">
     <?php if(session('success')): ?>
@@ -96,18 +99,18 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
             </button>
-            <h2 class="text-4xl text-blue-600 mb-6">S'inscrire</h2>
+            <h2 class="text-4xl text-blue-600 mb-6">Sign up</h2>
                 <form action="<?php echo e(route('users.store')); ?>" method="POST" class = w-full>
                     <?php echo csrf_field(); ?>
                     <div class="relative mb-6">
                         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Last Name</label>
-                        <input type="text" name="lname" id="lname" required placeholder="Nom" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        <input type="text" name="lname" id="lname" required placeholder="Last Name" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                         <?php $__errorArgs = ['lname'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <p style="color: red;"><?php echo e($message); ?></p>
+                                <p style="color: red;"><?php echo e($message); ?></p>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -115,13 +118,13 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                     <div class="relative mb-6">
                         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">First name</label>
-                        <input type="text" name="fname" id="fname" required placeholder="Prenom" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        <input type="text" name="fname" id="fname" required placeholder="First name" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                         <?php $__errorArgs = ['fname'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <p style="color: red;"><?php echo e($message); ?></p>
+                                <p style="color: red;"><?php echo e($message); ?></p>
                         <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -131,16 +134,18 @@ unset($__errorArgs, $__bag); ?>
                         <ion-icon name="mail" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
                         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Mail</label>
                         <input type="email" name="mail" id="mail" required placeholder="email@example.fr" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                        <?php $__errorArgs = ['mail'];
+                        <span>
+                            <?php $__errorArgs = ['mail'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <p style="color: red;"><?php echo e($message); ?></p>
-                        <?php unset($message);
+                                <p style="color: red;"><?php echo e($message); ?></p>
+                            <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+                        </span>
                     </div>
                     <div class="relative mb-6">
                         <ion-icon name="lock-closed" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
@@ -152,7 +157,7 @@ $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <p style="color: red;"><?php echo e($message); ?></p>
+                                <p style="color: red;"><?php echo e($message); ?></p>
                             <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -162,60 +167,67 @@ unset($__errorArgs, $__bag); ?>
                     <div class="relative mb-6">
                         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Username</label>
                         <input type="text" name="username" id="username" required placeholder="Identifiant" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                        <?php $__errorArgs = ['username'];
+                        <span>
+                            <?php $__errorArgs = ['username'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <p style="color: red;"><?php echo e($message); ?></p>
-                        <?php unset($message);
+                                <p style="color: red;"><?php echo e($message); ?></p>
+                            <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+                        </span>
                     </div>
-                        <div class="relative mb-6">
-                            <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Role</label>
-                            <select name="role" id="role" required class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                                <option value="Admin">Admin</option>
-                                <option value="Pilote">Pilote</option>
-                                <option value="Etudiant">Etudiant</option>
-                            </select>
+                    <div class="relative mb-6">
+                        <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Role</label>
+                        <select name="role" id="role" required class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                            <option value="Admin">Admin</option>
+                            <option value="Pilote">Pilote</option>
+                            <option value="Etudiant">Etudiant</option>
+                        </select>
+                        <span>
                             <?php $__errorArgs = ['role'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                            <p style="color: red;"><?php echo e($message); ?></p>
+                                <p style="color: red;"><?php echo e($message); ?></p>
                             <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                        </div>
+                        </span>
+                    </div>
                     <div class="relative mb-6">
                         <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Location</label>
                         <input type="text" name="location" id="location" required placeholder="Location" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                        <?php $__errorArgs = ['location'];
+                        <span>
+                            <?php $__errorArgs = ['location'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                        <p style="color: red;"><?php echo e($message); ?></p>
-                        <?php unset($message);
+                                <p style="color: red;"><?php echo e($message); ?></p>
+                            <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    </div>
-                    <div class="flex justify-between items-center mb-4">
-                <label class="flex items-center text-base text-gray-700 font-medium">
-                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Remember Me
-                </label>
-                <a href="#" class="text-sm text-gray-700 hover:underline mx-3">Politique de confidentialité</a>
+                        </span>
+                    </div>                    
                 </div>
-                    <div>
-                        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Submit request</button>
-                    </div>
-                </form>
-            </div>
+                <div class="flex justify-between items-center mb-4">
+                    <label class="flex items-center text-base text-gray-700 font-medium">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Remember Me
+                    </label>
+                    <a href="#" class="text-sm text-gray-700 hover:underline mx-3">Politique de confidentialité</a>
+                </div>
+                <div>
+                    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Submit request</button>
+                </div>
+            </form>
+        </div>
         </dialog>
         <dialog id="login_dialog" class="fixed inset-0 m-auto w-100 h-100 bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
         <div class="w-full p-10 flex flex-col items-center">
@@ -231,7 +243,7 @@ unset($__errorArgs, $__bag); ?>
                 <ion-icon name="mail" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
                 <input type="email" name="mail" id="mail" required placeholder="" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                 <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Mail</label>
-                <?php $__errorArgs = ['mail'];
+                    <?php $__errorArgs = ['mail'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -265,39 +277,89 @@ unset($__errorArgs, $__bag); ?>
             </div>
             <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Login</button>
             <div class="text-center text-sm text-gray-700 mt-4">
-                I don't have account <a href="<?php echo e(route('users.create')); ?>" class="font-bold hover:underline">Sign up</a>
+                I don't have account. <a href="<?php echo e(route('users.create')); ?>" class="font-bold hover:underline"> Sign up</a>
             </div> 
         </form>
     </div>
     </dialog>
 <script>
-function login(){
-    console.log("close signin");
-    const signin_dialog = document.getElementById("signin_dialog");
-    signin_dialog.style.display = "none";
-    console.log("Open login");
-    const login_dialog = document.getElementById("login_dialog");
-    login_dialog.style.display = "flex";
-    
-};
-function signin(){
-    console.log("close login");
-    const login_dialog = document.getElementById("login_dialog");
-    login_dialog.style.display = "none";
-    console.log("Open signin");
-    const signin_dialog = document.getElementById("signin_dialog");
-    signin_dialog.style.display = "flex";
-};
-function closelogin(){
-    console.log("close login");
-    const login_dialog = document.getElementById("login_dialog");
-    login_dialog.style.display = "none";
-};
-function closesignin(){
-    console.log("close signin");
-    const signin_dialog = document.getElementById("signin_dialog");
-    signin_dialog.style.display = "none";
-};
+    function login(){
+        console.log("close signin");
+        const signin_dialog = document.getElementById("signin_dialog");
+        signin_dialog.style.display = "none";
+        console.log("Open login");
+        const login_dialog = document.getElementById("login_dialog");
+        login_dialog.style.display = "flex";
+        
+    };
+    function signin(){
+        console.log("close login");
+        const login_dialog = document.getElementById("login_dialog");
+        login_dialog.style.display = "none";
+        console.log("Open signin");
+        const signin_dialog = document.getElementById("signin_dialog");
+        signin_dialog.style.display = "flex";
+    };
+    function closelogin(){
+        console.log("close login");
+        const login_dialog = document.getElementById("login_dialog");
+        login_dialog.style.display = "none";
+    };
+    function closesignin(){
+        console.log("close signin");
+        const signin_dialog = document.getElementById("signin_dialog");
+        signin_dialog.style.display = "none";
+    };
+</script>
+<script>
+    // Sélection des éléments du formulaire
+    const mailInput = document.getElementById("mail");
+    const passwordInput = document.getElementById("password");
+    const usernameInput = document.getElementById("username");
+
+    // Ajout d'un event listener à chaque champ d'entrée
+    mailInput.addEventListener('input', validateInput);
+    passwordInput.addEventListener('input', validateInput);
+    usernameInput.addEventListener('input', validateInput);
+
+    // Fonction de validation
+    function validateInput(event) {
+        const input = event.target;
+        const value = input.value.trim(); // Supprimer les espaces vides au début et à la fin
+
+        // Vérification du type demandé pour chaque champ
+        switch (input.id) {
+            case 'username':
+                // Aucune vérification spécifique pour les champs de texte
+                break;
+            case 'mail':
+                // Vérification de l'email
+                if (!isValidEmail(value)) {
+                    input.setCustomValidity('Veuillez entrer une adresse email valide');
+                } else {
+                    input.setCustomValidity('');
+                }
+                break;
+            case 'password':
+                // Vérification de la longueur minimale du mot de passe
+                if (value.length < 8) {
+                    input.setCustomValidity('Le mot de passe doit comporter au moins 8 caractères');
+                } else {
+                    input.setCustomValidity('');
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Fonction pour valider un email
+    function isValidEmail(email) {
+        // Expression régulière pour valider l'email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
 </script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

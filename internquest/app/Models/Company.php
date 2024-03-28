@@ -42,4 +42,8 @@ class Company extends Model
     public function area(){
         return $this->hasOne(Area::class, 'name', 'area');
     }
+
+    public function location(){
+        return $this->hasMany(Location::class, 'id', 'id_location');
+    }
 }

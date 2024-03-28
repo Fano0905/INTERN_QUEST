@@ -6,6 +6,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -21,7 +22,7 @@ class UserController extends Controller
         $user = Promotion::find(1)->users;
 
         dd($user);
-        return view('welcome', compact('users'));
+        return view('internquest/', compact('users'));
     }
 
     /**
@@ -30,11 +31,24 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RegisterRequest $request)
+    public function store(Request $request)
     {
-        User::create($request->validated());
+        $request->validate([
+            'lname' => ['required', 'min:3'],
+            'fname' => ['required', 'min:4'],
+            'mail' => ['required','unique:users,mail'],
+            'password' => ['required', 'min:6'],
+            'username' => ['required','unique:users,username'],
+            'role' => ['required'],
+            'location' => ['required']
+        ]);
+        User::create($request->all());
 
-        return redirect()->route('auth.login')
+        if (Auth::check()) { // Vérifie si l'utilisateur est connecté
+            return redirect()->route('internquest/')->with('success', 'User created successfully as Admin.');
+        }
+    
+        return redirect()->route('auth.login') // Redirige vers la page de connexion
             ->with('success', 'User created successfully.');
     }
 
@@ -48,11 +62,11 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nom' => ['required','min:3'],
-            'prenom' => ['required','min:4'],
-            'email' => [
+            'lname' => ['required','min:3'],
+            'fname' => ['required','min:4'],
+            'mail' => [
                 'required',
-                Rule::unique('users', 'email')->ignore(request()->route('user')),
+                Rule::unique('users', 'mail')->ignore(request()->route('user')),
             ],
             'password' => ['required', 'min:6'],
             'username' => [
@@ -64,6 +78,10 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->update($request->all());
+
+        if (Auth::check()) { // Vérifie si l'utilisateur est connecté
+            return redirect()->route('internquest/')->with('success', 'User uptdated successfully as Admin.');
+        }
 
         return redirect()->route('users.index')
             ->with('success', 'user uptdated successfully.');
@@ -79,6 +97,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+
+        if (Auth::check()) { // Vérifie si l'utilisateur est connecté
+            return redirect()->route('internquest/')->with('success', 'User deleted successfully as Admin.');
+        }
 
         return redirect()->route('auth.login')
             ->with('success', 'Utilisateur deleted successfully');
