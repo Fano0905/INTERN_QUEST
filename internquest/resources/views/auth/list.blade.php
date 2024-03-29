@@ -26,5 +26,6 @@
             </tr>
         <?php endforeach; ?>
     </tbody>
-</table>    
+</table>
+<a href="#" onclick="signin(), preventReload(event)" class="text-gray-700 hidden md:flex space-x-16"><button class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="add"></ion-icon>Ajouter utilisateur</button></a>
 @endsection

@@ -21,7 +21,9 @@ use Whoops\Run;
 |
 */
 
-Route::get('/user/list', [WebController::class, 'index'])->name('index');
+//Routes principales
+
+Route::get('/user/list', [WebController::class, 'index'])->name('users.list');
 
 Route::get('/', function () {
     return view('accueil');
@@ -31,6 +33,8 @@ Route::get('/admin', function(){
     return \view('admin');
 })->name('admin/');
 
+//Routes secteur
+
 Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
@@ -39,6 +43,8 @@ Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group
     Route::put('/{area}', 'edit');
     Route::delete('/{area}');
 });
+
+//Routes Utilisateurs
 
 Route::prefix('/internquest')->name('users.')->controller(UserController::class)->group(function(){
     // returns the form for adding a user
@@ -56,6 +62,8 @@ Route::prefix('/internquest')->name('users.')->controller(UserController::class)
 
     Route::get('/', [UserController::class, 'index'])->name('index');
 });
+
+//Routes entreprise
 
 Route::prefix('/company')->name('companies.')->controller(CompanyController::class)->group(function(){
     
@@ -78,6 +86,8 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
     Route::post('/{company}', 'e_store')->name('e_store');
 });
 
+//Routes Offres
+
 Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->group(function(){
     Route::get('/create', 'create')->name('create')->middleware('auth');
 
@@ -94,6 +104,8 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     Route::get('/', [OfferController::class, 'index'])->name('index')->middleware('auth');
 });
 
+//Routes candidature
+
 Route::prefix('/application')->name('applications.')->controller(ApplicationController::class)->group(function(){
     
     Route::get('/create', 'create')->name('create')->middleware('auth');
@@ -102,6 +114,8 @@ Route::prefix('/application')->name('applications.')->controller(ApplicationCont
 
     Route::get('/', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
 });
+
+//Routes authentification
 
 Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -113,3 +127,8 @@ Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(
     Route::get('/', [AuthController::class, 'show'])->name('show')->middleware('auth');
 });
 
+//Routes Promo
+
+Route::prefix('/promo')->name('promos.')->controller(PromotionController::class)->group(function(){
+    Route::get('/', 'index')->name('index');
+});

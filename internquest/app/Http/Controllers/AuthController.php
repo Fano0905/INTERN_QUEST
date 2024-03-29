@@ -14,7 +14,7 @@ class AuthController extends Controller
 
     public function logout() {
         Auth::logout();
-        return \redirect()->intended(\route('auth.login'))->with('success', 'You have been disconnected');
+        return \redirect()->intended(\route('internquest/'))->with('success', 'You have been disconnected');
     }
 
     public function doLogin(LoginRequest $request) {
