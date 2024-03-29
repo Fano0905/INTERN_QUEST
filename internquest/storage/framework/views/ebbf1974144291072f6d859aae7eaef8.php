@@ -19,7 +19,7 @@
                     <div class="py-5 px-3 hover:text-black">
                         <a href="<?php echo e(route('internquest/')); ?>">
                         <ion-icon name="home"></ion-icon>
-                        Accueil</a>
+                        Home</a>
                     </div>
                     <div class="py-5 px-3 hover:text-black">
                         <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
@@ -30,11 +30,7 @@
                         <ion-icon name="business"></ion-icon>
                         Entreprises</a>
                     </div>
-<<<<<<< Updated upstream
-                    <a href="#" class="py-5 px-3 hover:text-black">Publier</a>
-=======
                     <a href="#" class="py-5 px-3 hover:text-black">publier</a>
->>>>>>> Stashed changes
                     <?php if(auth()->guard()->check()): ?>
                     <div class="py-5 px-3 hover:text-black">
                         <ion-icon name="person-circle"></ion-icon>
@@ -45,26 +41,18 @@
                         <?php echo csrf_field(); ?>
                         <div class="py-5 px-3 hover:text-black">
                             <ion-icon name="log-out"></ion-icon>
-<<<<<<< Updated upstream
-                            <button>Se déconnecter</button>
-=======
                             <button>Se deconnecter</button>
->>>>>>> Stashed changes
                         </div>
                     </form>
                     <?php if(Auth::user()->role == 'Admin'): ?>
                         <div class="py-5 px-3 hover:text-black">
-                            <a href="<?php echo e(route('admin/')); ?>"><ion-icon name="person-add-outline"></ion-icon></a>
+                            <a href="#" onclick="signin(), preventReload(event)"><ion-icon name="person-add-outline"></ion-icon></a>
                         </div>
                     <?php endif; ?>
                     <?php endif; ?>
                     <?php if(auth()->guard()->guest()): ?>
                         <div class="text-gray-700 items-center hidden md:flex space-x-8">
-<<<<<<< Updated upstream
-                            <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)">Se connecter</a>
-=======
                             <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Se connecter</a>
->>>>>>> Stashed changes
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-add"></ion-icon>
                                 <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
