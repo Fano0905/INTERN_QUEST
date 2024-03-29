@@ -13,7 +13,7 @@
         <img src="" alt="pdp" height="50" width="50">
         <p>Last Name: {{Auth::user()->lname}}</p>
         <p>First Name: {{Auth::user()->fname}}</p>
-        <p>Mail: {{Auth::user()->email}}</p>
+        <p>Mail: {{Auth::user()->mail}}</p>
         <p>You are connected as: {{Auth::user()->role}}</p>
         <div class="control" style="display: flex; flex-direction:row;">
             <a href="{{route('users.edit', Auth::user()->id)}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Modifier</button></a>
