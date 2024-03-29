@@ -39,7 +39,7 @@ class CompanyController extends Controller
                 Rule::unique('companies', 'name')
             ],
             'area' => ['required'],
-            'website' => 'nullable|string',
+            'website' => 'required',
             'pilot' => ['required'],
             'location' => 'nullable',
             'evaluation' => 'integer|nullable'
@@ -67,7 +67,7 @@ class CompanyController extends Controller
                 Rule::unique('companies', 'name')->ignore($id, 'id'),
             ],
             'area' => 'required',
-            'website' => 'nullable|string',
+            'website' => 'required',
             'pilot' => 'required',
             'location' => 'nullable',
             'evaluation' => 'integer|nullable'

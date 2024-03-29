@@ -22,8 +22,21 @@ use Whoops\Run;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('accueil');
 })->name('internquest/');
+
+Route::get('/admin', function(){
+    return \view('admin');
+})->name('admin/');
+
+Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/create', 'store')->name('store');
+    Route::get('/{area}/edit/', 'edit')->name('edit');
+    Route::put('/{area}', 'edit');
+    Route::delete('/{area}');
+});
 
 Route::prefix('/internquest')->name('users.')->controller(UserController::class)->group(function(){
     // returns the form for adding a user
