@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Models\Application;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -19,9 +20,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        $user = Promotion::find(1)->users;
 
-        dd($user);
         return view('internquest/', compact('users'));
     }
 

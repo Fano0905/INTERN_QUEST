@@ -15,7 +15,7 @@ class Company extends Model
         'name',
         'area',
         'website',
-        'id_pilot',
+        'pilot',
         'location',
         'evaluation'
     ];

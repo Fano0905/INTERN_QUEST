@@ -15,7 +15,7 @@ Route::prefix('/blog')->name('blog.')->controller(Controller::class)->group(func
         $tags = $post->tags()->sync(2); #même chose
         //Principe de modification
         $post = Post::findorFail(2);
-        $post->slug = 'Artcile 5';
+        $post->slug = 'Article 5';
         #Suppression d'un élément
         #$post->delete();
         $post = Post::where('id',  '=', 1)->update([
@@ -74,15 +74,6 @@ Schema::create('post_tag', function(Blueprint $table){
 
 dd(Auth::user()); // Vérifier si un utilisateur est connecté
 
-@if (Auth::user()->id_role == 1)
-<p>Role: Admin</p>
-@endif
-@if (Auth::user()->id_role == 2)
-<p>Role: Pilote</p>
-@endif
-@if (Auth::user()->id_role == 3)
-<p>Role: Etudiant</p>
-@endif
 
 {
     $request->validate([
@@ -126,3 +117,12 @@ dd(Auth::user()); // Vérifier si un utilisateur est connecté
         const admin_power = document.getElementById("admin_power");
         admin_power.style.display = "none";
     };
+
+    
+    Schema::create('company_address', function(Blueprint $table){
+        $table->foreignIdFor(Company::class, 'id_company')->constrained()->cascadeOnDelete();
+        $table->foreignIdFor(Location::class, 'id_location')->constrained()->cascadeOnDelete();
+        $table->primary(['id_location', 'id_company']);
+    });
+
+    <div class="w-full p-10 flex flex-col items-center">

@@ -19,7 +19,7 @@
                     <div class="py-5 px-3 hover:text-black">
                         <a href="<?php echo e(route('internquest/')); ?>">
                         <ion-icon name="home"></ion-icon>
-                        Home</a>
+                        Accueil</a>
                     </div>
                     <div class="py-5 px-3 hover:text-black">
                         <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
@@ -28,9 +28,9 @@
                     <a href="#" class="py-5 px-3 hover:text-black">Notifications</a>
                     <div class="py-5 px-3 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
                         <ion-icon name="business"></ion-icon>
-                        Companies</a>
+                        Entreprises</a>
                     </div>
-                    <a href="#" class="py-5 px-3 hover:text-black">Publish</a>
+                    <a href="#" class="py-5 px-3 hover:text-black">Publier</a>
                     <?php if(auth()->guard()->check()): ?>
                     <div class="py-5 px-3 hover:text-black">
                         <ion-icon name="person-circle"></ion-icon>
@@ -41,21 +41,21 @@
                         <?php echo csrf_field(); ?>
                         <div class="py-5 px-3 hover:text-black">
                             <ion-icon name="log-out"></ion-icon>
-                            <button>Log Out</button>
+                            <button>Se déconnecter</button>
                         </div>
                     </form>
                     <?php if(Auth::user()->role == 'Admin'): ?>
                         <div class="py-5 px-3 hover:text-black">
-                            <a href="#" onclick="signin(), preventReload(event)"><ion-icon name="person-add-outline"></ion-icon></a>
+                            <a href="<?php echo e(route('admin/')); ?>"><ion-icon name="person-add-outline"></ion-icon></a>
                         </div>
                     <?php endif; ?>
                     <?php endif; ?>
                     <?php if(auth()->guard()->guest()): ?>
                         <div class="text-gray-700 items-center hidden md:flex space-x-8">
-                            <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Sign in</a>
+                            <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)">Se connecter</a>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-add"></ion-icon>
-                                <a href="#" onclick="signin(), preventReload(event)">Sign up</a>
+                                <a href="#" onclick="signin(), preventReload(event)">S'inscrire'</a>
                             </div>
                         </div>
                     <?php endif; ?>
