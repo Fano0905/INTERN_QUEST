@@ -12,6 +12,6 @@ class Area extends Model
     protected $fillable = ['name'];
 
     public function company(){
-        return $this->belongsToMany(Company::class);
+        return $this->hasMany(Company::class);
     }
 }

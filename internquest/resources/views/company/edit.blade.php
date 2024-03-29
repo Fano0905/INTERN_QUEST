@@ -50,7 +50,11 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Location</label>
-            <input type="text" name="location" id="location" required placeholder="location" value="{{$company->location}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <select name="location" id="location" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                @foreach ($locations as $location)
+                    <option>{{$location->city}}</option>
+                @endforeach
+            </select>
             <span>
                 @error('location')
                 <p style="color: red;">{{$message}}</p>

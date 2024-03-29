@@ -24,7 +24,7 @@ class Offer extends Model
     ];
 
     public function entreprise(){
-        return $this->hasOne(Company::class);
+        return $this->belongsTo(Company::class);
     }
 
     public function candidature(){

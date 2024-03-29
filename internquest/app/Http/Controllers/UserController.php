@@ -19,9 +19,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $user = User::with('id', '>', '1')->get();
-
         return view('internquest/', compact('users'));
     }
 

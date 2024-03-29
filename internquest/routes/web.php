@@ -21,6 +21,8 @@ use Whoops\Run;
 |
 */
 
+Route::get('/user/list', [WebController::class, 'index'])->name('index');
+
 Route::get('/', function () {
     return view('accueil');
 })->name('internquest/');

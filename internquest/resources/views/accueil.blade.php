@@ -55,7 +55,7 @@
                             <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)">Se connecter</a>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-add"></ion-icon>
-                                <a href="#" onclick="signin(), preventReload(event)">S'inscrire'</a>
+                                <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
                             </div>
                         </div>
                     @endguest
@@ -104,14 +104,14 @@
                         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Last Name</label>
                         <input type="text" name="lname" id="lname" required placeholder="Last Name" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                         @error('lname')
-                                <p style="color: red;">{{$message}}</p>
+                            <p style="color: red;">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="relative mb-6">
                         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">First name</label>
                         <input type="text" name="fname" id="fname" required placeholder="First name" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                         @error('fname')
-                                <p style="color: red;">{{$message}}</p>
+                            <p style="color: red;">{{$message}}</p>
                         @enderror
                     </div>
                     <div class="relative mb-6">
@@ -165,6 +165,7 @@
                             @enderror
                         </span>
                     </div>                    
+<<<<<<< Updated upstream
                 </div>
                 <div class="flex justify-between items-center mb-4">
                     <label class="flex items-center text-base text-gray-700 font-medium">
@@ -195,6 +196,60 @@
                     @error('mail')
                 <p style="color: red">{{$message}}</p>
             @enderror
+=======
+                    <div class="flex justify-between items-center mb-4">
+                        <label class="flex items-center text-base text-gray-700 font-medium">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Se rappeler de moi
+                        </label>
+                        <a href="#" class="text-sm text-gray-700 hover:underline mx-3">Politique de confidentialité</a>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Envoyer une demande</button>
+                    </div>
+                    <div class="text-center text-sm text-gray-700 mt-4">
+                    J'ai déja un compte. <a href="{{route('auth.login')}}" class="font-bold hover:underline"> se connecter</a>
+                    </div> 
+                </form>
+            </div>
+        </dialog>
+        <dialog id="login_dialog" class="fixed inset-0 m-auto w-100 h-100 bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
+            <div class="w-full p-10 flex flex-col items-center">
+                <button class="absolute top-0 right-0 mt-4 mr-4 bg-gray-300 text-gray-700 hover:bg-gray-400 rounded-2xl p-2 focus:outline-none" onclick="closelogin(), preventReload(event)">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                </button>
+                <h2 class="text-4xl text-blue-600 mb-6">Se connecter</h2>
+                <form action="{{route('auth.login')}}" class="w-full" method="POST">
+                    @csrf
+                    <div class="relative mb-6">
+                        <ion-icon name="mail" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
+                        <input type="email" name="mail" id="mail" required placeholder="" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Mail</label>
+                        @error('mail')
+                            <p style="color: red">{{$message}}</p>
+                        @enderror
+                    </div>
+                    <div class="relative mb-6">
+                        <ion-icon name="lock-closed" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
+                        <input type="password" name="password" id="password" required placeholder=" " class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">mot de passe</label>
+                        @error('password')
+                            <p style="color: red;">{{$message}}</p>
+                        @enderror
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <label class="flex items-center text-base text-gray-700 font-medium">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">se rappeler de moi
+                        </label>
+                        <a href="#" class="text-sm text-gray-700 hover:underline mx-3">mot de passe oublié ?</a>
+                    </div>
+                        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Se connecter</button>
+                    <div class="text-center text-sm text-gray-700 mt-4">
+                    Je n'ai pas de compte. <a href="{{route('users.create')}}" class="font-bold hover:underline"> s'inscrire</a>
+                    </div> 
+                </form>
+>>>>>>> Stashed changes
             </div>
             <div class="relative mb-6">
                 <ion-icon name="lock-closed" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>

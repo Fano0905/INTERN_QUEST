@@ -67,7 +67,7 @@
 >>>>>>> Stashed changes
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-add"></ion-icon>
-                                <a href="#" onclick="signin(), preventReload(event)">S'inscrire'</a>
+                                <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
                             </div>
                         </div>
                     <?php endif; ?>

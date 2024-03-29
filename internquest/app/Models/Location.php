@@ -12,10 +12,6 @@ class Location extends Model
     protected $fillable = ['postal_code', 'city', 'location'];
 
     public function companies(){
-        return $this->belongsToMany(Company::class, 'companies');
-    }
-
-    public function bcompanies(){
         return $this->hasMany(Company::class);
     }
 }
