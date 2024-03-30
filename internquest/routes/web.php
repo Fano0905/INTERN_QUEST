@@ -29,10 +29,6 @@ Route::get('/', function () {
     return view('accueil');
 })->name('internquest/');
 
-Route::get('/admin', function(){
-    return \view('admin');
-})->name('admin/');
-
 //Routes secteur
 
 Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){

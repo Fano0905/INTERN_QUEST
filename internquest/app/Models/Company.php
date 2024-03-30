@@ -22,11 +22,11 @@ class Company extends Model
 
     public function pilote() {
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
-        if(auth()->check() && auth()->user()->role == 'Pilote') {
+        if ((auth()->check() && auth()->user()->role == 'Pilote') || (auth()->user()->role == 'Admin')) {
             // Si l'utilisateur a le rôle "pilote", retourner la relation
             return $this->belongsTo(User::class);
         } else {
-            // Sinon, retourner null ou une autre valeur selon votre logique
+            // Sinon, retourner null
             return null;
         }
     }
@@ -40,10 +40,10 @@ class Company extends Model
     }
 
     public function area(){
-        return $this->belongsTo(Area::class, 'name', 'area');
+        return $this->belongsTo(Area::class);
     }
 
     public function location(){
-        return $this->hasMany(Location::class, 'id', 'id_location');
+        return $this->belongsToMany(Location::class, 'id');
     }
 }

@@ -19,10 +19,10 @@ class Application extends Model
     public function etudiant() {
         // Vérifier si l'utilisateur est authentifié et s'il a un rôle
         if(auth()->check() && auth()->user()->role && auth()->user()->role == 'Etudiant') {
-            // Si l'utilisateur a le rôle "pilote", retourner la relation
+            // Si l'utilisateur a le rôle "Etudiant", retourner la relation
             return $this->belongsTo(User::class);
         } else {
-            // Sinon, retourner null ou une autre valeur selon votre logique
+            // Sinon, retourner null
             return null;
         }
     }

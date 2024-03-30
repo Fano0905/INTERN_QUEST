@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Company;
 use App\Models\Location;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -21,6 +22,11 @@ return new class extends Migration
             $table->decimal('evaluation', 2, 2, true);
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Location::class)->constrained()->cascadeOnDelete();
+        });
+        Schema::create('companies_locations', function(Blueprint $table){
+            $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Location::class)->constrained()->cascadeOnDelete();
+            $table->primary(['company_id', 'location_id']);
         });
     }
 
