@@ -1,0 +1,34 @@
+@extends('layout')
+
+@section('content')
+    <div class="fixed inset-0 m-auto w-100 h-110  bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px);">
+        <div class="w-full p-10 flex flex-col items-center">
+            <h2 class="text-2xl text-blue-600 mb-6">Créer une promo</h2>
+            <form action="{{route('promos.store')}}" method="POST" class = w-full>
+                @csrf
+                <div class="relative mb-6">
+                    <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nom</label>
+                    <input type="text" name="name" id="name" required placeholder="Nom promo" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                    @error('name')
+                        <p style="color: red;">{{$message}}</p>
+                    @enderror
+                </div>
+                <div class="relative mb-6">
+                    <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Pilote assigné</label>
+                    <select type="number" name="pilote_id" id="pilote_id" required class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        @foreach ($pilotes as $pilote)
+                            <option value="{{ $pilote->id }}" @if ($loop->first) selected @endif>{{ $pilote->id }}</option>
+                        @endforeach
+                    </select>
+                    <span>
+                        @error('pilote_id')
+                            <p style="color: red;">{{$message}}</p>
+                        @enderror
+                    </span>
+                </div>
+            <div>
+                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Créer promo</button>
+            </div>
+        </form>
+    </div>
+@endsection

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\PromoController;
 use Illuminate\Auth\Events\Logout;
 use Whoops\Run;
 
@@ -125,6 +126,14 @@ Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(
 
 //Routes Promo
 
-Route::prefix('/promo')->name('promos.')->controller(PromotionController::class)->group(function(){
+Route::prefix('/promo')->name('promos.')->controller(PromoController::class)->group(function(){
     Route::get('/', 'index')->name('index');
+
+    Route::get('/create', 'create')->name('create');
+
+    Route::post('/create', 'store')->name('store');
+
+    Route::get('/{promo}', 'show')->name('show');
+
+    Route::delete('/{promo}', 'destroy')->name('destroy');
 });

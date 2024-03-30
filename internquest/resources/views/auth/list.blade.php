@@ -11,6 +11,7 @@
             <th>Password</th>
             <th>Username</th>
             <th>Role</th>
+            <th>Voir</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
                 <td>{{$user->password}}</td>
                 <td>{{$user->username}}</td>
                 <td>{{$user->role}}</td>
+                <td><a href="{{route('users.show', $user->id)}}"  class="text-gray-500 hidden md:flex space-x-16"><button class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Consulter utilisateur</button></a></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
