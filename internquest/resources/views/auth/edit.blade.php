@@ -73,6 +73,13 @@
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
+        <div class="relative mb-6">
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Centre</label>
+            <input type="text" name="centre" id="centre" required placeholder="Centre" value="{{Auth::user()->centre}}" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            @error('centre')
+                <p style="color: red;">{{$message}}</p>
+            @enderror
+        </div>
         <div>
             <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Edit</button>
             <a href="{{route('interquest/')}}"><button class="w-full h-11 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium">Cancel</button>

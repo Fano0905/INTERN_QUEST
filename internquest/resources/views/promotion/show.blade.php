@@ -13,40 +13,43 @@
 <strong><h2>Liste des élèves</h2></strong>
 
 <div>
-<table>
-    <thead>
-        <tr>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Classe</th>
-            <th>supprimer</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($etudiants as $etudiant): ?>
-            <tr>
-                <td>{{$etudiant->lname}}</td>
-                <td>{{$etudiant->fname}}</td>
-                <td>{{$etudiant->mail}}</td>
-                <td><form action="{{route('classes.destroy', $etudiant->id)}}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" preventReload(event)" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Retirer etudiant</button>
-                </form></td>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #f3f3f3; border-bottom: 2px solid #ddd;">
+                <th style="padding: 10px; text-align: left;">Last Name</th>
+                <th style="padding: 10px; text-align: left;">First Name</th>
+                <th style="padding: 10px; text-align: left;">Classe</th>
+                <th style="padding: 10px; text-align: left;">supprimer</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php foreach ($etudiants as $etudiant): ?>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 10px; text-align: left;">{{$etudiant->lname}}</td>
+                    <td style="padding: 10px; text-align: left;">{{$etudiant->fname}}</td>
+                    <td style="padding: 10px; text-align: left;">{{$etudiant->mail}}</td>
+                    <td style="padding: 10px; text-align: left;"><form action="{{route('classes.destroy', $etudiant->id)}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Retirer etudiant</button>
+                    </form></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>    
 </div>
 
-<form action="{{route('classes.create')}}" method="post">
+<form action="{{route('classes.create')}}" method="get">
     @csrf
-    <button type="submit" preventReload(event)" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Ajouter etudiant</button>
+    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Ajouter etudiant</button>
 </form>
+
+<a href="{{route('promos.edit', $promo->id)}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Modifier la promo</button></a>
+
 
 <form action="{{ route('promos.destroy', $promo->id)}}" method="post">
     @csrf
     @method('DELETE')
-    <button type="submit" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Supprimer L'entreprise</button>
+    <button type="submit" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Supprimer La promo</button>
 </form>
 @endsection()

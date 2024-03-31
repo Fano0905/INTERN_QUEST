@@ -35,15 +35,15 @@ class CompanyController extends Controller
         $request->validate([
             'name' => [
                 'required',
-                'min:3',
                 Rule::unique('companies', 'name')
             ],
             'area' => ['required'],
-            'website' => 'required',
-            'pilot' => ['required'],
-            'location' => 'nullable',
-            'evaluation' => 'integer|nullable'
-        ]);
+            'website' => ['required'],
+        ], [
+            'name.required' => 'Please enter the company name.',
+            'area.required' => 'Please enter the company area.',
+            'website.required' => 'Please enter the company\'s website.',
+        ]);        
 
         Company::create($request->all());
 
@@ -63,14 +63,10 @@ class CompanyController extends Controller
         $request->validate([
             'name' => [
                 'required',
-                'min:3',
                 Rule::unique('companies', 'name')->ignore($id, 'id'),
             ],
-            'area' => 'required',
-            'website' => 'required',
-            'pilot' => 'required',
-            'location' => 'nullable',
-            'evaluation' => 'integer|nullable'
+            'area' => ['required'],
+            'website' => ['required', Rule::unique('companies', 'website')->ignore($id)]
         ]);
 
         $company = Company::find($id);
@@ -105,9 +101,8 @@ class CompanyController extends Controller
     public function create()
     {
         $areas = Area::all();
-        $pilotes = User::all();
     
-        return view('company.create', \compact('areas', 'pilotes'));
+        return view('company.create', \compact('areas'));
     }
 
 
@@ -134,9 +129,8 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         $areas = Area::all();
-        $pilotes = User::where('role', '=', 'Admin');
 
-        return view('company.edit', compact('company', 'areas', 'pilotes'));
+        return view('company.edit', compact('company', 'areas'));
     }
 
     /**
@@ -164,7 +158,7 @@ class CompanyController extends Controller
      public function e_store(Request $request, $id)
      {
         $request->validate([
-            'note' => 'numeric', 'comment' => 'required', 'id_company' => ['required', 'numeric'], 'object' => 'required'
+            'note' => 'numeric', 'comment' => 'required', 'id_company' => ['required'], 'object' => 'required'
         ]);
  
         $company = Company::find($id);

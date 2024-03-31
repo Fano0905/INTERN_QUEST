@@ -37,7 +37,6 @@ class PromoController extends Controller
     */
     public function store(Request $request)
     {
-        //dd($request);
         $request->validate([
             'name' => [
                 'required',
@@ -66,6 +65,44 @@ class PromoController extends Controller
 
         return view('promotion.show', compact('promo', 'etudiants'));
     }      
+
+    /**
+    * Show the form for editing the specified post.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function edit($id)
+    {
+        $promo = Promo::find($id);
+        $pilotes = User::where('role', '=', 'Pilote')->orWhere('role', '=', 'Admin')->get();
+
+        return view('promotion.edit', compact('promo', 'pilotes'));
+    }
+
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => [
+                'required',
+                'min:3',
+                Rule::unique('promos', 'name')->ignore($id)
+            ],
+            'pilote_id' => ['required'], // Remplacer 'users' par 'id'
+        ]);
+
+        $promo = Promo::find($id);
+        $promo->update($request->all());
+        return redirect()->route('promos.index')
+            ->with('success', 'La classe a bien été mise à jour.');
+    }
 
     public function destroy($id)
     {

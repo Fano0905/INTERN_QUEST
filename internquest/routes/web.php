@@ -32,8 +32,14 @@ Route::get('/', function () {
 })->name('internquest/');
 
 Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserController::class)->group(function(){
-    Route::get('/insert', 'create')->name('create'); // La route sera nommée 'classes.insert'
-    Route::post('/insert', 'store')->name('store'); // La route sera nommée 'classes.store'
+    Route::get('/create', 'create')->name('create'); // La route sera nommée 'classes.insert'
+
+    Route::post('/create', 'store')->name('store'); // La route sera nommée 'classes.store'
+
+    Route::get('/{etudiant}/edit', 'edit')->name('edit');
+
+    Route::put('/{etudiant}', 'update')->name('update');
+
     Route::delete('/{user}', 'destroy')->name('destroy');
 });
 
@@ -138,6 +144,10 @@ Route::prefix('/promo')->name('promos.')->controller(PromoController::class)->gr
     Route::get('/create', 'create')->name('create');
 
     Route::post('/create', 'store')->name('store');
+
+    Route::get('/{promo}/edit', 'edit')->name('edit');
+
+    Route::put('/{promo}', 'update')->name('update');
 
     Route::get('/{promo}', 'show')->name('show');
 

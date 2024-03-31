@@ -20,7 +20,7 @@
         </div>
     }
     @endif
-    <form action="{{route('companies.store')}}" method="POST">
+    <form action="{{route('companies.store')}}" method="POST" enctype>
         @csrf
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Name</label>
@@ -42,32 +42,8 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Website</label>
-            <input type="text" name="site" id="site" required placeholder="example.fr" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="website" id="website" required placeholder="example.fr" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('website')
-                <p style="color: red;">{{$message}}</p>
-            @enderror
-        </div>
-        <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Location</label>
-            <select name="location" id="location" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                @foreach ($locations as $location)
-                    <option>{{$location->city}}</option>
-                @endforeach
-            </select>
-            @error('location')
-                <p style="color: red;">{{$message}}</p>
-            @enderror
-        </div>
-        <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Assigned Pilot</label>
-            <select name="pilot" id="pilot" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-                @foreach ($pilotes as $pilote)
-                    @if ($pilote->role == 'Pilote' || $pilote->role == 'Admin')
-                        <option>{{$pilote->id}}</option>
-                    @endif
-                @endforeach
-            </select>
-            @error('id_pilot')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>

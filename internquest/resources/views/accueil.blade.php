@@ -311,6 +311,13 @@
                             <p style="color: red">{{$message}}</p>
                         @enderror
                     </div>
+                    <div class="relative mb-6">
+                        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Centre</label>
+                        <input type="text" name="centre" id="centre" required placeholder="Centre" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        @error('centre')
+                            <p style="color: red;">{{$message}}</p>
+                        @enderror
+                    </div>
                     <div class="flex justify-between items-center mb-4">
                         <label class="flex items-center text-base text-gray-700 font-medium">
                         <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Se rappeler de moi
