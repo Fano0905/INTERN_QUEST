@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Promo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\Promo;
 
 class PromoController extends Controller
 {
@@ -42,7 +42,7 @@ class PromoController extends Controller
             'name' => [
                 'required',
                 'min:3',
-                Rule::unique('promotions', 'name')
+                Rule::unique('promos', 'name')
             ],
             'pilote_id' => ['required'], // Remplacer 'users' par 'id'
         ]);        
@@ -61,10 +61,11 @@ class PromoController extends Controller
     */
     public function show($id)
     {
-        $promo = Promo::with('pilote')->find($id);
+        $promo = Promo::with('pilote', 'etudiants')->find($id);
+        $etudiants = $promo->etudiants; // La relation etudiants est maintenant chargée
 
-        return view('promotion.show', compact('promo'));
-    }
+        return view('promotion.show', compact('promo', 'etudiants'));
+    }      
 
     public function destroy($id)
     {

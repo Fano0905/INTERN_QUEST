@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\Promos_UserController;
 use Illuminate\Auth\Events\Logout;
 use Whoops\Run;
 
@@ -30,8 +31,13 @@ Route::get('/', function () {
     return view('accueil');
 })->name('internquest/');
 
-//Routes secteur
+Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserController::class)->group(function(){
+    Route::get('/insert', 'create')->name('create'); // La route sera nommée 'classes.insert'
+    Route::post('/insert', 'store')->name('store'); // La route sera nommée 'classes.store'
+    Route::delete('/{user}', 'destroy')->name('destroy');
+});
 
+//Routes secteur
 Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');

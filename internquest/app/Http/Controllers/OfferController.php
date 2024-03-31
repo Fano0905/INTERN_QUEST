@@ -6,7 +6,7 @@ use App\Http\Requests\OfferRequest;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\Offer;
-use App\Models\Promotion;
+use App\Models\Promo;
 use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
@@ -100,7 +100,7 @@ class OfferController extends Controller
     public function create()
     {
         $companies = Company::all();
-        $classes = Promotion::all();
+        $classes = Promo::all();
 
         return view('offer.create', \compact('companies', 'classes'));
     }
@@ -129,7 +129,7 @@ class OfferController extends Controller
     {
         $offer = Offer::find($id);
         $companies = Company::all();
-        $classes = Promotion::all();
+        $classes = Promo::all();
 
 
         return view('offer.edit', compact('offer', 'companies', 'classes'));

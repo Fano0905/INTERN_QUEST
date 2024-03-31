@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Promo;
 use App\Models\Promotion;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -13,23 +14,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('promotions', function(Blueprint $table){
+        Schema::create('promos', function(Blueprint $table){
             $table->id()->autoIncrement();
             $table->string('name');
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
         });
-        Schema::create('promotions_users', function(Blueprint $table){
-            $table->foreignIdFor(Promotion::class)->constrained()->cascadeOnDelete();
+        Schema::create('promos_users', function(Blueprint $table){
+            $table->foreignIdFor(Promo::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->primary('promotion_id', 'user_id');
+            $table->primary('promo_id', 'user_id');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('promotions');
+        Schema::dropIfExists('promos');
+        Schema::dropIfExists('promos_users');
     }
 };

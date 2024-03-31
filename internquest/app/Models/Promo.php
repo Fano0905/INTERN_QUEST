@@ -11,6 +11,8 @@ class Promo extends Model
 
     public $timestamps = \false;
 
+    protected $table = 'promos';
+
     protected $fillable = ['name', 'pilote_id'];
 
     public function pilote()
@@ -19,6 +21,6 @@ class Promo extends Model
     }
     
     public function etudiants() {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'promos_users', 'promo_id', 'user_id');
     }
 }

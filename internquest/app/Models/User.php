@@ -29,8 +29,7 @@ class User extends Authenticatable
         'mail',
         'password',
         'username',
-        'role',
-        'centre'
+        'role'
     ];
 
     /**
@@ -56,7 +55,7 @@ class User extends Authenticatable
         return $this->hasOne(Promo::class, 'pilote_id');
     }
 
-    public function promo_etudiant(){
-        return $this->belongsTo(Promo::class);
+    public function promos() {
+        return $this->belongsToMany(Promo::class, 'promos_users', 'user_id', 'promo_id');
     }
 }
