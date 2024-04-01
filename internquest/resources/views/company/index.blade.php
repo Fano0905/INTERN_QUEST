@@ -17,7 +17,7 @@
         <p>Vous pouvez nous trouver sur {{$company->website}}</p>
         <form action="{{route('companies.show', $company->id)}}" method="GET">
             @csrf
-            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">En savoir plus</button>
+            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
         </form>
     @endforeach
 </div>

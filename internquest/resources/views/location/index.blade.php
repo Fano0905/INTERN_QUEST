@@ -10,7 +10,11 @@
             @csrf
             <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Modifier l'adresse</button>
         </form>
-        <a href="{{route('locations.destroy', $location->id)}}"><button type="submit" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Effacer l'adresse</button></a>
+        <form action="{{route('locations.destroy', $location->id)}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Effacer l'adresse</button>
+        </form>        
     </div>
     @endforeach
 @endsection

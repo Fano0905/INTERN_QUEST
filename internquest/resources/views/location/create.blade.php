@@ -3,7 +3,7 @@
 <form action="{{route('locations.store')}}" method="POST" enctype>
     @csrf
     <div class="relative mb-6">
-        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">postal code</label>
+        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Code postal</label>
         <input type="text" name="postal_code" id="postal_code" required placeholder="Code Postal" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
         @error('postal_code')
             <p style="color: red;">{{$message}}</p>
@@ -11,8 +11,10 @@
         <span class="error-message" id="error-postal_code"></span><br>
     </div>
     <div class="relative mb-6">
-        <label required class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">City</label>
-        <select name="city" id="city" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+        <label required class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Ville</label>
+        <input type="text" name="cities" id="cities" required placeholder="Ville" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+        <input type="hidden" name="city" id="city" value="">
+        <select name="select_city" id="select_city" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             <option id="opt"></option>
         </select>
         @error('city')
@@ -20,7 +22,7 @@
         @enderror
     </div>
     <div class="relative mb-6">
-        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Location</label>
+        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Adresse</label>
         <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
         @error('location')
             <p style="color: red;">{{$message}}</p>
@@ -44,36 +46,54 @@
         fetchCitiesAndPopulateSelect(postalCode);
     });
 
-    document.getElementById("city").addEventListener("change", async function() {
-    var selectedCity = this.value;
-    var postalCodeInput = document.getElementById("postal_code");
-    var errorElement = document.getElementById('error-postal_code');
-    errorElement.innerHTML = ""; // Vider le message d'erreur précédent
+    document.getElementById("cities").addEventListener("input", async function() {
+        var cityName = this.value.trim();
+        if (cityName.length < 3) return; // Ne pas faire de requête si moins de 3 caractères
+        var postalCodeInput = document.getElementById("postal_code");
+        var errorElement = document.getElementById('error-postal_code');
+        errorElement.innerHTML = ""; // Vider le message d'erreur précédent
 
-    try {
-        var postalCode = await fetchCPbycity(selectedCity);
-        postalCodeInput.value = postalCode; // Remplir le champ de saisie du code postal
-    } catch (error) {
-        console.error('Error fetching postal code:', error);
-        errorElement.innerHTML = "Code postal introuvable pour la ville sélectionnée";
-    }
-});
-
-async function fetchCPbycity(city) {
-    const apiUrl = `https://vicopo.selfbuild.fr/cherche/${city}`;
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        if (data && data.cities && data.cities.length > 0) {
-            return data.cities[0].codePostal; // Retourner le code postal
-        } else {
-            throw new Error("Aucun code postal trouvé pour la ville");
+        try {
+            var postalCode = await fetchCPbycity(cityName);
+            postalCodeInput.value = postalCode; // Remplir le champ de saisie du code postal
+        } catch (error) {
+            console.error('Error fetching postal code:', error);
+            errorElement.innerHTML = "Code postal introuvable pour la ville saisie";
         }
-    } catch (error) {
-        throw error;
-    }
-}
+        document.getElementById("city").value = cityName
+    });
 
+    document.getElementById("select_city").addEventListener("change", async function() {
+        var selectedCity = this.value;
+        var postalCodeInput = document.getElementById("postal_code");
+        var errorElement = document.getElementById('error-postal_code');
+        errorElement.innerHTML = ""; // Vider le message d'erreur précédent
+
+        try {
+            var postalCode = await fetchCPbycity(selectedCity);
+            postalCodeInput.value = postalCode; // Remplir le champ de saisie du code postal
+        } catch (error) {
+            console.error('Error fetching postal code:', error);
+            errorElement.innerHTML = "Code postal introuvable pour la ville sélectionnée";
+        }
+        document.getElementById("city").value = selectedCity;
+    });
+
+    async function fetchCPbycity(city) {
+        const apiUrl = `https://vicopo.selfbuild.fr/cherche/${encodeURIComponent(city)}`;
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            if (data && data.cities && data.cities.length) {
+                // Supposons que le premier élément du tableau est la ville correspondante
+                return data.cities[0].code; // Notez que la propriété est 'code', pas 'codePostal'
+            } else {
+                throw new Error("Aucun code postal trouvé pour la ville");
+            }
+        } catch (error) {
+            throw error;
+        }
+    }
 
     async function fetchCitiesByPostalCode(postalCode) {
         const apiUrl = `https://vicopo.selfbuild.fr/cherche/${postalCode}`;
