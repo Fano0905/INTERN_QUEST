@@ -9,11 +9,15 @@ class Evaluation extends Model
 {
     use HasFactory;
 
-    public $timestamps = \false;
+    public $timestamps = true;
 
-    protected $fillable = ['note', 'comment', 'object', 'title'];
+    protected $fillable = ['note', 'comment', 'title', 'company_id', 'user_id'];
 
     public function entreprises(){
         return $this->belongsTo(Company::class);
+    }
+
+    public function noter(){
+        return $this->belongsToMany(Company::class, 'companies_evaluations', 'evaluation_id', 'company_id');
     }
 }

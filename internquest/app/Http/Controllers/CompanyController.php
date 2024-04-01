@@ -156,6 +156,32 @@ class CompanyController extends Controller
     }
 
     /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function addAddress(Request $request, $id)
+    {
+        $request->validate([
+            'postal_code' => ['required'],
+            'city' => ['required'],
+            'location' => ['required']
+        ]);
+
+        $company = Company::find($id);
+    
+        // Créer la Location avec les données validées
+        $locationData = $request->only(['postal_code', 'city', 'location']);
+        $location = Location::create($locationData);
+        $company->locations()->attach($location->id);
+
+        return redirect()->route('companies.index')
+            ->with('success', 'Nouvelle adresse attribuée');
+    }
+
+    /**
      * Show the form for editing the specified company.
      *
      * @param  int  $id
@@ -165,8 +191,9 @@ class CompanyController extends Controller
     public function evaluate($id){
 
         $company = Company::find($id);
+        $notes = [1, 2, 3, 4, 5];
 
-        return \view('opinion.avis', \compact('company'));
+        return \view('opinion.avis', \compact('company', 'notes'));
     }
 
         /**
@@ -180,11 +207,18 @@ class CompanyController extends Controller
      public function e_store(Request $request, $id)
      {
         $request->validate([
-            'note' => 'numeric', 'comment' => 'required', 'id_company' => ['required'], 'object' => 'required'
-        ]);
+            'note' => ['required'], 
+            'comment' => ['required'], 
+            'company_id' => ['required'],
+            'user_id' => ['required'],
+            'title' => ['required', 'string', 'max:255'],
+        ], [
+            'title.required' => 'Le champ titre est obligatoire.',
+        ]);        
  
-        $company = Company::find($id);
         $evaluation = Evaluation::create($request->all());
+        $company = Company::find($id);
+        $company->notes()->attach($evaluation->id);
  
         return redirect()->route('companies.index')
             ->with('success', 'Your opinion has been saved');

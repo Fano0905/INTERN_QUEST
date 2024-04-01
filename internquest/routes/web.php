@@ -25,7 +25,7 @@ use Whoops\Run;
 
 //Routes principales
 
-Route::get('/user/list', [WebController::class, 'index'])->name('users.list');
+Route::get('/user/list', [WebController::class, 'index'])->name('users.list')->middleware('auth');
 
 Route::get('/', function () {
     return view('accueil');
@@ -49,7 +49,7 @@ Route::prefix('/internquest')->name('users.')->controller(UserController::class)
     // adds a user to the database
     Route::post('user/', 'store')->name('store');
     // returns a page that shows a full user
-    Route::get('/{user}', [UserController::class, 'show'])->name('show');
+    Route::get('/{user}', [UserController::class, 'show'])->name('show')->middleware('auth');
     // returns the form for editing a user
     Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('auth');
     // updates a user
@@ -74,13 +74,15 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
     
     Route::put('/{company}', [CompanyController::class, 'update'])->name('update')->middleware('auth');
 
-    Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy');
+    Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy')->middleware('auth');
 
     Route::get('/', [CompanyController::class, 'index'])->name('index');
 
     Route::get('/{company}/evaluate', 'evaluate')->name('evaluate')->middleware('auth');
 
     Route::post('/{company}', 'e_store')->name('e_store');
+
+    Route::post('/{company}/address', 'addAddress')->name('address')->middleware('auth');
 });
 
 //Routes Offres
@@ -96,9 +98,9 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     
     Route::put('/{offer}', [OfferController::class, 'update'])->name('update')->middleware('auth');
     
-    Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy');
+    Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy')->middleware('auth');
 
-    Route::get('/', [OfferController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/', [OfferController::class, 'index'])->name('index');
 });
 
 //Routes candidature
@@ -127,31 +129,31 @@ Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(
 //Routes Promo
 
 Route::prefix('/promo')->name('promos.')->controller(PromoController::class)->group(function(){
-    Route::get('/', 'index')->name('index');
+    Route::get('/', 'index')->name('index')->middleware('auth');
 
-    Route::get('/create', 'create')->name('create');
+    Route::get('/create', 'create')->name('create')->middleware('auth');
 
     Route::post('/create', 'store')->name('store');
 
-    Route::get('/{promo}/edit', 'edit')->name('edit');
+    Route::get('/{promo}/edit', 'edit')->name('edit')->middleware('auth');
 
     Route::put('/{promo}', 'update')->name('update');
 
-    Route::get('/{promo}', 'show')->name('show');
+    Route::get('/{promo}', 'show')->name('show')->middleware('auth');
 
-    Route::delete('/{promo}', 'destroy')->name('destroy');
+    Route::delete('/{promo}', 'destroy')->name('destroy')->middleware('auth');
 });
 
 Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserController::class)->group(function(){
-    Route::get('/create', 'create')->name('create'); // La route sera nommée 'classes.insert'
+    Route::get('/create', 'create')->name('create')->middleware('auth'); // La route sera nommée 'classes.insert'
 
     Route::post('/create', 'store')->name('store'); // La route sera nommée 'classes.store'
 
-    Route::get('/{etudiant}/edit', 'edit')->name('edit');
+    Route::get('/{etudiant}/edit', 'edit')->name('edit')->middleware('auth');
 
     Route::put('/{etudiant}', 'update')->name('update');
 
-    Route::delete('/{user}', 'destroy')->name('destroy');
+    Route::delete('/{user}', 'destroy')->name('destroy')->middleware('auth');
 });
 
 Route::prefix('/address')->name('locations.')->controller(LocationController::class)->group(function(){

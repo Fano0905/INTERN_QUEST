@@ -15,10 +15,7 @@
         <p>Nom {{$company->name}}</p>
         <p>Secteur {{$company->area}}</p>
         <p>Vous pouvez nous trouver sur {{$company->website}}</p>
-        <form action="{{route('companies.show', $company->id)}}" method="GET">
-            @csrf
-            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
-        </form>
+        <a href="{{route('companies.show', $company->id)}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
     @endforeach
 </div>
 @endsection()

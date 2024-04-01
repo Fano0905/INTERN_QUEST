@@ -21,8 +21,8 @@ class Company extends Model
         return $this->hasMany(Offer::class);
     }
 
-    public function note(){
-        return $this->hasMany(Evaluation::class);
+    public function notes(){
+        return $this->belongsToMany(Evaluation::class, 'companies_evaluations', 'company_id', 'evaluation_id');
     }
 
     public function area(){

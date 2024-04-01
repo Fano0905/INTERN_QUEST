@@ -22,13 +22,21 @@
                                 <ion-icon name="home"></ion-icon>
                                 Accueil</a>
                             </div>
-                                <div class="text-gray-700 items-center hidden md:flex space-x-8">
-                                    <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Se connecter</a>
-                                    <div class="py-5 px-3 hover:text-black">
-                                        <ion-icon name="person-add"></ion-icon>
-                                        <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
-                                    </div>
+                            <div class="py-5 px-3 hover:text-black">
+                                <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
+                                    Offres</a>
+                            </div>
+                            <div class="py-5 px-3 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
+                                <ion-icon name="business"></ion-icon>
+                                Entreprises</a>
+                            </div>
+                            <div class="text-gray-700 items-center hidden md:flex space-x-8">
+                                <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Se connecter</a>
+                                <div class="py-5 px-3 hover:text-black">
+                                    <ion-icon name="person-add"></ion-icon>
+                                    <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
