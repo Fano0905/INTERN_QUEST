@@ -37,7 +37,7 @@ class UserController extends Controller
             'password' => ['required', 'min:6'],
             'username' => ['required','unique:users,username'],
             'role' => ['required'],
-            'location' => ['required']
+            'centre' => 'required'
         ]);
         User::create($request->all());
 
@@ -70,7 +70,8 @@ class UserController extends Controller
                 'required',
                 Rule::unique('users')->ignore(request()->route('user')),
             ],
-            'role' => ['required']
+            'role' => ['required'],
+            'centre' => 'required'
         ]);
 
         $user = User::find($id);

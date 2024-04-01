@@ -9,9 +9,10 @@ class Location extends Model
 {
     use HasFactory;
 
+    public $timestamps = \false;
     protected $fillable = ['postal_code', 'city', 'location'];
 
     public function companies(){
-        return $this->hasMany(Company::class);
+        return $this->belongsToMany(Company::class, 'companies_locations', 'location_id','company_id');
     }
 }

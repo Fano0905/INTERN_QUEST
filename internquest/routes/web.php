@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Promos_UserController;
 use Illuminate\Auth\Events\Logout;
 use Whoops\Run;
@@ -30,12 +30,6 @@ Route::get('/user/list', [WebController::class, 'index'])->name('users.list');
 Route::get('/', function () {
     return view('accueil');
 })->name('internquest/');
-
-Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserController::class)->group(function(){
-    Route::get('/insert', 'create')->name('create'); // La route sera nommée 'classes.insert'
-    Route::post('/insert', 'store')->name('store'); // La route sera nommée 'classes.store'
-    Route::delete('/{user}', 'destroy')->name('destroy');
-});
 
 //Routes secteur
 Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){
@@ -139,7 +133,37 @@ Route::prefix('/promo')->name('promos.')->controller(PromoController::class)->gr
 
     Route::post('/create', 'store')->name('store');
 
+    Route::get('/{promo}/edit', 'edit')->name('edit');
+
+    Route::put('/{promo}', 'update')->name('update');
+
     Route::get('/{promo}', 'show')->name('show');
 
     Route::delete('/{promo}', 'destroy')->name('destroy');
+});
+
+Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserController::class)->group(function(){
+    Route::get('/create', 'create')->name('create'); // La route sera nommée 'classes.insert'
+
+    Route::post('/create', 'store')->name('store'); // La route sera nommée 'classes.store'
+
+    Route::get('/{etudiant}/edit', 'edit')->name('edit');
+
+    Route::put('/{etudiant}', 'update')->name('update');
+
+    Route::delete('/{user}', 'destroy')->name('destroy');
+});
+
+Route::prefix('/address')->name('locations.')->controller(LocationController::class)->group(function(){
+    Route::get('/', 'index')->name('index');
+
+    Route::get('/create', 'create')->name('create');
+
+    Route::post('/create', 'store')->name('store');
+
+    Route::get('/{location}/edit', 'edit')->name('edit');
+
+    Route::put('/{location}', 'update')->name('update');
+
+    Route::delete('/{location}', 'destroy')->name('destroy');
 });

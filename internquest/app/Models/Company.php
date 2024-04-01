@@ -15,27 +15,13 @@ class Company extends Model
         'name',
         'area',
         'website',
-        'pilot',
-        'location',
-        'evaluation'
     ];
-
-    public function pilote() {
-        // Vérifier si l'utilisateur est authentifié et s'il a un rôle
-        if ((auth()->check() && auth()->user()->role == 'Pilote') || (auth()->user()->role == 'Admin')) {
-            // Si l'utilisateur a le rôle "pilote", retourner la relation
-            return $this->belongsTo(User::class);
-        } else {
-            // Sinon, retourner null
-            return null;
-        }
-    }
 
     public function offre(){
         return $this->hasMany(Offer::class);
     }
 
-    public function evaluation(){
+    public function note(){
         return $this->hasMany(Evaluation::class);
     }
 
@@ -44,6 +30,6 @@ class Company extends Model
     }
 
     public function location(){
-        return $this->belongsToMany(Location::class, 'id');
+        return $this->belongsToMany(Location::class, 'companies_locations', 'company_id', 'location_id');
     }
 }

@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('layout')
 
 @section('content')
 <div id="insert_dialog" class="fixed inset-0 m-auto w-100 h-110  bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
@@ -8,11 +8,13 @@
             @csrf
             <div class="relative mb-6">
                 <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Promo concerné</label>
-                <select type="number" name="promo_id" id="promo_id" required placeholder="First name" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                <select type="number" name="promo_id" id="promo_id" required class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     @foreach ($promos as $promo)
-                        <option @if ($loop->first) selected @endif>{{$promo->id}}</option>
+                        <option value="{{ $promo->id }}" @if ($loop->first) selected @endif data-name="{{ $promo->name }}" title="{{ $promo->name }}">
+                            {{ $promo->id }}
+                        </option>
                     @endforeach
-                </select>
+                </select>                
                 @error('promo_id')
                     <p style="color: red;">{{$message}}</p>
                 @enderror
@@ -21,7 +23,7 @@
                 <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Etudiant</label>
                 <select name="user_id" id="user_id" required class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     @foreach ($etudiants as $etudiant)
-                        <option @if ($loop->first) selected @endif>{{$etudiant->id}}</option>
+                        <option @if ($loop->first) selected @endif data-name="{{ $etudiant->fname }}, {{ $etudiant->lname }}" title="{{ $etudiant->fname }}, {{ $etudiant->lname }}">{{$etudiant->id}}</option>
                     @endforeach
                 </select>
                 <span>
