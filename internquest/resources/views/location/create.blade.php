@@ -12,7 +12,7 @@
     </div>
     <div class="relative mb-6">
         <label required class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Ville</label>
-        <input type="text" name="cities" id="cities" required placeholder="Ville" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+        <input type="text" name="cities" id="cities" placeholder="Ville" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
         <input type="hidden" name="city" id="city" value="">
         <select name="select_city" id="select_city" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             <option id="opt"></option>
@@ -116,7 +116,7 @@
     }
 
     async function fetchCitiesAndPopulateSelect(postalCode) {
-        const selectElement = document.getElementById('city');
+        const selectElement = document.getElementById('select_city');
         
         // Clear previous options
         selectElement.innerHTML = '<option value="" disabled selected>Loading...</option>';

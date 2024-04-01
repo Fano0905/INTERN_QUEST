@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Evaluation;
 use App\Models\Location;
-use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
@@ -56,10 +54,11 @@ class CompanyController extends Controller
         // Créer la Location avec les données validées
         $locationData = $request->only(['postal_code', 'city', 'location']);
         $location = Location::create($locationData);
+        $company->locations()->attach($location->id);
     
         return redirect()->route('companies.index')
             ->with('success', 'Company created successfully.');
-    }    
+    }
 
     /**
      * Update the specified resource in storage.
@@ -77,15 +76,20 @@ class CompanyController extends Controller
             ],
             'area' => ['required'],
             'website' => ['required', Rule::unique('companies', 'website')->ignore($id)],
-            /*
             'postal_code' => ['required'],
             'city' => ['required'],
             'location' => ['required']
-            */
         ]);
 
         $company = Company::find($id);
-        $company->update($request->all());
+        // Créer la Company avec les données validées
+        $companyData = $request->only(['name', 'area', 'website']);
+        $company->update($companyData);
+    
+        // Créer la Location avec les données validées
+        $locationData = $request->only(['postal_code', 'city', 'location']);
+        $location = $company->locations->first();
+        $location->update($locationData);
 
         return redirect()->route('companies.index')
             ->with('success', 'Company updated successfully.');
@@ -130,8 +134,10 @@ class CompanyController extends Controller
     public function show($id)
     {
         $company = Company::find($id);
+        $locations = $company->locations->slice(1); // récupère toutes les adresses sauf la première
+        $siege = $company->locations->first(); // récupère la première adresse
 
-        return view('company.show', compact('company'));
+        return view('company.show', compact('company', 'locations', 'siege'));
     }
 
     /**
@@ -143,9 +149,10 @@ class CompanyController extends Controller
     public function edit($id)
     {
         $company = Company::find($id);
+        $location = $company->locations->first();
         $areas = Area::all();
 
-        return view('company.edit', compact('company', 'areas'));
+        return view('company.edit', compact('company', 'areas', 'location'));
     }
 
     /**

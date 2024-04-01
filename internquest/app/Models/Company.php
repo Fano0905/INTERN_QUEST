@@ -29,7 +29,7 @@ class Company extends Model
         return $this->belongsTo(Area::class);
     }
 
-    public function location(){
+    public function locations(){
         return $this->belongsToMany(Location::class, 'companies_locations', 'company_id', 'location_id');
     }
 }

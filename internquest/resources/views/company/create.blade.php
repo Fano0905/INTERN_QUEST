@@ -47,7 +47,6 @@
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
-        <h2>Siège social</h2>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Code postal</label>
             <input type="text" name="postal_code" id="postal_code" required placeholder="Code Postal" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
@@ -58,9 +57,9 @@
         </div>
         <div class="relative mb-6">
             <label required class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Ville</label>
-            <input type="text" name="cities" id="cities" required placeholder="Ville" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="cities" id="cities" placeholder="Ville" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             <input type="hidden" name="city" id="city" value="">
-            <select name="select_city" id="select_city" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <select name="select_city" id="select_city" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400" disabled>
                 <option id="opt"></option>
             </select>
             @error('city')
@@ -91,8 +90,18 @@
             fetchCitiesAndPopulateSelect(postalCode);
         });
     
+        document.getElementById("name").addEventListener("input", function() {
+            this.value = this.value.toUpperCase();
+        });
+
         document.getElementById("cities").addEventListener("input", async function() {
             var cityName = this.value.trim();
+            var selectCity = document.getElementById("select_city");
+            if (this.value.trim() !== "") {
+                selectCity.disabled = true;
+            } else {
+                selectCity.disabled = false;
+            }
             if (cityName.length < 3) return; // Ne pas faire de requête si moins de 3 caractères
             var postalCodeInput = document.getElementById("postal_code");
             var errorElement = document.getElementById('error-postal_code');
@@ -113,7 +122,13 @@
             var postalCodeInput = document.getElementById("postal_code");
             var errorElement = document.getElementById('error-postal_code');
             errorElement.innerHTML = ""; // Vider le message d'erreur précédent
-    
+            var inputCities = document.getElementById("cities");
+            if (this.value !== "") {
+                inputCities.value = ""; // Clear input value
+                inputCities.disabled = true; // Disable input
+            } else {
+                inputCities.disabled = false; // Enable input
+            }
             try {
                 var postalCode = await fetchCPbycity(selectedCity);
                 postalCodeInput.value = postalCode; // Remplir le champ de saisie du code postal
@@ -124,6 +139,13 @@
             document.getElementById("city").value = selectedCity;
         });
     
+        document.querySelector('form').addEventListener('submit', function() {
+            var inputCities = document.getElementById("cities");
+            var selectCity = document.getElementById("select_city");
+            inputCities.disabled = false;
+            selectCity.disabled = false;
+        });
+
         async function fetchCPbycity(city) {
             const apiUrl = `https://vicopo.selfbuild.fr/cherche/${encodeURIComponent(city)}`;
             try {
@@ -140,8 +162,8 @@
             }
         }
     
-        async function fetchCitiesByPostalCode(postalCode) {
-            const apiUrl = `https://vicopo.selfbuild.fr/cherche/${postalCode}`;
+        async function fetchCitiesByPostalCode(code) {
+            const apiUrl = `https://vicopo.selfbuild.fr/cherche/${encodeURIComponent(code)}`;
     
             try {
                 const response = await fetch(apiUrl);
@@ -161,15 +183,17 @@
         }
     
         async function fetchCitiesAndPopulateSelect(postalCode) {
-            const selectElement = document.getElementById('city');
-            
-            // Clear previous options
+            const selectElement = document.getElementById('select_city');
+            const inputCities = document.getElementById("cities");
+
+            // Clear previous options and disable select while loading
             selectElement.innerHTML = '<option value="" disabled selected>Loading...</option>';
-            
+            selectElement.disabled = true;
+
             try {
                 const cities = await fetchCitiesByPostalCode(postalCode);
-                
-                // Populate select element with cities
+
+                // Populate select element with cities and enable it
                 selectElement.innerHTML = '';
                 if (cities.length > 0) {
                     cities.forEach(city => {
@@ -178,14 +202,18 @@
                         option.textContent = city.city;
                         selectElement.appendChild(option);
                     });
+                    selectElement.disabled = false; // Enable select after loading cities
+                    inputCities.disabled = true; // Disable input if select has options
                 } else {
-                    // If no cities found, display a message
+                    // If no cities found, display a message and enable input
                     selectElement.innerHTML = '<option value="" disabled selected>No cities found</option>';
+                    inputCities.disabled = false;
                 }
             } catch (error) {
                 console.error('Error populating cities:', error);
-                // Display error message
+                // Display error message and enable input
                 selectElement.innerHTML = '<option value="" disabled selected>Error loading cities</option>';
+                inputCities.disabled = false;
             }
         }
     </script>
