@@ -6,6 +6,7 @@ use App\Models\Area;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Evaluation;
+use App\Models\Location;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -39,17 +40,26 @@ class CompanyController extends Controller
             ],
             'area' => ['required'],
             'website' => ['required'],
+            'postal_code' => ['required'],
+            'city' => ['required'],
+            'location' => ['required']
         ], [
             'name.required' => 'Please enter the company name.',
             'area.required' => 'Please enter the company area.',
             'website.required' => 'Please enter the company\'s website.',
-        ]);        
-
-        Company::create($request->all());
-
+        ]);
+    
+        // Créer la Company avec les données validées
+        $companyData = $request->only(['name', 'area', 'website']);
+        $company = Company::create($companyData);
+    
+        // Créer la Location avec les données validées
+        $locationData = $request->only(['postal_code', 'city', 'location']);
+        $location = Location::create($locationData);
+    
         return redirect()->route('companies.index')
             ->with('success', 'Company created successfully.');
-    }
+    }    
 
     /**
      * Update the specified resource in storage.
@@ -66,7 +76,12 @@ class CompanyController extends Controller
                 Rule::unique('companies', 'name')->ignore($id, 'id'),
             ],
             'area' => ['required'],
-            'website' => ['required', Rule::unique('companies', 'website')->ignore($id)]
+            'website' => ['required', Rule::unique('companies', 'website')->ignore($id)],
+            /*
+            'postal_code' => ['required'],
+            'city' => ['required'],
+            'location' => ['required']
+            */
         ]);
 
         $company = Company::find($id);

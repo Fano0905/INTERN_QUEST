@@ -9,6 +9,7 @@ class Location extends Model
 {
     use HasFactory;
 
+    public $timestamps = \false;
     protected $fillable = ['postal_code', 'city', 'location'];
 
     public function companies(){
