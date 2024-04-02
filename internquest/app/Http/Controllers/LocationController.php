@@ -54,7 +54,6 @@ class LocationController extends Controller
             'city' => ['required'],
             'location' => ['required']
         ]);
-
         $location = Location::find($id);
         $location->update($request->all());
 
