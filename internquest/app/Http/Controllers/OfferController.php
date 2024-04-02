@@ -45,7 +45,7 @@ class OfferController extends Controller
         Offer::create($request->all());
 
         return redirect()->route('offers.index')
-            ->with('success', 'Offer created successfully.');
+            ->with('success', 'Offre créée avec succès.');
     }
 
     /**
@@ -59,7 +59,7 @@ class OfferController extends Controller
     {
         $offer = Offer::find($id);
 
-        $offer->update($request->validated(
+        $request->validate(
             [
                 'title' => ['required'],
                 'city' => ['required'],
@@ -70,10 +70,11 @@ class OfferController extends Controller
                 'company_id' => ['required'],
                 'description' => ['required', 'min:20']
             ]
-        ));
+        );
+        $offer->update($request->all());
 
         return redirect()->route('offers.index')
-            ->with('success', 'Offer updated successfully.');
+            ->with('success', "L'offre a bien été modifié.");
     }
 
     /**
@@ -89,7 +90,7 @@ class OfferController extends Controller
         $offer->delete();
 
         return redirect()->route('offers.index')
-            ->with('success', 'Offer deleted successfully');
+            ->with('success', "L'offre a bien été supprimé");
     }
 
     // routes functions
