@@ -8,7 +8,9 @@ use App\Models\Promotion;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
@@ -30,15 +32,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'lname' => ['required', 'min:3'],
             'fname' => ['required', 'min:4'],
             'mail' => ['required','unique:users,mail'],
             'password' => ['required', 'min:6'],
             'username' => ['required','unique:users,username'],
             'role' => ['required'],
-            'centre' => 'required'
+            'centre' => ['required']
         ]);
+        
+        $validator->after(function ($validator) use ($request) {
+            // Vérifiez si la combinaison de lname et fname existe déjà
+            $existingUser = User::where('lname', $request->lname)->where('fname', $request->fname)->first();
+            if ($existingUser) {
+                $validator->errors()->add('lname', 'The combination of last name and first name already exists.');
+                $validator->errors()->add('fname', 'The combination of last name and first name already exists.');
+            }
+        });
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
         User::create($request->all());
 
         if (Auth::check()) { // Vérifie si l'utilisateur est connecté
@@ -71,7 +88,7 @@ class UserController extends Controller
                 Rule::unique('users')->ignore(request()->route('user')),
             ],
             'role' => ['required'],
-            'centre' => 'required'
+            'centre' => ['required']
         ]);
 
         $user = User::find($id);

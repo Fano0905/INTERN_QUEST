@@ -79,6 +79,10 @@
         document.getElementById("city").value = selectedCity;
     });
 
+    document.getElementById("city").addEventListener("input", function() {
+            this.value = this.value.toUpperCase();
+    });
+
     async function fetchCPbycity(city) {
         const apiUrl = `https://vicopo.selfbuild.fr/cherche/${encodeURIComponent(city)}`;
         try {

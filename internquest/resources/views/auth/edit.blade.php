@@ -20,19 +20,19 @@
         </div>
     }
     @endif
-    <form action="{{route('users.update', Auth::user()->id)}}" method="POST">
+    <form action="{{route('users.update', $user->id)}}" method="POST">
         @csrf
         @method('PUT')
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">LName</label>
-            <input type="text" name="lname" id="lname" required value="{{Auth::user()->lname}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="lname" id="lname" required value="{{$user->lname}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('lname')
             <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">FName</label>
-            <input type="text" name="fname" id="fname" required value="{{Auth::user()->fname}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="fname" id="fname" required value="{{$user->fname}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('fname')
             <p style="color: red;">{{$message}}</p>
             @enderror
@@ -40,7 +40,7 @@
         <div class="relative mb-6">
             <ion-icon name="mail" class="absolute text-gray-700 text-lg left-2 top-1/2 transform -translate-y-1/2"></ion-icon>
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Mail</label>
-            <input type="mail" name="mail" id="mail" required value="{{Auth::user()->mail}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="mail" name="mail" id="mail" required value="{{$user->mail}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('mail')
             <p style="color: red;">{{$message}}</p>
             @enderror
@@ -57,7 +57,7 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Username</label>
-            <input type="text" name="username" id="username" required value="{{Auth::user()->username}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="username" id="username" required value="{{$user->username}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('username')
             <p style="color: red;">{{$message}}</p>
             @enderror
@@ -75,15 +75,17 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Centre</label>
-            <input type="text" name="centre" id="centre" required placeholder="Centre" value="{{Auth::user()->centre}}" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <input type="text" name="centre" id="centre" required placeholder="Centre" value="{{$user->centre}}" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('centre')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
-        <div>
-            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Edit</button>
-            <a href="{{route('interquest/')}}"><button class="w-full h-11 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium">Cancel</button>
-        </div>
+        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Modifier</button>
     </form>
+    <a href="{{ url()->previous() }}">
+        <button class="w-full h-11 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium">
+            Annuler
+        </button>
+    </a>
 </body>
 </html>

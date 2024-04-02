@@ -56,6 +56,10 @@ class User extends Authenticatable
         return $this->hasOne(Promo::class, 'pilote_id');
     }
 
+    public function evaluate(){
+        return $this->hasMany(Evaluation::class, 'user_id', 'id');
+    }
+
     public function promos() {
         return $this->belongsToMany(Promo::class, 'promos_users', 'user_id', 'promo_id');
     }

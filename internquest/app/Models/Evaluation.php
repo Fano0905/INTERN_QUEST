@@ -17,6 +17,10 @@ class Evaluation extends Model
         return $this->belongsTo(Company::class);
     }
 
+    public function evaluation(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function noter(){
         return $this->belongsToMany(Company::class, 'companies_evaluations', 'evaluation_id', 'company_id');
     }

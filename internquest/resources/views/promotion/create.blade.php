@@ -30,5 +30,10 @@
                 <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Créer promo</button>
             </div>
         </form>
+        <a href="{{ url()->previous() }}">
+            <button class="w-full h-11 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium">
+                Annuler
+            </button>
+        </a>  
     </div>
 @endsection

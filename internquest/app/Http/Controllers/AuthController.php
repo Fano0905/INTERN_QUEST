@@ -29,7 +29,9 @@ class AuthController extends Controller
             'password' => 'Mot de passe incorrect'
         ])->onlyInput('email');
     }
+
     public function show(){
-        return \view('auth.user');
+
+        return \view('auth.auth');
     }
 }

@@ -30,4 +30,8 @@ class Offer extends Model
     public function candidature(){
         return $this->hasMany(Application::class);
     }
+
+    public function promos(){
+        return $this->belongsToMany(Promo::class);
+    }
 }

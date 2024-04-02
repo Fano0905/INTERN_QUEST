@@ -10,7 +10,6 @@ use App\Http\Controllers\PromoController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Promos_UserController;
 use Illuminate\Auth\Events\Logout;
-use Whoops\Run;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,7 +77,13 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
 
     Route::get('/', [CompanyController::class, 'index'])->name('index');
 
-    Route::get('/{company}/evaluate', 'evaluate')->name('evaluate')->middleware('auth');
+    Route::get('/{company}/evaluate', [CompanyController::class, 'evaluate'])->name('evaluate')->middleware('auth');
+
+    Route::get('/{evaluation}/edit', 'e_edit')->name('e_edit')->middleware('auth');
+
+    Route::put('/{evaluation}/edit', 'e_update')->name('e_update');
+
+    Route::get('/evaluations', [CompanyController::class, 'list'])->name('list');
 
     Route::post('/{company}', 'e_store')->name('e_store');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OfferRequest;
 use App\Models\Company;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use App\Models\Promo;
@@ -20,7 +21,7 @@ class OfferController extends Controller
     {
         $offers = Offer::all();
 
-        return view('offer.index', compact('offers'));
+        return view('offer.index', \compact('offers'));
     }
 
     /**
@@ -35,7 +36,6 @@ class OfferController extends Controller
         $request->validate([
             'title' => 'required',
             'location' => 'required',
-            'class' => 'required',
             'duration' => 'required',
             'remuneration' => 'required',
             'date_offer' => ['required'],
@@ -62,7 +62,6 @@ class OfferController extends Controller
             [
                 'title' => 'required',
                 'location' => 'required',
-                'class' => 'required',
                 'duration' => 'required',
                 'remuneration' => 'required',
                 'date_offer' => ['required'],
@@ -100,9 +99,9 @@ class OfferController extends Controller
     public function create()
     {
         $companies = Company::all();
-        $classes = Promo::all();
+        $cities = Location::all()->pluck('city');
 
-        return view('offer.create', \compact('companies', 'classes'));
+        return view('offer.create', \compact('companies', 'cities'));
     }
 
 
@@ -129,9 +128,8 @@ class OfferController extends Controller
     {
         $offer = Offer::find($id);
         $companies = Company::all();
-        $classes = Promo::all();
+        $cities = Location::all()->pluck('city');
 
-
-        return view('offer.edit', compact('offer', 'companies', 'classes'));
+        return view('offer.edit', compact('offer', 'companies', 'cities'));
     }
 }

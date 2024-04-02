@@ -73,6 +73,12 @@
                                     <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
                                 </div>
                                 <div class="py-5 px-3 hover:text-black">
+                                    <a href="{{ route('companies.list') }}">
+                                        <ion-icon name="chatbubble-ellipses"></ion-icon>
+                                        Mes activités
+                                    </a>                                    
+                                </div>
+                                <div class="py-5 px-3 hover:text-black">
                                     <ion-icon name="person-circle"></ion-icon>
                                     <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
                                 </div>
@@ -113,6 +119,12 @@
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="school"></ion-icon>
                                 <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
+                            </div>
+                            <div class="py-5 px-3 hover:text-black">
+                                <a href="{{ route('companies.list') }}">
+                                    <ion-icon name="chatbubble-ellipses"></ion-icon>
+                                    Mes activités
+                                </a>                                
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>
@@ -163,6 +175,12 @@
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="list"></ion-icon>
                                 <a href="#" class="py-5 px-3 hover:text-black">Ma wishlist</a>
+                            </div>
+                            <div class="py-5 px-3 hover:text-black">
+                                <a href="{{ route('companies.list') }}">
+                                    <ion-icon name="chatbubble-ellipses"></ion-icon>
+                                    Mes activités
+                                </a>                                
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>
@@ -410,6 +428,9 @@
         return emailRegex.test(email);
     }
 
+    document.getElementById("centre").addEventListener("input", function() {
+            this.value = this.value.toUpperCase();
+    });
 </script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

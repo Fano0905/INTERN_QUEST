@@ -23,4 +23,8 @@ class Promo extends Model
     public function etudiants() {
         return $this->belongsToMany(User::class, 'promos_users', 'promo_id', 'user_id');
     }
+
+    public function offres(){
+        return $this->belongsToMany(Offer::class);
+    }
 }

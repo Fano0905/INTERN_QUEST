@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Accueil')</title>
+  <title>@yield('title', 'Vue de base')</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -73,6 +73,12 @@
                                     <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
                                 </div>
                                 <div class="py-5 px-3 hover:text-black">
+                                    <a href="{{ route('companies.list') }}">
+                                        <ion-icon name="chatbubble-ellipses"></ion-icon>
+                                        Mes activités
+                                    </a>                                    
+                                </div>
+                                <div class="py-5 px-3 hover:text-black">
                                     <ion-icon name="person-circle"></ion-icon>
                                     <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
                                 </div>
@@ -113,6 +119,12 @@
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="school"></ion-icon>
                                 <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
+                            </div>
+                            <div class="py-5 px-3 hover:text-black">
+                                <a href="{{ route('companies.list') }}">
+                                    <ion-icon name="chatbubble-ellipses"></ion-icon>
+                                    Mes activités
+                                </a>                                
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>

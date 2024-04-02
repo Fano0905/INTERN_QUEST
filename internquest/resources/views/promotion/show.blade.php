@@ -30,7 +30,7 @@
                     <td style="padding: 10px; text-align: left;">{{$etudiant->mail}}</td>
                     <td style="padding: 10px; text-align: left;"><form action="{{route('classes.destroy', $etudiant->id)}}" method="post">
                         @csrf
-                        @method('delete')
+                        @method('DELETE')
                         <button type="submit" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Retirer etudiant</button>
                     </form></td>
                 </tr>

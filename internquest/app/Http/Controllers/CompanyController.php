@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Evaluation;
 use App\Models\Location;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
@@ -134,11 +136,14 @@ class CompanyController extends Controller
     public function show($id)
     {
         $company = Company::find($id);
-        $locations = $company->locations->slice(1); // récupère toutes les adresses sauf la première
-        $siege = $company->locations->first(); // récupère la première adresse
-
+        if (!$company) {
+            // Gérer l'erreur, par exemple rediriger vers une page d'erreur ou afficher un message
+            return redirect()->back()->with('error', 'Company not found.');
+        }
+        $locations = $company->locations->slice(1);
+        $siege = $company->locations->first();
         return view('company.show', compact('company', 'locations', 'siege'));
-    }
+    }    
 
     /**
      * Show the form for editing the specified company.
@@ -223,4 +228,77 @@ class CompanyController extends Controller
         return redirect()->route('companies.index')
             ->with('success', 'Your opinion has been saved');
      }
+
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+
+    public function e_edit($id) {
+        $evaluation = Evaluation::with('noter.company')->find($id);
+        $notes = [1, 2, 3, 4, 5];
+        
+        // Récupérer l'entreprise associée à l'évaluation
+        $company = $evaluation->noter->company;
+        
+        // Passer les variables nécessaires à la vue
+        return view('opinion.edit', compact('evaluation', 'notes', 'company'));
+    }
+
+    public function list()
+    {
+        $user = Auth::user();
+
+        $user_co = User::find($user->id);
+        // Charger les évaluations avec les entreprises associées
+        $evaluations = $user_co->evaluate()->with('company')->get();
+
+        // Créer une collection pour stocker les entreprises
+        $companies = collect();
+
+        // Itérer sur les évaluations et ajouter les entreprises à la collection
+        foreach ($evaluations as $evaluation) {
+            // Assurez-vous que l'entreprise associée est bien chargée
+            if ($evaluation->company) {
+                $companies->push($evaluation->company);
+            }
+        }
+
+        // Supprimer les doublons d'entreprises
+        $companies = $companies->unique('id');
+
+        // Maintenant, $companies contient toutes les entreprises où $user_co a laissé un commentaire
+        return view('opinion.index', compact('evaluations', 'companies'));
+
+    }
+
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    
+    public function e_update(Request $request, $id)
+    {
+        $request->validate([
+            'note' => ['required'], 
+            'comment' => ['required'], 
+            'company_id' => ['required'],
+            'user_id' => ['required'],
+            'title' => ['required', 'string', 'max:255'],
+        ], [
+            'title.required' => 'Le champ titre est obligatoire.',
+        ]);        
+ 
+        $evaluation = Evaluation::find($id);
+        $evaluation->update($request->all());
+ 
+        return redirect()->route('companies.index')
+            ->with('success', 'Your opinion has been saved');
+    }
 }
