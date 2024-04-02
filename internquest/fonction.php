@@ -126,3 +126,9 @@ dd(Auth::user()); // Vérifier si un utilisateur est connecté
     });
 
     <div class="w-full p-10 flex flex-col items-center">
+
+    <img src="" alt="pdp" height="50" width="50">
+    <p>Nom : {{$user->lname}}</p>
+    <p>Prénom: {{$user->fname}}</p>
+    <p>Mail: {{$user->mail}}</p>
+    <p>Rôle: {{$user->role}}</p>

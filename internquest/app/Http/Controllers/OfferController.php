@@ -7,7 +7,6 @@ use App\Models\Company;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\Offer;
-use App\Models\Promo;
 use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
@@ -32,16 +31,17 @@ class OfferController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
-            'title' => 'required',
-            'location' => 'required',
-            'duration' => 'required',
-            'remuneration' => 'required',
+            'title' => ['required'],
+            'city' => ['required' ],
+            'duration' => ['required'],
+            'remuneration' => ['required'],
             'date_offer' => ['required'],
-            'place_offered' => 'required',
-            'description' => ['required', 'min:20']
+            'place_offered' => ['required'],
+            'company_id' => ['required'],
+            'description' => ['required']
         ]);
+
         Offer::create($request->all());
 
         return redirect()->route('offers.index')
@@ -58,15 +58,17 @@ class OfferController extends Controller
     public function update(Request $request, $id)
     {
         $offer = Offer::find($id);
+
         $offer->update($request->validated(
             [
-                'title' => 'required',
-                'location' => 'required',
-                'duration' => 'required',
-                'remuneration' => 'required',
+                'title' => ['required'],
+                'city' => ['required'],
+                'duration' => ['required'],
+                'remuneration' => ['required'],
                 'date_offer' => ['required'],
-                'place_offered' => 'required',
-                'description' => ['required', 'min:200']
+                'place_offered' => ['required'],
+                'company_id' => ['required'],
+                'description' => ['required', 'min:20']
             ]
         ));
 

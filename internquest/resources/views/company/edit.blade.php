@@ -22,6 +22,7 @@
     @endif
     <form action="{{route('companies.update', $company->id)}}" method="POST" enctype>
         @csrf
+        @method('PUT')
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nom</label>
             <input type="text" name="name" id="name" required placeholder="Nom" value="{{$company->name}}" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
@@ -94,6 +95,10 @@
             this.value = this.value.toUpperCase();
         });
 
+        document.getElementById("city").addEventListener("input", function() {
+            this.value = this.value.toUpperCase();
+        });
+
         document.getElementById("cities").addEventListener("input", async function() {
             var cityName = this.value.trim();
             var selectCity = document.getElementById("select_city");
@@ -115,6 +120,7 @@
                 errorElement.innerHTML = "Code postal introuvable pour la ville saisie";
             }
             document.getElementById("city").value = cityName
+            this.value = this.value.toUpperCase();
         });
     
         document.getElementById("select_city").addEventListener("change", async function() {
@@ -137,6 +143,7 @@
                 errorElement.innerHTML = "Code postal introuvable pour la ville sélectionnée";
             }
             document.getElementById("city").value = selectedCity;
+            this.value = this.value.toUpperCase();
         });
     
         document.querySelector('form').addEventListener('submit', function() {

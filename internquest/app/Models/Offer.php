@@ -13,18 +13,18 @@ class Offer extends Model
 
     protected $fillable = [
         'title',
-        'location',
+        'city',
         'class',
         'duration',
         'remuneration',
         'date_offer',
         'place_offered',
-        'id_company',
+        'company_id',
         'description'
     ];
 
     public function entreprise(){
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     public function candidature(){

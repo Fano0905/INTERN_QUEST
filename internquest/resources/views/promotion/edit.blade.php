@@ -6,7 +6,7 @@
             <h2 class="text-2xl text-blue-600 mb-6">Modifier une promo</h2>
             <form action="{{route('promos.update', $promo->id)}}" method="POST" class = w-full>
                 @csrf
-                @method('put')
+                @method('PUT')
                 <div class="relative mb-6">
                     <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nom</label>
                     <input type="text" name="name" id="name" required placeholder="Nom promo" value="{{$promo->name}}" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">

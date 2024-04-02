@@ -8,18 +8,6 @@
     <title>Création d'offre</title>
 </head>
 <body>
-
-    @if ($errors->any()) {
-        <div>
-            <div style="font-style: italic; color:red;">Something went wrong</div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    }
-    @endif
     <form action="{{route('offers.store')}}" method="POST">
         @csrf
         <div class="relative mb-6">
@@ -31,12 +19,12 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Localité</label>
-            <select name="location" id="location" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <select name="city" id="city" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                 @foreach ($cities as $city)
-                    <option value="{{$city}}">{{$city}}</option>
+                    <option @if ($loop->first) selected @endif value="{{$city}}">{{$city}}</option>
                 @endforeach
             </select>
-            @error('location')
+            @error('city')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
@@ -45,7 +33,7 @@
             <input type="text" name="duration" id="duration" required placeholder="durée" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             <p id="duration-error" style="color: red;"></p>
             @error('duration')
-            <p style="color: red;">{{$message}}</p>
+                <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
@@ -53,7 +41,7 @@
             <input type="number" name="remuneration" id="remuneration" required placeholder="remuneration" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             <p id="remuneration-error" style="color: red;"></p>
             @error('remuneration')
-            <p style="color: red;">{{$message}}</p>
+                <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
         <div class="relative mb-6">
@@ -74,12 +62,12 @@
         </div>
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Entreprise</label>
-            <select name="company" id="company" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <select name="company_id" id="company_id" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                 @foreach ($companies as $company)
                     <option @if ($loop->first) selected @endif data-name="{{ $company->name }}" title="{{ $company->name }}">{{$company->id}}</option>
                 @endforeach
             </select>
-            @error('id_company')
+            @error('company_id')
                 <p style="color: red;">{{$message}}</p>
             @enderror
         </div>
@@ -97,35 +85,59 @@
             Annuler
         </button>
     </a>
+    @if ($errors->any()) {
+        <div>
+            <div style="font-style: italic; color:red;">Something went wrong</div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    }
+    @endif
     <script>
+        // Convertir le titre en majuscules
+        document.getElementById('title').addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+
+        document.getElementById('remuneration').addEventListener('input', function() {
+            var value = parseInt(this.value, 10);
+            if (isNaN(value)) {
+                document.getElementById('remuneration-error').innerText = 'La rémunération doit être un nombre';
+            } else {
+                document.getElementById('remuneration-error').innerText = '';
+            }
+        });
+
+
+        document.getElementById('place_offered').addEventListener('input', function() {
+            if (isNaN(this.value)) {
+                document.getElementById('place_offered-error').innerText = 'Le nombre de places doit être un nombre';
+            } else {
+                document.getElementById('place_offered-error').innerText = '';
+            }
+        });
+
         document.getElementById('duration').addEventListener('input', function() {
             var durationRegex = /^\d+\s(weeks|months)$/i;
             var durationError = document.getElementById('duration-error');
-            if (!durationRegex.test(this.value) && this.value !== '') {
+            var value = this.value.trim();
+            if (!durationRegex.test(value) && value !== '') {
                 durationError.textContent = 'La durée doit être composée d\'un chiffre suivi de "semaines" ou "mois".';
             } else {
                 durationError.textContent = '';
             }
         });
 
-        document.getElementById('place_offered').addEventListener('input', function() {
-            var placeOfferedRegex = /^\d+$/;
-            var placeOfferedError = document.getElementById('place_offered-error');
-            if (!placeOfferedRegex.test(this.value) && this.value !== '') {
-                placeOfferedError.textContent = 'Veuillez entrer un nombre valide.';
-            } else {
-                placeOfferedError.textContent = '';
-            }
-        });
 
-
-        document.getElementById('remuneration').addEventListener('input', function() {
-            var remunerationRegex = /^\d+$/;
-            var remunerationError = document.getElementById('remuneration-error');
-            if (!remunerationRegex.test(this.value) && this.value !== '') {
-                remunerationError.textContent = 'La rémunération doit être un nombre.';
+        // Vérifier que la description n'est pas vide
+        document.getElementById('description').addEventListener('input', function() {
+            if (this.value.trim() === '') {
+                document.getElementById('description-error').innerText = 'La description ne peut pas être vide';
             } else {
-                remunerationError.textContent = '';
+                document.getElementById('description-error').innerText = '';
             }
         });
 
