@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PhpParser\Node\Expr\FuncCall;
 
 /**
  * @mixin IdeHelperUser
@@ -67,4 +68,9 @@ class User extends Authenticatable
     public function blacklist(){
         return $this->belongsToMany(Company::class, 'blacklist', 'user_id', 'company_id');
     }
-}
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }    
+}    

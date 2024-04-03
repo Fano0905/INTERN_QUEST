@@ -86,6 +86,10 @@
                                     @endif
                                 </div>
                                 <div class="py-5 px-3 hover:text-black">
+                                    <ion-icon name="archive"></ion-icon>
+                                    <a href="{{route('applications.show', Auth::user()->id)}}" class="py-5 px-3 hover:text-black">Mes candidatures</a>
+                                </div>
+                                <div class="py-5 px-3 hover:text-black">
                                     <ion-icon name="person-circle"></ion-icon>
                                     <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
                                 </div>

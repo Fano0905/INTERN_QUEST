@@ -22,6 +22,6 @@ class WebController extends Controller
 
         foreach ($pending as $users)
             $count++;
-        return \view('base', \compact('count'));
+        return \view('accueil', \compact('count'));
     }
 }

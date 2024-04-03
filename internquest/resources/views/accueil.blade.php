@@ -72,6 +72,10 @@
                                     <ion-icon name="school"></ion-icon>
                                     <a href="{{route('promos.index')}}">Promotions</a>
                                 </div>
+                                <div class="py-5 px-3 hover:text-black">
+                                    <ion-icon name="archive"></ion-icon>
+                                    <a href="{{route('applications.show', Auth::user()->id)}}" class="py-5 px-3 hover:text-black">Mes candidatures</a>
+                                </div>
                                 <div class="py-3 px-1 hover:text-black">
                                     <a href="{{ route('companies.list') }}">
                                         <ion-icon name="chatbubble-ellipses"></ion-icon>
@@ -181,7 +185,7 @@
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="archive"></ion-icon>
-                                <a href="#" class="py-5 px-3 hover:text-black">Mes candidatures</a>
+                                <a href="{{route('applications.show', Auth::user()->id)}}" class="py-5 px-3 hover:text-black">Mes candidatures</a>
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="list"></ion-icon>

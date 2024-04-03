@@ -9,6 +9,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Promos_UserController;
+use App\Models\Application;
 use Illuminate\Auth\Events\Logout;
 
 /*
@@ -107,9 +108,11 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
 
 Route::prefix('/application')->name('applications.')->controller(ApplicationController::class)->group(function(){
     
-    Route::get('/create', 'create')->name('create')->middleware('auth');
+    Route::get('/create/{offer}', 'create')->name('create')->middleware('auth');
     
-    Route::post('/create', 'store')->name('store');
+    Route::post('/create/{offer}', 'store')->name('store');
+
+    Route::get('/{userId}', [ApplicationController::class, 'show'])->name('show');
 
     Route::get('/', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
 });

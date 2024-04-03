@@ -123,8 +123,10 @@ class OfferController extends Controller
     public function show($id)
     {
         $offer = Offer::find($id);
+        $pending = Waiting_User::all();
+        $count = count($pending);
 
-        return view('offer.show', compact('offer'));
+        return view('offer.show', compact('offer', 'count'));
     }
 
     /**

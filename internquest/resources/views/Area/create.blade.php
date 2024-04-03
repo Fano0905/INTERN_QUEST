@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('layout')
 
 @section('content')
     <form action="{{route('areas.store')}}" method="POST">

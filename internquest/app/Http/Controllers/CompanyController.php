@@ -204,13 +204,13 @@ class CompanyController extends Controller
         return \view('opinion.avis', \compact('company', 'notes'));
     }
 
-        /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     
      public function e_store(Request $request, $id)
      {
