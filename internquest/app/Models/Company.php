@@ -32,4 +32,8 @@ class Company extends Model
     public function locations(){
         return $this->belongsToMany(Location::class, 'companies_locations', 'company_id', 'location_id');
     }
+
+    public function blacklist(){
+        return $this->belongsToMany(Company::class, 'blacklist', 'company_id', 'user_id');
+    }
 }

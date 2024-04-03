@@ -26,9 +26,7 @@ use Illuminate\Auth\Events\Logout;
 
 Route::get('/user/list', [WebController::class, 'index'])->name('users.list')->middleware('auth');
 
-Route::get('/', function () {
-    return view('accueil');
-})->name('internquest/');
+Route::get('/', [WebController::class, 'web'])->name('internquest/');
 
 //Routes secteur
 Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){
@@ -43,20 +41,25 @@ Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group
 //Routes Utilisateurs
 
 Route::prefix('/internquest')->name('users.')->controller(UserController::class)->group(function(){
-    // returns the form for adding a user
     Route::get('user/', 'create')->name('create');
-    // adds a user to the database
+    
     Route::post('user/', 'store')->name('store');
-    // returns a page that shows a full user
+    
     Route::get('/{user}', [UserController::class, 'show'])->name('show')->middleware('auth');
-    // returns the form for editing a user
+    
     Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('auth');
-    // updates a user
+    
     Route::put('/{user}', [UserController::class, 'update'])->name('update')->middleware('auth');
-    // deletes a user
+    
     Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
 
     Route::get('/', [UserController::class, 'index'])->name('index');
+
+    Route::get('/admin', [UserController::class, 'notifs'])->name('notifications');
+
+    Route::get('/{user}', [UserController::class, 'approve'])->name('approve');
+
+    Route::delete('/{user}', [UserController::class, 'disapprove'])->name('disapprove');
 });
 
 //Routes entreprise
@@ -108,7 +111,7 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     Route::get('/', [OfferController::class, 'index'])->name('index');
 });
 
-//Routes candidature
+//Routes candidatures
 
 Route::prefix('/application')->name('applications.')->controller(ApplicationController::class)->group(function(){
     
@@ -119,7 +122,7 @@ Route::prefix('/application')->name('applications.')->controller(ApplicationCont
     Route::get('/', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
 });
 
-//Routes authentification
+//Routes authentifications
 
 Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -131,7 +134,7 @@ Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(
     Route::get('/', [AuthController::class, 'show'])->name('show')->middleware('auth');
 });
 
-//Routes Promo
+//Routes Promos
 
 Route::prefix('/promo')->name('promos.')->controller(PromoController::class)->group(function(){
     Route::get('/', 'index')->name('index')->middleware('auth');
@@ -150,9 +153,9 @@ Route::prefix('/promo')->name('promos.')->controller(PromoController::class)->gr
 });
 
 Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserController::class)->group(function(){
-    Route::get('/create', 'create')->name('create')->middleware('auth'); // La route sera nommée 'classes.insert'
+    Route::get('/create', 'create')->name('create')->middleware('auth');
 
-    Route::post('/create', 'store')->name('store'); // La route sera nommée 'classes.store'
+    Route::post('/create', 'store')->name('store');
 
     Route::get('/{etudiant}/edit', 'edit')->name('edit')->middleware('auth');
 

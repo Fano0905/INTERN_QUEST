@@ -79,6 +79,11 @@
                                     </a>                                    
                                 </div>
                                 <div class="py-5 px-3 hover:text-black">
+                                    <ion-icon name="mail-unread"></ion-icon>
+                                    <ion-icon name="mail"></ion-icon>
+                                    <a href="{{route('users.list')}}" class="py-5 px-3 hover:text-black">utilisateurs</a>
+                                </div>
+                                <div class="py-5 px-3 hover:text-black">
                                     <ion-icon name="person-circle"></ion-icon>
                                     <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
                                 </div>

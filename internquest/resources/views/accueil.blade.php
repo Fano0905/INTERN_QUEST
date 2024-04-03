@@ -17,22 +17,22 @@
                 <div class="flex justify-center">
                     <div class="flex ">   
                         <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
                                 <a href="{{route('internquest/')}}">
                                 <ion-icon name="home"></ion-icon>
                                 Accueil</a>
                             </div>
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
                                 <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
                                     Offres</a>
                             </div>
-                            <div class="py-5 px-3 hover:text-black"><a href="{{route('companies.index')}}">
+                            <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
                                 <ion-icon name="business"></ion-icon>
                                 Entreprises</a>
                             </div>
                             <div class="text-gray-700 items-center hidden md:flex space-x-8">
                                 <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Se connecter</a>
-                                <div class="py-5 px-3 hover:text-black">
+                                <div class="py-3 px-1 hover:text-black">
                                     <ion-icon name="person-add"></ion-icon>
                                     <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
                                 </div>
@@ -51,41 +51,45 @@
                     <div class="flex justify-center">
                         <div class="flex ">   
                             <div class="text-gray-700 hidden md:flex space-x-16">
-                                <div class="py-5 px-3 hover:text-black">
+                                <div class="py-3 px-1 hover:text-black">
                                     <a href="{{route('internquest/')}}">
                                     <ion-icon name="home"></ion-icon>
                                     Accueil</a>
                                 </div>
-                                <div class="py-5 px-3 hover:text-black">
+                                <div class="py-3 px-1 hover:text-black">
                                     <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
                                         Offres</a>
                                 </div>
-                                <div class="py-5 px-3 hover:text-black"><a href="{{route('companies.index')}}">
+                                <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
                                     <ion-icon name="business"></ion-icon>
                                     Entreprises</a>
                                 </div>
-                                <div class="py-5 px-3 hover:text-black">
+                                <div class="py-3 px-1 hover:text-black">
                                     <ion-icon name="person"></ion-icon>
-                                    <a href="{{route('users.list')}}" class="py-5 px-3 hover:text-black">utilisateurs</a>
+                                    <a href="{{route('users.list')}}">Utilisateurs</a>
                                 </div>
-                                <div class="py-5 px-3 hover:text-black">
+                                <div class="py-3 px-1 hover:text-black">
                                     <ion-icon name="school"></ion-icon>
-                                    <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
+                                    <a href="{{route('promos.index')}}">Promotions</a>
                                 </div>
-                                <div class="py-5 px-3 hover:text-black">
+                                <div class="py-3 px-1 hover:text-black">
                                     <a href="{{ route('companies.list') }}">
                                         <ion-icon name="chatbubble-ellipses"></ion-icon>
                                         Mes activités
                                     </a>                                    
                                 </div>
-                                <div class="py-5 px-3 hover:text-black">
+                                <div class="py-3 px-1 hover:text-black">
+                                    <ion-icon name="mail-unread"></ion-icon>Notifications
+                                    <a href="{{route('users.notifications')}}"><ion-icon name="mail"></ion-icon>Notifications</a>
+                                </div>
+                                <div class="py-3 px-1 hover:text-black">
                                     <ion-icon name="person-circle"></ion-icon>
                                     <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
                                 </div>
                                 <form action="{{route('auth.logout')}}" method="POST">
                                     @method('delete')
                                     @csrf
-                                    <div class="py-5 px-3 hover:text-black">
+                                    <div class="py-3 px-1 hover:text-black">
                                         <ion-icon name="log-out"></ion-icon>
                                         <button>Se deconnecter</button>
                                     </div>
@@ -119,6 +123,10 @@
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="school"></ion-icon>
                                 <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                <ion-icon name="mail-unread"></ion-icon>Notifications
+                                <a href="{{route('users.notifications')}}"><ion-icon name="mail"></ion-icon>Notifications</a>
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <a href="{{ route('companies.list') }}">

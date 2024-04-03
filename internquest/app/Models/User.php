@@ -63,4 +63,8 @@ class User extends Authenticatable
     public function promos() {
         return $this->belongsToMany(Promo::class, 'promos_users', 'user_id', 'promo_id');
     }
+
+    public function blacklist(){
+        return $this->belongsToMany(Company::class, 'blacklist', 'user_id', 'company_id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Waiting_User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -56,14 +57,17 @@ class UserController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        User::create($request->all());
 
-        if (Auth::check()) { // Vérifie si l'utilisateur est connecté
-            return redirect()->route('internquest/')->with('success', 'User created successfully as Admin.');
+
+        if (Auth::check()) {
+            User::create($request->all());
+            return redirect()->route('internquest/')->with('success', 'Nouvel utilisateur ajouté');
+        } else {
+            Waiting_User::create($request->all());
         }
     
-        return redirect()->route('auth.login') // Redirige vers la page de connexion
-            ->with('success', 'User created successfully.');
+        return redirect()->route('internquest/') // Redirige vers la page de connexion
+            ->with('success', "Votre compte a été créé, il a été soumis à la validation d'un Pilote ou de l'Admin");
     }
 
     /**
@@ -103,11 +107,11 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function destroy($id)
     {
         $user = User::find($id);
@@ -119,6 +123,47 @@ class UserController extends Controller
 
         return redirect()->route('auth.login')
             ->with('success', 'Utilisateur deleted successfully');
+    }
+
+    public function notifs(){
+        $pending_users = Waiting_User::all();
+
+        return \view('notifications', \compact('pending_users'));
+    }
+
+    /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function approve($id){
+        $waiting_user = Waiting_User::find($id);
+        User::create([
+            'lname' => $waiting_user->lname ,
+            'fname' => $waiting_user->fname,
+            'mail' => $waiting_user->mail,
+            'password' => $waiting_user->password,
+            'username' => $waiting_user->username,
+            'role' => $waiting_user->role,
+            'centre' => $waiting_user->centre
+        ]);
+        $waiting_user->delete();
+        return redirect()->route('internquest/')->with('success', "Utilisateur approuvé");
+    }
+
+    /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function disapprove($id)
+    {
+        $waiting_user = Waiting_User::find($id);
+        $waiting_user ->delete();
+
+        return redirect()->route('internquest/')->with('success', 'User deleted successfully as Admin.');
     }
 
     // routes functions

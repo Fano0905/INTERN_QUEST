@@ -12,4 +12,8 @@ class WebController extends Controller
 
         return \view('auth.list', \compact('users'));
     }
+
+    public function web(){
+        return \view('accueil');
+    }
 }
