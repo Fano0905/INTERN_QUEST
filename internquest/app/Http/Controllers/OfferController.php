@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OfferRequest;
 use App\Models\Company;
 use App\Models\Location;
+use App\Models\Waiting_User;
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use Illuminate\Validation\Rule;
@@ -19,8 +20,13 @@ class OfferController extends Controller
     public function index()
     {
         $offers = Offer::all();
+        $pending = Waiting_User::all();
+        $count = count($pending);
 
-        return view('offer.index', \compact('offers'));
+        foreach ($pending as $users)
+            $count++;
+
+        return view('offer.index', \compact('offers', 'count'));
     }
 
     /**

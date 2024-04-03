@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Evaluation;
 use App\Models\Location;
+use App\Models\Waiting_User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Validation\Rule;
@@ -21,8 +22,10 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
+        $pending = Waiting_User::all();
+        $count = count($pending);
 
-        return view('company.index', compact('companies'));
+        return view('company.index', compact('companies', 'count'));
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('base')
 
 @section('title', $offer->title)
 

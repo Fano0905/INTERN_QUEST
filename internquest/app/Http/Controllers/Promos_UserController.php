@@ -7,6 +7,7 @@ use App\Models\Promos_User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Whoops\Run;
 
 class Promos_UserController extends Controller
 {
@@ -31,15 +32,17 @@ class Promos_UserController extends Controller
     */
     public function store(Request $request){
         $request->validate([
-            'promo_id' => [
+            'promo_id' => 'required',
+            'user_id' => [
                 'required',
                 Rule::unique('promos_users')->where(function ($query) use ($request) {
-                    return $query->where('user_id', $request->user_id);
-                }),
-            ],
-            'user_id' => 'required',
+                    return $query->where('promo_id', $request->promo_id);
+                })
+            ]
+        ],[
+            'user_id.unique' => 'Cet étudiant se trouve déjà dans une autre promo'
         ]);
-
+        
         Promos_User::create($request->all());
         return redirect()->route('promos.index')
         ->with('success', 'Student added successfully');
@@ -70,12 +73,9 @@ class Promos_UserController extends Controller
         $request->validate([
             'promo_id' => [
                 'required',
-                Rule::unique('promos_users')->where(function ($query) use ($request) {
-                    return $query->where('user_id', $request->user_id);
-                }),
             ],
-            'user_id' => 'required',
-        ]);  
+            'user_id' => 'required', Rule::unique('promos_users', 'user_id')
+        ]);
 
         return redirect()->route('promos.index')
         ->with('success', "L'etudiant a changé de classe");
@@ -90,8 +90,9 @@ class Promos_UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        $user->etudiants()->detach($id);
-
-        return redirect()->back()->with('success', [$user->user, 'a été retiré de la classe']);
-    }
+        // Utilisez la méthode promos() pour détacher l'utilisateur de toutes les promotions
+        $user->promos()->detach();
+    
+        return redirect()->back()->with('success', $user->username . " a été retiré de la classe");
+    }    
 }

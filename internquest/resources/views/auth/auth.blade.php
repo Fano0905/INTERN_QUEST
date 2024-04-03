@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Accueil')</title>
+    <title>@yield('title', Auth::user()->username)</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body style="height: 200dvh">
@@ -24,20 +24,19 @@
                     <img src="img/pdp.png" alt="photo de profil utilisateur" class="w-3/4 h-3/4">
                 </div>
             </div>
-            <div class="control flex justify-center items-center mt-4">
-                <a href="{{route('users.edit', Auth::user()->id)}}" class="mx-2">
-                    <button type="submit" class="w-36 h-12 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
-                        Modifier
-                    </button>
-                </a>
-                <form action="{{ route('users.destroy', Auth::user()->id) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="w-36 h-12 bg-red-600 text-white rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">
-                        Supprimer
-                    </button>
-                </form>
-            </div>
+        <div class="control flex justify-center items-center mt-4">
+            <a href="{{route('internquest.users.edit', Auth::user()->id)}}" class="mx-2">
+                <button type="submit" class="w-36 h-12 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
+                    Modifier
+                </button>
+            </a>
+            <form action="{{ route('internquest.users.destroy', Auth::user()->id) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="w-36 h-12 bg-red-600 text-white rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">
+                    Supprimer
+                </button>
+            </form>
         </div>
     </div>
 </body>

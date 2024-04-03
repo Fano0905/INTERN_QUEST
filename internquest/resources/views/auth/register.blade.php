@@ -20,7 +20,7 @@
         </div>
     }
     @endif
-    <form action="{{route('users.create')}}" method="POST">
+    <form action="{{route('internquest.users.create')}}" method="POST">
         @csrf
         <div class="relative mb-6">
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">LName</label>

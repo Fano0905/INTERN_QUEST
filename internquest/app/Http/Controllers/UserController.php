@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
-use App\Models\Application;
-use App\Models\Promotion;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Waiting_User;
@@ -22,7 +19,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('internquest/', compact('users'));
+        $users = User::all();
+        $pending = Waiting_User::all();
+        $count = count($pending);
+
+        return view('accueil', compact('users', 'count'));
     }
 
     /**
@@ -71,12 +72,12 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -98,11 +99,11 @@ class UserController extends Controller
         $user = User::find($id);
         $user->update($request->all());
 
-        if (Auth::check()) { // Vérifie si l'utilisateur est connecté
+        if (Auth::check()) {
             return redirect()->route('internquest/')->with('success', 'User uptdated successfully as Admin.');
         }
 
-        return redirect()->route('users.index')
+        return redirect()->route('internquest.users.index')
             ->with('success', 'user uptdated successfully.');
     }
 
@@ -127,8 +128,9 @@ class UserController extends Controller
 
     public function notifs(){
         $pending_users = Waiting_User::all();
+        $count = count($pending_users);
 
-        return \view('notifications', \compact('pending_users'));
+        return \view('auth.notifications', \compact('pending_users', 'count'));
     }
 
     /**
@@ -138,12 +140,23 @@ class UserController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function approve($id){
-        $waiting_user = Waiting_User::find($id);
+        /*
         User::create([
             'lname' => $waiting_user->lname ,
             'fname' => $waiting_user->fname,
             'mail' => $waiting_user->mail,
             'password' => $waiting_user->password,
+            'username' => $waiting_user->username,
+            'role' => $waiting_user->role,
+            'centre' => $waiting_user->centre
+        ]);
+        */
+        $waiting_user = Waiting_User::findOrFail($id);
+        $user = User::create([
+            'lname' => $waiting_user->lname,
+            'fname' => $waiting_user->fname,
+            'mail' => $waiting_user->mail,
+            'password' => bcrypt($waiting_user->password), // Hasher le mot de passe
             'username' => $waiting_user->username,
             'role' => $waiting_user->role,
             'centre' => $waiting_user->centre

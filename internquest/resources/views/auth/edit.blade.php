@@ -20,7 +20,7 @@
         </div>
     }
     @endif
-    <form action="{{route('users.update', $user->id)}}" method="POST">
+    <form action="{{route('internquest.users.update', $user->id)}}" method="POST">
         @csrf
         @method('PUT')
         <div class="relative mb-6">

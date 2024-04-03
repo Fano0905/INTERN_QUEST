@@ -25,12 +25,12 @@
                 </div>
             </div>
             <div class="control flex justify-center items-center mt-4">
-                <a href="{{route('users.edit', $user->id)}}" class="mx-2">
+                <a href="{{route('internquest.users.edit', $user->id)}}" class="mx-2">
                     <button type="submit" class="w-36 h-12 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
                         Modifier
                     </button>
                 </a>
-                <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                <form action="{{ route('internquest.users.destroy', $user->id) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="w-36 h-12 bg-red-600 text-white rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">

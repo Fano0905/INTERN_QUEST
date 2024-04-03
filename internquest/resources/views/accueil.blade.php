@@ -79,8 +79,11 @@
                                     </a>                                    
                                 </div>
                                 <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="mail-unread"></ion-icon>Notifications
-                                    <a href="{{route('users.notifications')}}"><ion-icon name="mail"></ion-icon>Notifications</a>
+                                    @if ($count > 0)
+                                        <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
+                                    @else
+                                        <ion-icon name="mail"></ion-icon>Notifications
+                                    @endif
                                 </div>
                                 <div class="py-3 px-1 hover:text-black">
                                     <ion-icon name="person-circle"></ion-icon>
@@ -126,7 +129,7 @@
                             </div>
                             <div class="py-3 px-1 hover:text-black">
                                 <ion-icon name="mail-unread"></ion-icon>Notifications
-                                <a href="{{route('users.notifications')}}"><ion-icon name="mail"></ion-icon>Notifications</a>
+                                <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail"></ion-icon>Notifications</a>
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <a href="{{ route('companies.list') }}">
@@ -221,17 +224,6 @@
         @endif
     @yield('content')
     </div>
-        @if ($errors->any()) {
-            <div>
-                <div style="font-style: italic; color:red;">Erreur</div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{$error}}</li>
-                    @endforeach
-                </ul>
-            </div>
-        }
-        @endif
         <dialog id="signin_dialog" class="fixed inset-0 m-auto w-100 h-110  bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
             <div class="w-full p-10 flex flex-col items-center">
                 <button class="absolute top-0 right-0 mt-4 mr-4 bg-gray-300 text-gray-700 hover:bg-gray-400 rounded-2xl p-2 focus:outline-none" onclick="closesignin(), preventReload(event)">
@@ -240,7 +232,7 @@
                 </svg>
                 </button>
                 <h2 class="text-2xl text-blue-600 mb-6">S'inscrire</h2>
-                <form action="{{route('users.store')}}" method="POST" class = w-full>
+                <form action="{{route('internquest.users.store')}}" method="POST" class = w-full>
                     @csrf
                     <div class="relative mb-6">
                         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Nom</label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Waiting_User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Promo;
@@ -12,8 +13,13 @@ class PromoController extends Controller
     public function index(){
 
         $promos = Promo::all();
+        $pending = Waiting_User::all();
+        $count = count($pending);
 
-        return view('promotion.index', \compact('promos'));
+        foreach ($pending as $users)
+            $count++;
+
+        return view('promotion.index', \compact('promos', 'count'));
     }
 
     // routes functions
@@ -61,9 +67,14 @@ class PromoController extends Controller
     public function show($id)
     {
         $promo = Promo::with('pilote', 'etudiants')->find($id);
-        $etudiants = $promo->etudiants; // La relation etudiants est maintenant chargée
+        $etudiants = $promo->etudiants;
+        $pending = Waiting_User::all();
+        $count = count($pending);
 
-        return view('promotion.show', compact('promo', 'etudiants'));
+        foreach ($pending as $users)
+            $count++;
+
+        return view('promotion.show', compact('promo', 'etudiants', 'count'));
     }      
 
     /**

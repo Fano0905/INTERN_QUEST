@@ -24,7 +24,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return \redirect()->intended(route('internquest/'))->with('success', 'Connexion établie avec succès');
         }
-        return \to_route('auth.login')->withErrors([
+        return redirect()->back()->withErrors([
             'mail' => 'Identifiants invalides',
             'password' => 'Mot de passe incorrect'
         ])->onlyInput('email');

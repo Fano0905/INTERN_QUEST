@@ -78,10 +78,12 @@
                                         Mes activités
                                     </a>                                    
                                 </div>
-                                <div class="py-5 px-3 hover:text-black">
-                                    <ion-icon name="mail-unread"></ion-icon>
-                                    <ion-icon name="mail"></ion-icon>
-                                    <a href="{{route('users.list')}}" class="py-5 px-3 hover:text-black">utilisateurs</a>
+                                <div class="py-3 px-1 hover:text-black">
+                                    @if ($count > 0)
+                                        <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
+                                    @else
+                                        <ion-icon name="mail"></ion-icon>Notifications
+                                    @endif
                                 </div>
                                 <div class="py-5 px-3 hover:text-black">
                                     <ion-icon name="person-circle"></ion-icon>
@@ -130,6 +132,13 @@
                                     <ion-icon name="chatbubble-ellipses"></ion-icon>
                                     Mes activités
                                 </a>                                
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                @if ($count > 0)
+                                    <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
+                                @else
+                                    <ion-icon name="mail"></ion-icon>Notifications
+                                @endif
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>

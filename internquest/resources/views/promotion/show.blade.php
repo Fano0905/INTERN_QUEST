@@ -16,9 +16,9 @@
     <table style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr style="background-color: #f3f3f3; border-bottom: 2px solid #ddd;">
-                <th style="padding: 10px; text-align: left;">Last Name</th>
-                <th style="padding: 10px; text-align: left;">First Name</th>
-                <th style="padding: 10px; text-align: left;">Classe</th>
+                <th style="padding: 10px; text-align: left;">Nom</th>
+                <th style="padding: 10px; text-align: left;">Prénom</th>
+                <th style="padding: 10px; text-align: left;">Identifiant</th>
                 <th style="padding: 10px; text-align: left;">supprimer</th>
             </tr>
         </thead>
@@ -27,7 +27,7 @@
                 <tr style="border-bottom: 1px solid #ddd;">
                     <td style="padding: 10px; text-align: left;">{{$etudiant->lname}}</td>
                     <td style="padding: 10px; text-align: left;">{{$etudiant->fname}}</td>
-                    <td style="padding: 10px; text-align: left;">{{$etudiant->mail}}</td>
+                    <td style="padding: 10px; text-align: left;">{{$etudiant->username}}</td>
                     <td style="padding: 10px; text-align: left;"><form action="{{route('classes.destroy', $etudiant->id)}}" method="post">
                         @csrf
                         @method('DELETE')

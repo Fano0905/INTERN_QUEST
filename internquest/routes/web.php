@@ -40,27 +40,19 @@ Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group
 
 //Routes Utilisateurs
 
-Route::prefix('/internquest')->name('users.')->controller(UserController::class)->group(function(){
-    Route::get('user/', 'create')->name('create');
-    
-    Route::post('user/', 'store')->name('store');
-    
-    Route::get('/{user}', [UserController::class, 'show'])->name('show')->middleware('auth');
-    
-    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('auth');
-    
-    Route::put('/{user}', [UserController::class, 'update'])->name('update')->middleware('auth');
-    
-    Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
-
-    Route::get('/', [UserController::class, 'index'])->name('index');
-
-    Route::get('/admin', [UserController::class, 'notifs'])->name('notifications');
-
-    Route::get('/{user}', [UserController::class, 'approve'])->name('approve');
-
-    Route::delete('/{user}', [UserController::class, 'disapprove'])->name('disapprove');
+Route::prefix('/internquest')->name('internquest.')->group(function () {
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('users', [UserController::class, 'store'])->name('users.store');
+    Route::get('users/{user}', [UserController::class, 'show'])->name('users.show')->middleware('auth');
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('auth');
+    Route::put('users/{user}', [UserController::class, 'update'])->name('users.update')->middleware('auth');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('admin', [UserController::class, 'notifs'])->name('admin.notifications');
+    Route::get('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
+    Route::delete('users/{user}/disapprove', [UserController::class, 'disapprove'])->name('users.disapprove');
 });
+
 
 //Routes entreprise
 

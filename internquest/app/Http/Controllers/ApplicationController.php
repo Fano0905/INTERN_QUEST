@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Models\Waiting_User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -17,8 +18,10 @@ class ApplicationController extends Controller
     public function index()
     {
         $applications = Application::all();
+        $pending = Waiting_User::all();
+        $count = count($pending);
 
-        return view('application.index', compact('applications'));
+        return view('application.index', compact('applications', 'count'));
     }
 
     /**

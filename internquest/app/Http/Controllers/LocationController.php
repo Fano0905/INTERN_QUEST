@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Location;
+use App\Models\Waiting_User;
 use Illuminate\Validation\Rule;
 
 class LocationController extends Controller
@@ -16,8 +17,10 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
+        $pending = Waiting_User::all();
+        $count = count($pending);
 
-        return view('location.index', compact('locations'));
+        return view('location.index', compact('locations', 'user'));
     }
 
     /**
