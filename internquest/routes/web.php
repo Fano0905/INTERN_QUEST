@@ -9,8 +9,8 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Promos_UserController;
+use App\Models\Application;
 use Illuminate\Auth\Events\Logout;
-use Whoops\Run;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +25,9 @@ use Whoops\Run;
 
 //Routes principales
 
-Route::get('/user/list', [WebController::class, 'index'])->name('users.list');
+Route::get('/user/list', [WebController::class, 'index'])->name('users.list')->middleware('auth');
 
-Route::get('/', function () {
-    return view('accueil');
-})->name('internquest/');
+Route::get('/', [WebController::class, 'web'])->name('internquest/');
 
 //Routes secteur
 Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){
@@ -43,22 +41,19 @@ Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group
 
 //Routes Utilisateurs
 
-Route::prefix('/internquest')->name('users.')->controller(UserController::class)->group(function(){
-    // returns the form for adding a user
-    Route::get('user/', 'create')->name('create');
-    // adds a user to the database
-    Route::post('user/', 'store')->name('store');
-    // returns a page that shows a full user
-    Route::get('/{user}', [UserController::class, 'show'])->name('show');
-    // returns the form for editing a user
-    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('auth');
-    // updates a user
-    Route::put('/{user}', [UserController::class, 'update'])->name('update')->middleware('auth');
-    // deletes a user
-    Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
-
-    Route::get('/', [UserController::class, 'index'])->name('index');
+Route::prefix('/internquest')->name('internquest.')->group(function () {
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('users', [UserController::class, 'store'])->name('users.store');
+    Route::get('users/{user}', [UserController::class, 'show'])->name('users.show')->middleware('auth');
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('auth');
+    Route::put('users/{user}', [UserController::class, 'update'])->name('users.update')->middleware('auth');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('admin', [UserController::class, 'notifs'])->name('admin.notifications');
+    Route::get('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
+    Route::delete('users/{user}/disapprove', [UserController::class, 'disapprove'])->name('users.disapprove');
 });
+
 
 //Routes entreprise
 
@@ -74,13 +69,21 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
     
     Route::put('/{company}', [CompanyController::class, 'update'])->name('update')->middleware('auth');
 
-    Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy');
+    Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy')->middleware('auth');
 
     Route::get('/', [CompanyController::class, 'index'])->name('index');
 
-    Route::get('/{company}/evaluate', 'evaluate')->name('evaluate')->middleware('auth');
+    Route::get('/{company}/evaluate', [CompanyController::class, 'evaluate'])->name('evaluate')->middleware('auth');
 
-    Route::post('/{company}', 'e_store')->name('e_store');
+    Route::get('/{evaluation}/edit', [CompanyController::class, 'e_edit'])->name('e_edit')->middleware('auth');
+
+    Route::put('/{evaluation}', [CompanyController::class, 'e_update'])->name('e_update');
+
+    Route::get('/evaluations', [CompanyController::class, 'list'])->name('evaluations');
+
+    Route::post('/{company}', [CompanyController::class, 'e_store'])->name('e_store');
+
+    Route::post('/{company}/address', [CompanyController::class, 'addAddress'])->name('address')->middleware('auth');
 });
 
 //Routes Offres
@@ -96,23 +99,25 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     
     Route::put('/{offer}', [OfferController::class, 'update'])->name('update')->middleware('auth');
     
-    Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy');
+    Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy')->middleware('auth');
 
-    Route::get('/', [OfferController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/', [OfferController::class, 'index'])->name('index');
 });
 
-//Routes candidature
+//Routes candidatures
 
 Route::prefix('/application')->name('applications.')->controller(ApplicationController::class)->group(function(){
     
-    Route::get('/create', 'create')->name('create')->middleware('auth');
+    Route::get('/create/{offer}', 'create')->name('create')->middleware('auth');
     
-    Route::post('/create', 'store')->name('store');
+    Route::post('/create/{offer}', 'store')->name('store');
+
+    Route::get('/{userId}', [ApplicationController::class, 'show'])->name('show');
 
     Route::get('/', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
 });
 
-//Routes authentification
+//Routes authentifications
 
 Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -124,34 +129,34 @@ Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(
     Route::get('/', [AuthController::class, 'show'])->name('show')->middleware('auth');
 });
 
-//Routes Promo
+//Routes Promos
 
 Route::prefix('/promo')->name('promos.')->controller(PromoController::class)->group(function(){
-    Route::get('/', 'index')->name('index');
+    Route::get('/', 'index')->name('index')->middleware('auth');
 
-    Route::get('/create', 'create')->name('create');
+    Route::get('/create', 'create')->name('create')->middleware('auth');
 
     Route::post('/create', 'store')->name('store');
 
-    Route::get('/{promo}/edit', 'edit')->name('edit');
+    Route::get('/{promo}/edit', 'edit')->name('edit')->middleware('auth');
 
     Route::put('/{promo}', 'update')->name('update');
 
-    Route::get('/{promo}', 'show')->name('show');
+    Route::get('/{promo}', 'show')->name('show')->middleware('auth');
 
-    Route::delete('/{promo}', 'destroy')->name('destroy');
+    Route::delete('/{promo}', 'destroy')->name('destroy')->middleware('auth');
 });
 
 Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserController::class)->group(function(){
-    Route::get('/create', 'create')->name('create'); // La route sera nommée 'classes.insert'
+    Route::get('/create', 'create')->name('create')->middleware('auth');
 
-    Route::post('/create', 'store')->name('store'); // La route sera nommée 'classes.store'
+    Route::post('/create', 'store')->name('store');
 
-    Route::get('/{etudiant}/edit', 'edit')->name('edit');
+    Route::get('/{etudiant}/edit', 'edit')->name('edit')->middleware('auth');
 
     Route::put('/{etudiant}', 'update')->name('update');
 
-    Route::delete('/{user}', 'destroy')->name('destroy');
+    Route::delete('/{user}', 'destroy')->name('destroy')->middleware('auth');
 });
 
 Route::prefix('/address')->name('locations.')->controller(LocationController::class)->group(function(){

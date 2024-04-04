@@ -12,32 +12,32 @@
 <div class="w-full h-full bg-no-repeat bg-cover overflow-hidden" style="background-image: url('/img/image-bg.jpg'); background-position: left bottom;">
     <div class="flex justify-center items-center h-screen">
         <div class="w-192 h-128 border border-black bg-gray-200 rounded-3xl">
-            <div class="w-3/4 p-4">
+            <div class="flex">
+                <div class="w-1/4 p-4 border photo-container">
+                    <img src="img/img-pdp.jpg" alt="photo de profil utilisateur" class="w-3/4 h-3/4">
+                </div>
 
-                <p class="text-lg text-black-700 font-medium transition-all">
-                    Nom : {{ Auth::user()->lname }}
-                </p>
-                <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
-                
-                <p class="text-lg text-black-700 font-medium transition-all">
-                    Prénom : {{Auth::user()->fname}}
-                </p>
-                <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                <div class="w-3/4 p-4">
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Nom : {{ Auth::user()->lname }}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
 
-                <p class="text-lg text-black-700 font-medium transition-all">
-                    Rôle : {{Auth::user()->role}}
-                </p>
-                <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Prénom : {{Auth::user()->fname}}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
 
-                <p class="text-lg text-black-700 font-medium transition-all">
-                    Mail : {{Auth::user()->mail}}
-                </p>
-                <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Rôle : {{Auth::user()->role}}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
 
-            </div>
-
-            <div class="w-1/4 p-4 border photo-container">
-                <img src="img/pdp.png" alt="photo de profil utilisateur" class="w-3/4 h-3/4">
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Mail : {{Auth::user()->mail}}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                </div>
             </div>
 
             <div class="control flex justify-center items-center mt-4">

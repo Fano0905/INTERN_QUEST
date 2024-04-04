@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Accueil')</title>
+  <title>Mon profil</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -11,50 +11,51 @@
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-hidden" style="background-image: url('/img/image-bg.jpg'); background-position: left bottom;">
     <div class="flex justify-center items-center h-screen">
-    <div class="w-256 h-160 border border-black bg-gray-200 rounded-3xl"> 
-        <div class="flex">
-            <div class="w-3/4 p-4">
+        <div class="border border-black bg-gray-200 rounded-3xl" style="width: 768px; height: 350px;">              <div class="flex">
+                <div class="w-1/4 p-4 border photo-container mt-4 ml-2">
+                    <img src="img/pdp.jpg" alt="photo de profil utilisateur" class="w-100 h-100">
+                </div>
 
-                <p class="text-lg text-black-700 font-medium transition-all">
-                    Nom : {{ Auth::user()->lname }}
-                </p>
-                <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
-                
-                <p class="text-lg text-black-700 font-medium transition-all">
-                    Prénom : {{Auth::user()->fname}}
-                </p>
-                <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                <div class="w-3/4 p-4 mt-8">
 
-                <p class="text-lg text-black-700 font-medium transition-all">
-                    Rôle : {{Auth::user()->role}}
-                </p>
-                <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Nom : {{ Auth::user()->lname }}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Prénom : {{Auth::user()->fname}}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
 
-                <p class="text-lg text-black-700 font-medium transition-all">
-                    Mail : {{Auth::user()->mail}}
-                </p>
-                <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Rôle : {{Auth::user()->role}}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
 
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Mail : {{Auth::user()->mail}}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+
+                </div>
             </div>
 
-            <div class="w-1/4 p-4 border photo-container">
-                <img src="img/pdp.png" alt="photo de profil utilisateur" class="w-3/4 h-3/4">
-            </div>
-        </div>
-
-            <div class="control flex justify-center items-center mt-4">
-            <a href="{{route('users.edit', Auth::user()->id)}}" class="mx-2">
-                <button type="submit" class="w-36 h-12 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"> <!-- Modification de la classe 'bg-blue-600' en 'bg-blue-800' -->
+            <div class="control flex justify-center items-center mt-16">
+                <a href="{{route('users.edit', Auth::user()->id)}}" class="mx-2">
+                <button type="submit" class="w-48 h-12 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium mr-4"> 
                     Modifier
                 </button>
-            </a>
-            <form action="{{ route('users.destroy', Auth::user()->id) }}" method="post">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="w-36 h-12 bg-black text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">
-                    Supprimer le compte
-                </button>
-            </form>
+                </a>
+
+                <form action="{{ route('users.destroy', Auth::user()->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="w-48 h-12 bg-black text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium ml-4">
+                        Supprimer le compte
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

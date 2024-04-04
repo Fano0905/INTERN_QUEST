@@ -12,4 +12,14 @@ class WebController extends Controller
 
         return \view('auth.list', \compact('users'));
     }
+
+    public function web(){
+        $pending = Waiting_User::all();
+        $offers = Offer::paginate(5);
+        $count = count($pending);
+
+        foreach ($pending as $users)
+            $count++;
+        return \view('accueil', \compact('count', 'offers'));
+    }
 }
