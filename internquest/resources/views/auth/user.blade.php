@@ -8,7 +8,7 @@
 </head>
 
 
-<body style="h-dvh">
+<body style="height: 100vh;">
 <div class="w-full h-full bg-no-repeat bg-cover " style="background-image: url('/img/image-bg.jpg'); background-position: left bottom;">
     <div class="flex justify-center items-center h-screen">
         <div class="border border-black bg-gray-200 rounded-3xl" style="width: 768px; height: 350px;">              <div class="flex">
