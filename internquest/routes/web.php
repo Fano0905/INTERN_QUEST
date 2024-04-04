@@ -74,15 +74,15 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
 
     Route::get('/{company}/evaluate', [CompanyController::class, 'evaluate'])->name('evaluate')->middleware('auth');
 
-    Route::get('/{evaluation}/edit', 'e_edit')->name('e_edit')->middleware('auth');
+    Route::get('/{evaluation}/edit', [CompanyController::class, 'e_edit'])->name('e_edit')->middleware('auth');
 
-    Route::put('/{evaluation}/edit', 'e_update')->name('e_update');
+    Route::put('/{evaluation}', [CompanyController::class, 'e_update'])->name('e_update');
 
-    Route::get('/evaluations', [CompanyController::class, 'list'])->name('list');
+    Route::get('/evaluations', [CompanyController::class, 'list'])->name('evaluations');
 
-    Route::post('/{company}', 'e_store')->name('e_store');
+    Route::post('/{company}', [CompanyController::class, 'e_store'])->name('e_store');
 
-    Route::post('/{company}/address', 'addAddress')->name('address')->middleware('auth');
+    Route::post('/{company}/address', [CompanyController::class, 'addAddress'])->name('address')->middleware('auth');
 });
 
 //Routes Offres
@@ -107,9 +107,11 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
 
 Route::prefix('/application')->name('applications.')->controller(ApplicationController::class)->group(function(){
     
-    Route::get('/create', 'create')->name('create')->middleware('auth');
+    Route::get('/create/{offer}', 'create')->name('create')->middleware('auth');
     
-    Route::post('/create', 'store')->name('store');
+    Route::post('/create/{offer}', 'store')->name('store');
+
+    Route::get('/{userId}', [ApplicationController::class, 'show'])->name('show');
 
     Route::get('/', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
 });

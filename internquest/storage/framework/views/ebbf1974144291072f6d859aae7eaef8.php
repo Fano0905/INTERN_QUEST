@@ -72,11 +72,9 @@
                                     <ion-icon name="school"></ion-icon>
                                     <a href="<?php echo e(route('promos.index')); ?>">Promotions</a>
                                 </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <a href="<?php echo e(route('companies.list')); ?>">
-                                        <ion-icon name="chatbubble-ellipses"></ion-icon>
-                                        Mes activités
-                                    </a>                                    
+                                <div class="py-5 px-3 hover:text-black">
+                                    <ion-icon name="archive"></ion-icon>
+                                    <a href="<?php echo e(route('applications.show', Auth::user()->id)); ?>" class="py-5 px-3 hover:text-black">Mes candidatures</a>
                                 </div>
                                 <div class="py-3 px-1 hover:text-black">
                                     <?php if($count > 0): ?>
@@ -132,12 +130,6 @@
                                 <a href="<?php echo e(route('internquest.admin.notifications')); ?>"><ion-icon name="mail"></ion-icon>Notifications</a>
                             </div>
                             <div class="py-5 px-3 hover:text-black">
-                                <a href="<?php echo e(route('companies.list')); ?>">
-                                    <ion-icon name="chatbubble-ellipses"></ion-icon>
-                                    Mes activités
-                                </a>                                
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>
                                 <a href="<?php echo e(route('auth.show')); ?>"><?php echo e(Auth::user()->username); ?></a>
                             </div>
@@ -181,17 +173,11 @@
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="archive"></ion-icon>
-                                <a href="#" class="py-5 px-3 hover:text-black">Mes candidatures</a>
+                                <a href="<?php echo e(route('applications.show', Auth::user()->id)); ?>" class="py-5 px-3 hover:text-black">Mes candidatures</a>
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="list"></ion-icon>
                                 <a href="#" class="py-5 px-3 hover:text-black">Ma wishlist</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <a href="<?php echo e(route('companies.list')); ?>">
-                                    <ion-icon name="chatbubble-ellipses"></ion-icon>
-                                    Mes activités
-                                </a>                                
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>

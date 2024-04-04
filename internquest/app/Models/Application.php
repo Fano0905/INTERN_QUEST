@@ -14,20 +14,14 @@ class Application extends Model
     protected $fillable = [
         'cv',
         'cover_letter',
+        'user_id'
     ];
 
     public function etudiant() {
-        // Vérifier si l'utilisateur est authentifié et s'il a un rôle
-        if(auth()->check() && auth()->user()->role && auth()->user()->role == 'Etudiant') {
-            // Si l'utilisateur a le rôle "Etudiant", retourner la relation
-            return $this->belongsTo(User::class);
-        } else {
-            // Sinon, retourner null
-            return null;
-        }
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function offre(){
-        return $this->belongsTo(Offer::class);
-    }
+        return $this->belongsToMany(Offer::class, 'offers_applications', 'application_id', 'offer_id');
+    }   
 }

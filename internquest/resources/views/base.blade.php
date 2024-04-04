@@ -72,18 +72,16 @@
                                     <ion-icon name="school"></ion-icon>
                                     <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
                                 </div>
-                                <div class="py-5 px-3 hover:text-black">
-                                    <a href="{{ route('companies.list') }}">
-                                        <ion-icon name="chatbubble-ellipses"></ion-icon>
-                                        Mes activités
-                                    </a>                                    
-                                </div>
                                 <div class="py-3 px-1 hover:text-black">
                                     @if ($count > 0)
                                         <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
                                     @else
                                         <ion-icon name="mail"></ion-icon>Notifications
                                     @endif
+                                </div>
+                                <div class="py-5 px-3 hover:text-black">
+                                    <ion-icon name="archive"></ion-icon>
+                                    <a href="{{route('applications.show', Auth::user()->id)}}" class="py-5 px-3 hover:text-black">Mes candidatures</a>
                                 </div>
                                 <div class="py-5 px-3 hover:text-black">
                                     <ion-icon name="person-circle"></ion-icon>
@@ -126,12 +124,6 @@
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="school"></ion-icon>
                                 <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <a href="{{ route('companies.list') }}">
-                                    <ion-icon name="chatbubble-ellipses"></ion-icon>
-                                    Mes activités
-                                </a>                                
                             </div>
                             <div class="py-3 px-1 hover:text-black">
                                 @if ($count > 0)

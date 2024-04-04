@@ -28,7 +28,15 @@ class Offer extends Model
     }
 
     public function candidature(){
-        return $this->hasMany(Application::class);
+        return $this->belongsToMany(Application::class, 'offers_applications', 'offer_id', 'application_id');
+    }
+
+    public function candidat(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function skills(){
+        return $this->hasMany(Skill::class);
     }
 
     public function promos(){
