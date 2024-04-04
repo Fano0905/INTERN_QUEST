@@ -208,7 +208,7 @@
                 {{session('error')}}
             </div>
         @endif
-    @yield('content')
+    
     </div>
         <dialog id="signin_dialog" class="fixed inset-0 m-auto w-100 h-110  bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
             <div class="w-full p-10 flex flex-col items-center">
@@ -336,6 +336,7 @@
                 </form>
             </div>
         </dialog>
+@yield('content')
 <script>
     function login(){
         console.log("close signin");
@@ -366,28 +367,28 @@
     };
 </script>
 <script>
-    // Sélection des éléments du formulaire
+    
     const mailInput = document.getElementById("mail");
     const passwordInput = document.getElementById("password");
     const usernameInput = document.getElementById("username");
 
-    // Ajout d'un event listener à chaque champ d'entrée
+    
     mailInput.addEventListener('input', validateInput);
     passwordInput.addEventListener('input', validateInput);
     usernameInput.addEventListener('input', validateInput);
 
-    // Fonction de validation
+    
     function validateInput(event) {
         const input = event.target;
-        const value = input.value.trim(); // Supprimer les espaces vides au début et à la fin
+        const value = input.value.trim(); 
 
-        // Vérification du type demandé pour chaque champ
+        
         switch (input.id) {
             case 'username':
-                // Aucune vérification spécifique pour les champs de texte
+            
                 break;
             case 'mail':
-                // Vérification de l'email
+                
                 if (!isValidEmail(value)) {
                     input.setCustomValidity('Veuillez entrer une adresse email valide');
                 } else {
@@ -395,7 +396,7 @@
                 }
                 break;
             case 'password':
-                // Vérification de la longueur minimale du mot de passe
+                
                 if (value.length < 8) {
                     input.setCustomValidity('Le mot de passe doit comporter au moins 8 caractères');
                 } else {
@@ -407,9 +408,9 @@
         }
     }
 
-    // Fonction pour valider un email
+    
     function isValidEmail(email) {
-        // Expression régulière pour valider l'email
+        
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
