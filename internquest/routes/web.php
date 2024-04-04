@@ -26,7 +26,7 @@ use Illuminate\Auth\Events\Logout;
 
 Route::get('/user/list', [WebController::class, 'index'])->name('users.list')->middleware('auth');
 
-Route::get('/', [WebController::class, 'web'])->name('internquest/');
+Route::get('/', [WebController::class, 'web'])->name('internquest');
 
 //Routes secteur
 Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){
@@ -92,7 +92,7 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
 
     Route::post('/create', 'store')->name('store');
 
-    Route::get('/{offer}', [OfferController::class, 'show'])->name('show');
+    Route::get('/{offer}', [OfferController::class, 'show'])->name('show')->middleware('auth');
     
     Route::get('/{offer}/edit', [OfferController::class, 'edit'])->name('edit')->middleware('auth');
     

@@ -8,10 +8,11 @@
     <title>Modification d'une offre</title>
 </head>
 <body>
-    <div class="flex justify-center items-center h-screen">
+    <div class="flex justify-center items-center min-h-screen">
         <div class="w-full max-w-xl bg-white p-10 rounded-lg shadow-lg">
             <form action="{{route('offers.update', $offer->id)}}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Titre</label>
                     <input type="text" name="title" id="title" value="{{$offer->title}}" required placeholder="titre" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">

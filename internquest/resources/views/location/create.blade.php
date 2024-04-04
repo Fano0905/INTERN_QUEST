@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layout')
 
 <form action="{{route('locations.store')}}" method="POST" enctype>
     @csrf

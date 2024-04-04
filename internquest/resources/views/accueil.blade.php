@@ -18,7 +18,7 @@
                     <div class="flex ">   
                         <div class="text-gray-700 hidden md:flex space-x-16">
                             <div class="py-3 px-1 hover:text-black">
-                                <a href="{{route('internquest/')}}">
+                                <a href="{{route('internquest')}}">
                                 <ion-icon name="home"></ion-icon>
                                 Accueil</a>
                             </div>
@@ -52,7 +52,7 @@
                         <div class="flex ">   
                             <div class="text-gray-700 hidden md:flex space-x-16">
                                 <div class="py-3 px-1 hover:text-black">
-                                    <a href="{{route('internquest/')}}">
+                                    <a href="{{route('internquest')}}">
                                     <ion-icon name="home"></ion-icon>
                                     Accueil</a>
                                 </div>
@@ -109,7 +109,7 @@
                     <div class="flex ">   
                         <div class="text-gray-700 hidden md:flex space-x-16">
                             <div class="py-5 px-3 hover:text-black">
-                                <a href="{{route('internquest/')}}">
+                                <a href="{{route('internquest')}}">
                                 <ion-icon name="home"></ion-icon>
                                 Accueil</a>
                             </div>
@@ -155,7 +155,7 @@
                     <div class="flex ">   
                         <div class="text-gray-700 hidden md:flex space-x-16">
                             <div class="py-5 px-3 hover:text-black">
-                                <a href="{{route('internquest/')}}">
+                                <a href="{{route('internquest')}}">
                                 <ion-icon name="home"></ion-icon>
                                 Accueil</a>
                             </div>
@@ -331,7 +331,7 @@
                         <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Se connecter</button>
                     </div>
                     <div class="text-center text-sm text-gray-700 mt-4">
-                        J'ai déja un compte. <a href="{{route('auth.login')}}" class="font-bold hover:underline"> se connecter</a>
+                        J'e n'ai pas de compte. <a href="#" onclick="signin(), preventReload(event)" class="font-bold hover:underline"> S'inscrire</a>
                     </div> 
                 </form>
             </div>

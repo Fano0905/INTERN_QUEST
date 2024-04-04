@@ -17,4 +17,7 @@
         </form>        
     </div>
     @endforeach
+    <div class="mt-6">
+        {{ $offers->links('vendor.pagination.tailwind') }} la suite
+    </div>
 @endsection

@@ -62,12 +62,12 @@ class UserController extends Controller
 
         if (Auth::check()) {
             User::create($request->all());
-            return redirect()->route('internquest/')->with('success', 'Nouvel utilisateur ajouté');
+            return redirect()->route('internquest')->with('success', 'Nouvel utilisateur ajouté');
         } else {
             Waiting_User::create($request->all());
         }
     
-        return redirect()->route('internquest/') // Redirige vers la page de connexion
+        return redirect()->route('internquest') // Redirige vers la page de connexion
             ->with('success', "Votre compte a été créé, il a été soumis à la validation d'un Pilote ou de l'Admin");
     }
 
@@ -100,7 +100,7 @@ class UserController extends Controller
         $user->update($request->all());
 
         if (Auth::check()) {
-            return redirect()->route('internquest/')->with('success', 'User uptdated successfully as Admin.');
+            return redirect()->route('internquest')->with('success', 'User uptdated successfully as Admin.');
         }
 
         return redirect()->route('internquest.users.index')
@@ -119,7 +119,7 @@ class UserController extends Controller
         $user->delete();
 
         if (Auth::check()) { // Vérifie si l'utilisateur est connecté
-            return redirect()->route('internquest/')->with('success', 'User deleted successfully as Admin.');
+            return redirect()->route('internquest')->with('success', 'User deleted successfully as Admin.');
         }
 
         return redirect()->route('auth.login')
@@ -162,7 +162,7 @@ class UserController extends Controller
             'centre' => $waiting_user->centre
         ]);
         $waiting_user->delete();
-        return redirect()->route('internquest/')->with('success', "Utilisateur approuvé");
+        return redirect()->route('internquest')->with('success', "Utilisateur approuvé");
     }
 
     /**
@@ -176,7 +176,7 @@ class UserController extends Controller
         $waiting_user = Waiting_User::find($id);
         $waiting_user ->delete();
 
-        return redirect()->route('internquest/')->with('success', 'User deleted successfully as Admin.');
+        return redirect()->route('internquest')->with('success', 'User deleted successfully as Admin.');
     }
 
     // routes functions

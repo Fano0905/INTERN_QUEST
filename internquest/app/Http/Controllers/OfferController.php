@@ -20,7 +20,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::paginate(10);
+        $offers = Offer::paginate(8);
         $pending = Waiting_User::paginate(10);
         $count = count($pending);
 
@@ -56,7 +56,7 @@ class OfferController extends Controller
         ]);
 
         $offer = Offer::create($request->all());
-        $offer->skills()->attach($request->input('skills'));
+        $offer->skills()->sync($request->input('skills'));
 
         return redirect()->route('offers.index')
             ->with('success', 'Offre créée avec succès.');
@@ -82,10 +82,13 @@ class OfferController extends Controller
                 'date_offer' => ['required'],
                 'place_offered' => ['required'],
                 'company_id' => ['required'],
+                'skills' => ['required', 'array'],
+                'skills.*' => ['exists:skills,id'],
                 'description' => ['required', 'min:20']
             ]
         );
         $offer->update($request->all());
+        $offer->skills()->attach($request->input('skills'));
 
         return redirect()->route('offers.index')
             ->with('success', "L'offre a bien été modifié.");
@@ -149,7 +152,8 @@ class OfferController extends Controller
         $offer = Offer::find($id);
         $companies = Company::all();
         $cities = Location::all()->pluck('city');
+        $skills = Skill::all();
 
-        return view('offer.edit', compact('offer', 'companies', 'cities'));
+        return view('offer.edit', compact('offer', 'companies', 'cities', 'skills'));
     }
 }

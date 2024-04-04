@@ -185,7 +185,7 @@ class CompanyController extends Controller
         $location = Location::create($locationData);
         $company->locations()->attach($location->id);
 
-        return redirect()->route('companies.index')
+        return redirect()->back()
             ->with('success', 'Nouvelle adresse attribuée');
     }
 

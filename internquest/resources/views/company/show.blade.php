@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layout')
 
 @section('title', $company->name)
 
@@ -16,14 +16,14 @@
                 <li>{{$siege->city}}</li>
             </ul> 
         </div>
-        <div class="localite bg-gray-100 p-4 border border-gray-300 rounded-md">
-            <p>Mais vous pouvez aussi nous retrouver aux adresse suivantes</p>
-            @foreach ($locations as $location)
+        <p>Mais vous pouvez aussi nous retrouver aux adresse suivantes</p>
+        @foreach ($locations as $location)
+            <div class="localite bg-gray-100 p-4 border border-gray-300 rounded-md" style="list-style-type:none;">
                 <li>{{$location->location}}</li>
                 <li>{{$location->postal_code}}</li>
                 <li>{{$location->city}}</li>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
 
         @auth
             @if (Auth::user()->role == 'Admin'|| Auth::user()->role == 'Pilote')
