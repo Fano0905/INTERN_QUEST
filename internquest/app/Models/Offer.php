@@ -35,6 +35,10 @@ class Offer extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function skills(){
+        return $this->hasMany(Skill::class);
+    }
+
     public function promos(){
         return $this->belongsToMany(Promo::class);
     }

@@ -190,11 +190,11 @@ class CompanyController extends Controller
     }
 
     /**
-     * Show the form for editing the specified company.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Show the form for editing the specified company.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
 
     public function evaluate($id){
 
@@ -255,11 +255,10 @@ class CompanyController extends Controller
     {
         $user = Auth::user();
 
-        $user_co = User::find($user->id);
-        // Charger les évaluations avec les entreprises associées
+        $user_co = User::where('id', '=', $user->id)->get();
+
         $evaluations = $user_co->evaluate()->with('company')->get();
 
-        // Créer une collection pour stocker les entreprises
         $companies = collect();
 
         // Itérer sur les évaluations et ajouter les entreprises à la collection
@@ -275,7 +274,6 @@ class CompanyController extends Controller
 
         // Maintenant, $companies contient toutes les entreprises où $user_co a laissé un commentaire
         return view('opinion.index', compact('evaluations', 'companies'));
-
     }
 
     /**

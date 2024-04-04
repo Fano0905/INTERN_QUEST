@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OfferRequest;
+use App\Models\Skill;
 use App\Models\Company;
 use App\Models\Location;
 use App\Models\Waiting_User;
@@ -19,10 +20,14 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::all();
-        $pending = Waiting_User::all();
+        $offers = Offer::paginate(10);
+        $pending = Waiting_User::paginate(10);
         $count = count($pending);
 
+        foreach ($offers as $offer){
+            $offer->nb_application = $offer->candidature()->count();
+        }
+        
         foreach ($pending as $users)
             $count++;
 
@@ -45,10 +50,13 @@ class OfferController extends Controller
             'date_offer' => ['required'],
             'place_offered' => ['required'],
             'company_id' => ['required'],
+            'skills' => ['required', 'array'],
+            'skills.*' => ['exists:skills,id'],
             'description' => ['required']
         ]);
 
-        Offer::create($request->all());
+        $offer = Offer::create($request->all());
+        $offer->skills()->attach($request->input('skills'));
 
         return redirect()->route('offers.index')
             ->with('success', 'Offre créée avec succès.');
@@ -109,8 +117,9 @@ class OfferController extends Controller
     {
         $companies = Company::all();
         $cities = Location::all()->pluck('city');
+        $skills = Skill::all();
 
-        return view('offer.create', \compact('companies', 'cities'));
+        return view('offer.create', \compact('companies', 'cities', 'skills'));
     }
 
 

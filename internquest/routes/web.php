@@ -9,7 +9,6 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Promos_UserController;
-use App\Models\Application;
 use Illuminate\Auth\Events\Logout;
 
 /*
@@ -75,15 +74,15 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
 
     Route::get('/{company}/evaluate', [CompanyController::class, 'evaluate'])->name('evaluate')->middleware('auth');
 
-    Route::get('/{evaluation}/edit', 'e_edit')->name('e_edit')->middleware('auth');
+    Route::get('/{evaluation}/edit', [CompanyController::class, 'e_edit'])->name('e_edit')->middleware('auth');
 
-    Route::put('/{evaluation}/edit', 'e_update')->name('e_update');
+    Route::put('/{evaluation}', [CompanyController::class, 'e_update'])->name('e_update');
 
-    Route::get('/evaluations', [CompanyController::class, 'list'])->name('list');
+    Route::get('/evaluations', [CompanyController::class, 'list'])->name('evaluations');
 
-    Route::post('/{company}', 'e_store')->name('e_store');
+    Route::post('/{company}', [CompanyController::class, 'e_store'])->name('e_store');
 
-    Route::post('/{company}/address', 'addAddress')->name('address')->middleware('auth');
+    Route::post('/{company}/address', [CompanyController::class, 'addAddress'])->name('address')->middleware('auth');
 });
 
 //Routes Offres
