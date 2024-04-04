@@ -8,8 +8,8 @@
 </head>
 
 
-<body style="h-dvh">
-<div class="w-full h-full bg-no-repeat bg-cover overflow-hidden" style="background-image: url('/img/image-bg.jpg'); background-position: left bottom;">
+<body style="height: 100vh;">
+<div class="w-full h-full bg-no-repeat bg-cover " style="background-image: url('/img/image-bg.jpg'); background-position: left bottom;">
     <div class="flex justify-center items-center h-screen">
         <div class="border border-black bg-gray-200 rounded-3xl" style="width: 768px; height: 350px;">              <div class="flex">
                 <div class="w-1/4 p-4 border photo-container mt-4 ml-2">
