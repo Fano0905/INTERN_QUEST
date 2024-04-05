@@ -68,9 +68,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'waiting_users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Waiting_User::class,
+        'providers' => [
+            'waiting_users' => [
+                'driver' => 'eloquent',
+                'model' => App\Models\Waiting_User::class,
+            ],
         ],
 
         // 'users' => [

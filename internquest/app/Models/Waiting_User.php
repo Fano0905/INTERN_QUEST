@@ -2,17 +2,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use PhpParser\Node\Expr\FuncCall;
 
-/**
- * @mixin IdeHelperUser
- */
 class Waiting_User extends User
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -55,4 +49,4 @@ class Waiting_User extends User
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-}    
+}

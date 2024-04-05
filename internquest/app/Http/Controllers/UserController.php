@@ -61,8 +61,7 @@ class UserController extends Controller
                         ->withInput();
         }
 
-
-        if (Auth::check()) {
+        if ($request->input('role') == "Pilote") {
             User::create($request->all());
             return redirect()->route('internquest')->with('success', 'Nouvel utilisateur ajouté');
         } else {
@@ -182,15 +181,15 @@ class UserController extends Controller
     */
     public function approve($id){
         $waiting_user = Waiting_User::findOrFail($id);
-        $user = User::create([
+        User::create([
             'lname' => $waiting_user->lname,
             'fname' => $waiting_user->fname,
             'mail' => $waiting_user->mail,
-            'password' => bcrypt($waiting_user->password), // Hasher le mot de passe
+            'password' => $waiting_user->password,
             'username' => $waiting_user->username,
             'role' => $waiting_user->role,
             'centre' => $waiting_user->centre
-        ]);
+        ]);        
         $waiting_user->delete();
         return redirect()->route('internquest')->with('success', "Utilisateur approuvé");
     }
