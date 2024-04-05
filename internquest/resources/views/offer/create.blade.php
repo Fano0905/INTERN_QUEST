@@ -74,6 +74,18 @@
                     @enderror
                 </div>
                 <div class="relative mb-2 grid grid-cols-2 gap-4">
+                    <strong><h2><label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Promos</label></h2></strong>
+                    @foreach ($promos as $promo)
+                        <div class="flex items-center">
+                            <input type="checkbox" name="promos[]" class="..." value="{{$promo->id}}"> {{$promo->name}}
+                        </div>
+                    @endforeach
+                    @error('promos[]')
+                        <p class="text-red-500 text-xs italic">{{$message}}</p>
+                    @enderror
+                </div>
+                <div class="relative mb-2 grid grid-cols-2 gap-4">
+                    <strong><h2><label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Compétences</label></h2></strong>
                     @foreach ($skills as $skill)
                         <div class="flex items-center">
                             <input type="checkbox" name="skills[]" class="..." value="{{$skill->id}}"> {{$skill->name}}
@@ -82,7 +94,7 @@
                     @error('skills[]')
                         <p class="text-red-500 text-xs italic">{{$message}}</p>
                     @enderror
-                </div>                
+                </div>              
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Description</label>
                     <textarea type="text" rows="10" cols="50" name="description" id="description" required class="w-full pl-3 pr-3 py-2 bg-gray-200 border-b-2 border-red-600 outline-none focus:border-red-400"

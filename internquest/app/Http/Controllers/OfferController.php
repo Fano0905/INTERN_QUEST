@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OfferRequest;
 use App\Models\Skill;
 use App\Models\Company;
 use App\Models\Location;
 use App\Models\Waiting_User;
 use Illuminate\Http\Request;
 use App\Models\Offer;
+use App\Models\Offer_Promo;
+use App\Models\Offer_Skills;
+use App\Models\Promo;
 use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
@@ -56,7 +58,18 @@ class OfferController extends Controller
         ]);
 
         $offer = Offer::create($request->all());
-        $offer->skills()->sync($request->input('skills'));
+        foreach ($request->input('skills') as $skill_id) {
+            Offer_Skills::create([
+                'offer_id' => $offer->id,
+                'skill_id' => $skill_id
+            ]);
+        }
+        foreach ($request->input('promos') as $promo_id) {
+            Offer_Promo::create([
+                'offer_id' => $offer->id,
+                'promo_id' => $promo_id
+            ]);
+        }
 
         return redirect()->route('offers.index')
             ->with('success', 'Offre créée avec succès.');
@@ -82,13 +95,26 @@ class OfferController extends Controller
                 'date_offer' => ['required'],
                 'place_offered' => ['required'],
                 'company_id' => ['required'],
+                'promos' => ['required', 'array'],
+                'promos.*' => ['exists:promos,id'],
                 'skills' => ['required', 'array'],
                 'skills.*' => ['exists:skills,id'],
                 'description' => ['required', 'min:20']
             ]
         );
         $offer->update($request->all());
-        $offer->skills()->attach($request->input('skills'));
+        foreach ($request->input('skills') as $skill_id) {
+            Offer_Skills::create([
+                'offer_id' => $offer->id,
+                'skill_id' => $skill_id
+            ]);
+        }
+        foreach ($request->input('promos') as $promo_id) {
+            Offer_Promo::create([
+                'offer_id' => $offer->id,
+                'promo_id' => $promo_id
+            ]);
+        }
 
         return redirect()->route('offers.index')
             ->with('success', "L'offre a bien été modifié.");
@@ -121,8 +147,9 @@ class OfferController extends Controller
         $companies = Company::all();
         $cities = Location::all()->pluck('city');
         $skills = Skill::all();
+        $promos = Promo::all();
 
-        return view('offer.create', \compact('companies', 'cities', 'skills'));
+        return view('offer.create', \compact('companies', 'cities', 'skills', 'promos'));
     }
 
 
@@ -153,7 +180,8 @@ class OfferController extends Controller
         $companies = Company::all();
         $cities = Location::all()->pluck('city');
         $skills = Skill::all();
+        $promos = Promo::all();
 
-        return view('offer.edit', compact('offer', 'companies', 'cities', 'skills'));
+        return view('offer.edit', compact('offer', 'companies', 'cities', 'skills', 'promos'));
     }
 }

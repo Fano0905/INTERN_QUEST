@@ -11,7 +11,11 @@ class Skill extends Model
     
     public $timestamps = \false;
 
-    public function offer(){
-        return $this->belongsToMany(Offer::class);
+    public function offers(){
+        return $this->belongsToMany(Offer::class, 'offers_skills', 'skill_id', 'offer_id');
+    }
+
+    public function skills(){
+        return $this->belongsToMany(User::class, 'user_skills', 'user_id', 'skill_id');
     }
 }

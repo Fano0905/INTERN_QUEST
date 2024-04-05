@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'waiting_user' => [
+            'driver' => 'session',
+            'provider' => 'waiting_users',
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'waiting_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Waiting_User::class,
         ],
 
         // 'users' => [

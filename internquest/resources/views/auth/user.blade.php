@@ -48,6 +48,12 @@
                 </button>
                 </a>
 
+                <a href="{{route('internquest.users.learn')}}" class="mx-2">
+                    <button type="submit" class="w-48 h-12 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium mr-4"> 
+                        Ajouter compétences
+                    </button>
+                </a>
+
                 <form action="{{ route('internquest.users.destroy', $user->id) }}" method="post">
                     @csrf
                     @method('DELETE')

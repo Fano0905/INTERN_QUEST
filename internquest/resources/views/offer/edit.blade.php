@@ -75,6 +75,16 @@
                     @enderror
                 </div>
                 <div class="relative mb-2 grid grid-cols-2 gap-4">
+                    @foreach ($promos as $promo)
+                        <div class="flex items-center">
+                            <input type="checkbox" name="promos[]" class="..." value="{{$promo->id}}"> {{$promo->name}}
+                        </div>
+                    @endforeach
+                    @error('promos[]')
+                        <p class="text-red-500 text-xs italic">{{$message}}</p>
+                    @enderror
+                </div>
+                <div class="relative mb-2 grid grid-cols-2 gap-4">
                     @foreach ($skills as $skill)
                         <div class="flex items-center">
                             <input type="checkbox" class="pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400" value="{{$skill->name}}"> {{$skill->name}}

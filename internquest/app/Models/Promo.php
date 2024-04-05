@@ -25,6 +25,6 @@ class Promo extends Model
     }
 
     public function offres(){
-        return $this->belongsToMany(Offer::class);
+        return $this->belongsToMany(Offer::class, 'offer_promos', 'promo_id', 'offer_id');
     }
 }

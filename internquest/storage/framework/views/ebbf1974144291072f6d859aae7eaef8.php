@@ -11,39 +11,6 @@
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-auto" style="background-image: url('/img/image-bg.jpg')">
 
-    <?php if(auth()->guard()->guest()): ?>
-        <nav class="bg-gray-100" id ="nav_guest">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-center">
-                    <div class="flex ">   
-                        <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-3 px-1 hover:text-black">
-                                <a href="<?php echo e(route('internquest')); ?>">
-                                <ion-icon name="home"></ion-icon>
-                                Accueil</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
-                                    Offres</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
-                                <ion-icon name="business"></ion-icon>
-                                Entreprises</a>
-                            </div>
-                            <div class="text-gray-700 items-center hidden md:flex space-x-8">
-                                <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Se connecter</a>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="person-add"></ion-icon>
-                                    <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    <?php endif; ?>
-
     <?php if(auth()->guard()->check()): ?>
         <?php if(Auth::user()->role == 'Admin'): ?>
             <nav class="bg-gray-100" id ="nav_admin">
@@ -100,9 +67,7 @@
                     </div>
                 </div>
             </nav>
-        <?php endif; ?>
-
-        <?php if(Auth::user()->role == 'Pilote'): ?>
+        <?php elseif(Auth::user()->role == 'Pilote'): ?>
         <nav class="bg-gray-100" id ="nav_admin">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex justify-center">
@@ -146,9 +111,7 @@
                 </div>
             </div>
             </nav>
-        <?php endif; ?>
-
-        <?php if(Auth::user()->role == 'Etudiant'): ?>
+        <?php elseif(Auth::user()->role == 'Etudiant'): ?>
         <nav class="bg-gray-100" id ="nav_admin">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex justify-center">
@@ -198,6 +161,38 @@
             </nav>
         <?php endif; ?>
     <?php endif; ?>
+    <?php if(auth()->guard()->guest()): ?>
+        <nav class="bg-gray-100" id ="nav_guest">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-center">
+                    <div class="flex ">   
+                        <div class="text-gray-700 hidden md:flex space-x-16">
+                            <div class="py-3 px-1 hover:text-black">
+                                <a href="<?php echo e(route('internquest')); ?>">
+                                <ion-icon name="home"></ion-icon>
+                                Accueil</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
+                                    Offres</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
+                                <ion-icon name="business"></ion-icon>
+                                Entreprises</a>
+                            </div>
+                            <div class="text-gray-700 items-center hidden md:flex space-x-8">
+                                <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Se connecter</a>
+                                <div class="py-3 px-1 hover:text-black">
+                                    <ion-icon name="person-add"></ion-icon>
+                                    <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    <?php endif; ?>
     <div class="container">
         <?php if(session('success')): ?>
             <div class="alert alert-success">
@@ -210,7 +205,7 @@
 
             </div>
         <?php endif; ?>
-    <?php echo $__env->yieldContent('content'); ?>
+    
     </div>
         <dialog id="signin_dialog" class="fixed inset-0 m-auto w-100 h-110  bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
             <div class="w-full p-10 flex flex-col items-center">
@@ -401,6 +396,7 @@ unset($__errorArgs, $__bag); ?>
                 </form>
             </div>
         </dialog>
+<?php echo $__env->yieldContent('content'); ?>
 <script>
     function login(){
         console.log("close signin");
@@ -431,28 +427,28 @@ unset($__errorArgs, $__bag); ?>
     };
 </script>
 <script>
-    // Sélection des éléments du formulaire
+    
     const mailInput = document.getElementById("mail");
     const passwordInput = document.getElementById("password");
     const usernameInput = document.getElementById("username");
 
-    // Ajout d'un event listener à chaque champ d'entrée
+    
     mailInput.addEventListener('input', validateInput);
     passwordInput.addEventListener('input', validateInput);
     usernameInput.addEventListener('input', validateInput);
 
-    // Fonction de validation
+    
     function validateInput(event) {
         const input = event.target;
-        const value = input.value.trim(); // Supprimer les espaces vides au début et à la fin
+        const value = input.value.trim(); 
 
-        // Vérification du type demandé pour chaque champ
+        
         switch (input.id) {
             case 'username':
-                // Aucune vérification spécifique pour les champs de texte
+            
                 break;
             case 'mail':
-                // Vérification de l'email
+                
                 if (!isValidEmail(value)) {
                     input.setCustomValidity('Veuillez entrer une adresse email valide');
                 } else {
@@ -460,7 +456,7 @@ unset($__errorArgs, $__bag); ?>
                 }
                 break;
             case 'password':
-                // Vérification de la longueur minimale du mot de passe
+                
                 if (value.length < 8) {
                     input.setCustomValidity('Le mot de passe doit comporter au moins 8 caractères');
                 } else {
@@ -472,9 +468,9 @@ unset($__errorArgs, $__bag); ?>
         }
     }
 
-    // Fonction pour valider un email
+    
     function isValidEmail(email) {
-        // Expression régulière pour valider l'email
+        
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }

@@ -24,7 +24,7 @@ use Illuminate\Auth\Events\Logout;
 
 //Routes principales
 
-Route::get('/user/list', [WebController::class, 'index'])->name('users.list')->middleware('auth');
+Route::get('/user/list', [WebController::class, 'index'])->name('users.list');
 
 Route::get('/', [WebController::class, 'web'])->name('internquest');
 
@@ -51,6 +51,8 @@ Route::prefix('/internquest')->name('internquest.')->group(function () {
     Route::get('admin', [UserController::class, 'notifs'])->name('admin.notifications');
     Route::get('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
     Route::delete('users/{user}/disapprove', [UserController::class, 'disapprove'])->name('users.disapprove');
+    Route::get('/skills/add', [UserController::class, 'learn'])->name('users.learn');
+    Route::post('/skills/', [UserController::class, 'certificate'])->name('users.confirm');
 });
 
 
@@ -62,7 +64,7 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
     
     Route::post('/create', 'store')->name('store');
     
-    Route::get('/{company}', [CompanyController::class, 'show'])->name('show');
+    Route::get('/{company}', [CompanyController::class, 'show'])->name('show')->middleware('auth');
     
     Route::get('/{company}/edit', [CompanyController::class, 'edit'])->name('edit')->middleware('auth');
     
@@ -121,7 +123,7 @@ Route::prefix('/application')->name('applications.')->controller(ApplicationCont
 Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('login');
 
-    Route::post('/login', [AuthController::class, 'doLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'doLogin'])->name('doLogin');
     
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
     

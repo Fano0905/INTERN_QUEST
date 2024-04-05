@@ -11,39 +11,6 @@
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-auto" style="background-image: url('/img/image-bg.jpg')">
 
-    @guest
-        <nav class="bg-gray-100" id ="nav_guest">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-center">
-                    <div class="flex ">   
-                        <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-3 px-1 hover:text-black">
-                                <a href="{{route('internquest')}}">
-                                <ion-icon name="home"></ion-icon>
-                                Accueil</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
-                                    Offres</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
-                                <ion-icon name="business"></ion-icon>
-                                Entreprises</a>
-                            </div>
-                            <div class="text-gray-700 items-center hidden md:flex space-x-8">
-                                <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Se connecter</a>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="person-add"></ion-icon>
-                                    <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    @endguest
-
     @auth
         @if (Auth::user()->role == 'Admin')
             <nav class="bg-gray-100" id ="nav_admin">
@@ -100,9 +67,7 @@
                     </div>
                 </div>
             </nav>
-        @endif
-
-        @if (Auth::user()->role == 'Pilote')
+        @elseif (Auth::user()->role == 'Pilote')
         <nav class="bg-gray-100" id ="nav_admin">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex justify-center">
@@ -146,9 +111,7 @@
                 </div>
             </div>
             </nav>
-        @endif
-
-        @if (Auth::user()->role == 'Etudiant')
+        @elseif (Auth::user()->role == 'Etudiant')
         <nav class="bg-gray-100" id ="nav_admin">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex justify-center">
@@ -198,6 +161,38 @@
             </nav>
         @endif
     @endauth
+    @guest
+        <nav class="bg-gray-100" id ="nav_guest">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-center">
+                    <div class="flex ">   
+                        <div class="text-gray-700 hidden md:flex space-x-16">
+                            <div class="py-3 px-1 hover:text-black">
+                                <a href="{{route('internquest')}}">
+                                <ion-icon name="home"></ion-icon>
+                                Accueil</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
+                                    Offres</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
+                                <ion-icon name="business"></ion-icon>
+                                Entreprises</a>
+                            </div>
+                            <div class="text-gray-700 items-center hidden md:flex space-x-8">
+                                <a href="#" class="py-2 px-3 bg-gray-200 text-gray-700 rounded-3xl hover:bg-gray-300 transition duration-300" onclick="login(), preventReload(event)" >Se connecter</a>
+                                <div class="py-3 px-1 hover:text-black">
+                                    <ion-icon name="person-add"></ion-icon>
+                                    <a href="#" onclick="signin(), preventReload(event)">S'inscrire</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    @endguest
     <div class="container">
         @if (session('success'))
             <div class="alert alert-success">

@@ -20,10 +20,14 @@ class AuthController extends Controller
     public function doLogin(LoginRequest $request) {
         $credentials = $request->validated();
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('waiting_user')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended(route('internquest'))->with('success', 'Connexion établie avec succès');
-        } else {
+        } 
+        if (Auth::guard('web')->attempt($credentials)){
+            $request->session()->regenerate();
+            return redirect()->intended(route('internquest'))->with('success', 'Connexion établie avec succès [User]');
+        }else {
             return redirect()->back()->withErrors([
                 'mail' => 'Identifiants invalides',
                 'password' => 'Mot de passe incorrect'

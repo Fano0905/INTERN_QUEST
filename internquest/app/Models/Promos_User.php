@@ -9,8 +9,6 @@ class Promos_User extends Model
 {
     use HasFactory;
 
-    // Define the relationship with the Promos_User model
-
     public $timestamps = false;
 
     protected $table = 'promos_users';

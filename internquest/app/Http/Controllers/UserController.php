@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\User_Skill;
 use App\Models\Waiting_User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -100,7 +102,7 @@ class UserController extends Controller
         $user->update($request->all());
 
         if (Auth::check()) {
-            return redirect()->route('internquest')->with('success', 'User uptdated successfully as Admin.');
+            return redirect()->route('internquest')->with('success', "L'utilisateur a été mis à jour");
         }
 
         return redirect()->route('internquest.users.index')
@@ -118,12 +120,12 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        if (Auth::check()) { // Vérifie si l'utilisateur est connecté
-            return redirect()->route('internquest')->with('success', 'User deleted successfully as Admin.');
+        if (Auth::check()) {
+            return redirect()->route('users.list')->with('success', "L'utilisateur a été supprimé.");
         }
 
         return redirect()->route('auth.login')
-            ->with('success', 'Utilisateur deleted successfully');
+            ->with('success', "L'utilisateur a été supprimé");
     }
 
     public function notifs(){
@@ -134,23 +136,51 @@ class UserController extends Controller
     }
 
     /**
+    * Display the specified resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function learn(){
+
+        $skills = Skill::all();
+        $users = User::where('role', '=', 'Etudiant')->orWhere('role', '=', 'Admin')->get();
+
+        return view('auth.skill', \compact('skills', 'users'));
+    }
+
+    /**
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function certificate(Request $request){
+        $request->validate([
+            'user_id' => ['required'],
+            'skills' => ['required', 'array'],
+            'skills.*' => ['exists:skills,id'],
+        ],[
+            'skill_id.unique' => 'Cet étudiant a déjà cette compétence'
+        ]);
+        
+        foreach ($request->input('skills') as $skill_id) {
+            User_Skill::create([
+                'user_id' => $request->input('user_id'),
+                'skill_id' => $skill_id
+            ]);
+        }
+        
+        return redirect()->route('internquest')
+        ->with('success', 'Compétence ajouté au CV');
+    }    
+
+    /**
     * Remove the specified resource from storage.
     *
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
     public function approve($id){
-        /*
-        User::create([
-            'lname' => $waiting_user->lname ,
-            'fname' => $waiting_user->fname,
-            'mail' => $waiting_user->mail,
-            'password' => $waiting_user->password,
-            'username' => $waiting_user->username,
-            'role' => $waiting_user->role,
-            'centre' => $waiting_user->centre
-        ]);
-        */
         $waiting_user = Waiting_User::findOrFail($id);
         $user = User::create([
             'lname' => $waiting_user->lname,
@@ -176,7 +206,7 @@ class UserController extends Controller
         $waiting_user = Waiting_User::find($id);
         $waiting_user ->delete();
 
-        return redirect()->route('internquest')->with('success', 'User deleted successfully as Admin.');
+        return redirect()->route('internquest')->with('success', "L'utilisateur a été supprimé");
     }
 
     // routes functions
