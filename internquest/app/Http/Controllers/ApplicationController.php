@@ -82,11 +82,11 @@ class ApplicationController extends Controller
     */
     public function show($id)
     {
-        $user = User::findOrFail($id);
-        $applications = Application::with('offre')->where('id', '=', $id)->get();
+        $offer = Offer::findOrFail($id);
+        $applications = $offer->applications;
         $pending = Waiting_User::all();
         $count = count($pending);
     
-        return view('application.show', compact('applications', 'count'));
-    }
+        return view('offer.show', compact('offer', 'applications', 'count'));
+    }    
 }  

@@ -1,37 +1,41 @@
-@extends('base')
+@extends('accueil')
 
-<form action="{{route('locations.update', $location->id)}}" method="POST" enctype>
-    @csrf
-    <div class="relative mb-6">
-        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Code postal</label>
-        <input type="text" name="postal_code" id="postal_code" value="{{$location->postal_code}}" required placeholder="Code Postal" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-        @error('postal_code')
-            <p style="color: red;">{{$message}}</p>
-        @enderror
-        <span class="error-message" id="error-postal_code"></span><br>
+<div class="flex justify-center items-center min-h-screen">
+    <div class="w-full max-w-xl bg-white p-10 rounded-lg shadow-lg">
+        <form action="{{route('locations.update', $location->id)}}" method="POST" enctype>
+            @csrf
+            <div class="relative mb-2 flex flex-col">
+                <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Code postal</label>
+                <input type="text" name="postal_code" id="postal_code" value="{{$location->postal_code}}" required placeholder="Code Postal" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                @error('postal_code')
+                    <p style="color: red;">{{$message}}</p>
+                @enderror
+                <span class="error-message" id="error-postal_code"></span><br>
+            </div>
+            <div class="relative mb-2 flex flex-col">
+                <label required class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Ville</label>
+                <input type="text" name="cities" id="cities" value="{{$location->city}}" placeholder="Ville" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                <input type="hidden" name="city" id="city" value="">
+                <select name="select_city" id="select_city" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                    <option id="opt"></option>
+                </select>
+                @error('city')
+                    <p style="color: red;">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="relative mb-2 flex flex-col">
+                <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Adresse</label>
+                <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                @error('location')
+                    <p style="color: red;">{{$message}}</p>
+                @enderror
+            </div>
+            <div>
+                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Enregistrer Adresse</button>
+            </div>
+        </form>
     </div>
-    <div class="relative mb-6">
-        <label required class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Ville</label>
-        <input type="text" name="cities" id="cities" value="{{$location->city}}" placeholder="Ville" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-        <input type="hidden" name="city" id="city" value="">
-        <select name="select_city" id="select_city" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-            <option id="opt"></option>
-        </select>
-        @error('city')
-            <p style="color: red;">{{$message}}</p>
-        @enderror
-    </div>
-    <div class="relative mb-6">
-        <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Adresse</label>
-        <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
-        @error('location')
-            <p style="color: red;">{{$message}}</p>
-        @enderror
-    </div>
-    <div>
-        <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Enregistrer Adresse</button>
-    </div>
-</form>
+</div>
 
 <script>
     document.getElementById("postal_code").addEventListener("input", function() {

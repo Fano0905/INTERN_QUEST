@@ -10,7 +10,6 @@
 
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-auto" style="background-image: url('/img/image-bg.jpg')">
-
     <?php if(auth()->guard()->check()): ?>
         <?php if(Auth::user()->role == 'Admin'): ?>
             <nav class="bg-gray-100" id ="nav_admin">
@@ -205,7 +204,6 @@
 
             </div>
         <?php endif; ?>
-    
     </div>
         <dialog id="signin_dialog" class="fixed inset-0 m-auto w-100 h-110  bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
             <div class="w-full p-10 flex flex-col items-center">

@@ -27,9 +27,9 @@ class Offer extends Model
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-    public function candidature(){
+    public function applications(){
         return $this->belongsToMany(Application::class, 'offers_applications', 'offer_id', 'application_id');
-    }
+    }    
 
     public function candidat(){
         return $this->belongsTo(User::class, 'user_id');

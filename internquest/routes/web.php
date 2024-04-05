@@ -64,8 +64,6 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
     
     Route::post('/create', 'store')->name('store');
     
-    Route::get('/{company}', [CompanyController::class, 'show'])->name('show')->middleware('auth');
-    
     Route::get('/{company}/edit', [CompanyController::class, 'edit'])->name('edit')->middleware('auth');
     
     Route::put('/{company}', [CompanyController::class, 'update'])->name('update')->middleware('auth');
@@ -85,6 +83,11 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
     Route::post('/{company}', [CompanyController::class, 'e_store'])->name('e_store');
 
     Route::post('/{company}/address', [CompanyController::class, 'addAddress'])->name('address')->middleware('auth');
+
+    Route::get('/search', [CompanyController::class, 'search'])->name('search');
+
+    Route::get('/{company}', [CompanyController::class, 'show'])->name('show')->middleware('auth');    
+
 });
 
 //Routes Offres
@@ -103,6 +106,9 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy')->middleware('auth');
 
     Route::get('/', [OfferController::class, 'index'])->name('index');
+
+    Route::get('/offers/search', [OfferController::class, 'search'])->name('search');
+
 });
 
 //Routes candidatures
@@ -113,7 +119,7 @@ Route::prefix('/application')->name('applications.')->controller(ApplicationCont
     
     Route::post('/create/{offer}', 'store')->name('store');
 
-    Route::get('/{userId}', [ApplicationController::class, 'show'])->name('show');
+    Route::get('/{offer}', [ApplicationController::class, 'show'])->name('show');
 
     Route::get('/', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
 });

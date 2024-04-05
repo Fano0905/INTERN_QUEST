@@ -25,6 +25,18 @@ class CompanyController extends Controller
         $pending = Waiting_User::all();
         $count = count($pending);
 
+        foreach ($companies as $company) {
+            // Vérifier si l'entreprise a des notes
+            if ($company->notes()->count() > 0) {
+                // Calculer la note moyenne d'évaluation pour l'entreprise
+                $averageEvaluation = $company->notes()->sum('note') / $company->notes()->count();
+                // Mettre à jour l'attribut 'evaluation' de l'entreprise avec la note moyenne calculée
+                $company->evaluation = $averageEvaluation;
+                // Sauvegarder les modifications dans la base de données
+                $company->save();
+            }
+        }        
+        
         return view('company.index', compact('companies', 'count'));
     }
 
@@ -139,13 +151,15 @@ class CompanyController extends Controller
     public function show($id)
     {
         $company = Company::find($id);
+        $pending = Waiting_User::all();
+        $count = count($pending);
         if (!$company) {
             // Gérer l'erreur, par exemple rediriger vers une page d'erreur ou afficher un message
             return redirect()->back()->with('error', 'Company not found.');
         }
         $locations = $company->locations->slice(1);
         $siege = $company->locations->first();
-        return view('company.show', compact('company', 'locations', 'siege'));
+        return view('company.show', compact('company', 'locations', 'siege', 'count'));
     }    
 
     /**
@@ -261,15 +275,12 @@ class CompanyController extends Controller
 
         $companies = collect();
 
-        // Itérer sur les évaluations et ajouter les entreprises à la collection
         foreach ($evaluations as $evaluation) {
-            // Assurez-vous que l'entreprise associée est bien chargée
             if ($evaluation->company) {
                 $companies->push($evaluation->company);
             }
         }
 
-        // Supprimer les doublons d'entreprises
         $companies = $companies->unique('id');
 
         // Maintenant, $companies contient toutes les entreprises où $user_co a laissé un commentaire
@@ -301,5 +312,42 @@ class CompanyController extends Controller
  
         return redirect()->route('companies.index')
             ->with('success', 'Your opinion has been saved');
+    }
+
+    public function search(Request $request)
+    {
+        $query = Company::query();
+        $pending = Waiting_User::all();
+        $count = count($pending);
+
+        if ($request->has('name')) {
+            $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
+        }
+
+        if ($request->has('area')) {
+            $query->whereHas('area', function($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->input('area') . '%');
+            });
+        }
+
+        // Recherche par ville
+        if ($request->has('location')) {
+            $query->whereHas('locations', function($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->input('location') . '%');
+            });
+        }
+
+        // Recherche par notes
+        if ($request->has('note')) {
+            $query->whereHas('notes', function($q) use ($request) {
+                $q->where('value', '>=', $request->input('note'));
+            });
+        }
+
+        // Ajoutez d'autres critères de recherche si nécessaire
+
+        $companies = $query->get();
+
+        return view('company.index', compact('companies', 'count'));
     }
 }

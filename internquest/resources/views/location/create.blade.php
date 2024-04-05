@@ -2,28 +2,28 @@
 
 <form action="{{route('locations.store')}}" method="POST" enctype>
     @csrf
-    <div class="relative mb-6">
+    <div class="relative mb-2 flex flex-col">
         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Code postal</label>
-        <input type="text" name="postal_code" id="postal_code" required placeholder="Code Postal" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+        <input type="text" name="postal_code" id="postal_code" required placeholder="Code Postal" class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">
         @error('postal_code')
             <p style="color: red;">{{$message}}</p>
         @enderror
         <span class="error-message" id="error-postal_code"></span><br>
     </div>
-    <div class="relative mb-6">
+    <div class="relative mb-2 flex flex-col">
         <label required class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Ville</label>
-        <input type="text" name="cities" id="cities" placeholder="Ville" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+        <input type="text" name="cities" id="cities" placeholder="Ville" class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">
         <input type="hidden" name="city" id="city" value="">
-        <select name="select_city" id="select_city" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+        <select name="select_city" id="select_city" class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">
             <option id="opt"></option>
         </select>
         @error('city')
             <p style="color: red;">{{$message}}</p>
         @enderror
     </div>
-    <div class="relative mb-6">
+    <div class="relative mb-2 flex flex-col">
         <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Adresse</label>
-        <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+        <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">
         @error('location')
             <p style="color: red;">{{$message}}</p>
         @enderror

@@ -21,7 +21,7 @@ class Application extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function offre(){
+    public function offres(){
         return $this->belongsToMany(Offer::class, 'offers_applications', 'application_id', 'offer_id');
-    }   
+    }    
 }

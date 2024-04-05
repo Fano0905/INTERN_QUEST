@@ -13,7 +13,7 @@ class CompaniesEvaluations extends Model
 
     protected $table = 'companies_evaluations';
 
-    public function locations(){
+    public function evaluations(){
         return $this->hasMany(Evaluation::class, 'evaluation_id');
     }
 }

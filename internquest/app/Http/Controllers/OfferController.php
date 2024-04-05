@@ -27,7 +27,7 @@ class OfferController extends Controller
         $count = count($pending);
 
         foreach ($offers as $offer){
-            $offer->nb_application = $offer->candidature()->count();
+            $offer->nb_application = $offer->applications()->count();
         }
         
         foreach ($pending as $users)
@@ -184,4 +184,30 @@ class OfferController extends Controller
 
         return view('offer.edit', compact('offer', 'companies', 'cities', 'skills', 'promos'));
     }
+    // Ajoutez cette méthode dans votre OfferController
+
+    /**
+     * Search for offers based on a query.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $query = $request->input('search');
+
+        // Recherchez les offres en fonction du titre, de la ville ou de la description
+        $offers = Offer::where('title', 'LIKE', '%'.$query.'%')
+                    ->orWhere('city', 'LIKE', '%'.$query.'%')
+                    ->orWhere('description', 'LIKE', '%'.$query.'%')
+                    ->paginate(8);
+
+        // Comptez les utilisateurs en attente pour afficher dans la vue
+        $pending = Waiting_User::paginate(10);
+        $count = count($pending);
+
+        // Retournez la vue avec les offres trouvées et le nombre d'utilisateurs en attente
+        return view('offer.index', compact('offers', 'count'));
+    }
+
 }
