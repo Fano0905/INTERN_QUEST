@@ -36,7 +36,7 @@ class OfferFactory extends Factory
             'city' => $city,
             'duration' => $duration,
             'remuneration' => rand(665, 1200),
-            'date_offer' => date('d/m/Y'),
+            'date_offer' => fake()->dateTimeBetween('now', '+2 years')->format('d/m/Y'),
             'place_offered' => \rand(1, 20),
             'description' => \fake()->text(2000)
         ];
