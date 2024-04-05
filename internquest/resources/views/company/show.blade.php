@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="flex justify-center items-center h-screen"> <!-- Flexbox pour centrer verticalement et horizontalement -->
+<div class="flex flex-col w-full h-screen"> <!-- Flexbox pour centrer verticalement et horizontalement -->
     <div class="flex flex-col items-center"> <!-- Flexbox pour centrer les éléments verticalement -->
 
         <strong><h1 style="text-align: center">{{$company->name}}</h1></strong>

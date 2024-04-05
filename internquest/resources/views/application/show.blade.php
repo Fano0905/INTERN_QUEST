@@ -21,5 +21,9 @@
                 </div>
             @endforeach
         </div>
+        <form action="{{ route('offers.index')}}" method="get">
+            @csrf
+            <button type="submit" class="w-32 h-16 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium ml-2">Postuler</button>
+        </form>
     </div>
 @endsection

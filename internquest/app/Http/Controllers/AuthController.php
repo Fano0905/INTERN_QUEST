@@ -26,7 +26,7 @@ class AuthController extends Controller
         } 
         if (Auth::guard('web')->attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended(route('internquest'))->with('success', 'Connexion établie avec succès [User]');
+            return redirect()->intended(route('internquest'))->with('success', 'Connexion établie avec succès.');
         }else {
             return redirect()->back()->withErrors([
                 'mail' => 'Identifiants invalides',

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
-    <title>Création entreprise</title>
+    <title>Modifier entreprise</title>
 </head>
 <body>
 
@@ -27,14 +27,14 @@
                 @method('PUT')
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Nom</label>
-                    <input type="text" name="name" id="name" required placeholder="Nom" value="{{$company->name}}" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400>
+                    <input type="text" name="name" id="name" required placeholder="Nom" value="{{$company->name}}" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
                     @error('name')
                         <p style="color: red;">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label required class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Secteur</label>
-                    <select name="area" id="area" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400>
+                    <select name="area" id="area" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
                         @foreach ($areas as $area)
                             <option value="{{$area->name}}">{{$area->name}}</option>
                         @endforeach
@@ -45,14 +45,14 @@
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Site</label>
-                    <input type="text" name="website" id="website" required placeholder="example.fr" value="{{$company->website}}" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400>
+                    <input type="text" name="website" id="website" required placeholder="example.fr" value="{{$company->website}}" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
                     @error('website')
                         <p style="color: red;">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Code postal</label>
-                    <input type="text" name="postal_code" id="postal_code" value="{{$location->postal_code}}" required placeholder="Code Postal" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400>
+                    <input type="text" name="postal_code" id="postal_code" value="{{$location->postal_code}}" required placeholder="Code Postal" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
                     @error('postal_code')
                         <p style="color: red;">{{$message}}</p>
                     @enderror
@@ -60,9 +60,9 @@
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label required class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Ville</label>
-                    <input type="text" name="cities" id="cities" value="{{$location->city}}" placeholder="Ville" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400>
+                    <input type="text" name="cities" id="cities" value="{{$location->city}}" placeholder="Ville" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
                     <input type="hidden" name="city" id="city" required value="">
-                    <select name="select_city" id="select_city" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400 disabled>
+                    <select name="select_city" id="select_city" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400 disabled">
                         <option id="opt"></option>
                     </select>
                     @error('city')
@@ -71,13 +71,13 @@
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Adresse</label>
-                    <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400>
+                    <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
                     @error('location')
                         <p style="color: red;">{{$message}}</p>
                     @enderror
                 </div>
                 <div>
-                    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">S'enregistrer</button>
+                    <button type="submit" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">Modifier</button>
                 </div>
             </form>
         </div>

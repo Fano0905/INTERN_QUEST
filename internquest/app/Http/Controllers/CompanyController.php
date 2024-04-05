@@ -208,8 +208,10 @@ class CompanyController extends Controller
 
         $company = Company::find($id);
         $notes = [1, 2, 3, 4, 5];
+        $pending = Waiting_User::all();
+        $count = count($pending);
 
-        return \view('opinion.avis', \compact('company', 'notes'));
+        return \view('opinion.avis', \compact('company', 'notes', 'count'));
     }
 
     /**

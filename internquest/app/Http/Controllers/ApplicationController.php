@@ -19,12 +19,16 @@ class ApplicationController extends Controller
     */
     public function index($id)
     {
-        $applications = Application::all();
-        $pending = Waiting_User::all();
-        $count = count($pending);
-
+        $offer = Offer::find($id);
+        if (!$offer) {
+            abort(404);
+        }
+    
+        $applications = $offer->applications;
+        $count = count($applications);
+    
         return view('application.index', compact('applications', 'count'));
-    }
+    }    
 
     /**
     * Store a newly created resource in storage.
@@ -55,7 +59,7 @@ class ApplicationController extends Controller
         $apply = Application::create($request->all());
         $apply->offres()->attach($id);
     
-        return redirect()->route('applications.index')
+        return redirect()->route('offers.index')
             ->with('success', 'Votre candidature a été prise en compte.');
     }    
     /**
