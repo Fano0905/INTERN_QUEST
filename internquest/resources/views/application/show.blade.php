@@ -12,6 +12,11 @@
                         <p>{{ $offre->title }}</p>
                         <p>{{ $offre->description }}</p>
                         <p>{{ $offre->duration }}</p>
+                        <form action="{{ route('applications.destroy', $application->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="w-32 h-16 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium ml-2">Retirer candidature</button>
+                        </form>
                     @endforeach
                 </div>
             @endforeach

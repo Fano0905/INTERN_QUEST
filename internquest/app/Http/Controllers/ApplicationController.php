@@ -88,5 +88,21 @@ class ApplicationController extends Controller
         $count = count($pending);
     
         return view('application.show', compact('applications', 'count'));
-    }    
+    }
+
+    /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function destroy($id)
+    {
+
+        $application = Application::find($id);
+        $application->delete();
+
+        return redirect()->back()
+            ->with('success', 'Votre candidature a été retiré');
+    }
 }  

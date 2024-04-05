@@ -90,8 +90,11 @@
                                 <a href="<?php echo e(route('promos.index')); ?>" class="py-5 px-3 hover:text-black">Promotions</a>
                             </div>
                             <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="mail-unread"></ion-icon>Notifications
-                                <a href="<?php echo e(route('internquest.admin.notifications')); ?>"><ion-icon name="mail"></ion-icon>Notifications</a>
+                                <?php if($count > 0): ?>
+                                <a href="<?php echo e(route('internquest.admin.notifications')); ?>"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
+                            <?php else: ?>
+                                <ion-icon name="mail"></ion-icon>Notifications
+                            <?php endif; ?>
                             </div>
                             <div class="py-5 px-3 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>

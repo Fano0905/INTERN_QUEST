@@ -124,6 +124,8 @@ Route::prefix('/application')->name('applications.')->controller(ApplicationCont
     Route::get('/{user}', [ApplicationController::class, 'show'])->name('show');
 
     Route::get('/{offer}', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
+
+    Route::delete('/{application}', [ApplicationController::class, 'destroy'])->name('destroy')->middleware('auth');
 });
 
 //Routes authentifications
