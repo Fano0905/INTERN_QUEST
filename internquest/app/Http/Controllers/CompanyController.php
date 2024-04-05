@@ -26,13 +26,9 @@ class CompanyController extends Controller
         $count = count($pending);
 
         foreach ($companies as $company) {
-            // Vérifier si l'entreprise a des notes
             if ($company->notes()->count() > 0) {
-                // Calculer la note moyenne d'évaluation pour l'entreprise
                 $averageEvaluation = $company->notes()->sum('note') / $company->notes()->count();
-                // Mettre à jour l'attribut 'evaluation' de l'entreprise avec la note moyenne calculée
                 $company->evaluation = $averageEvaluation;
-                // Sauvegarder les modifications dans la base de données
                 $company->save();
             }
         }        
@@ -64,11 +60,9 @@ class CompanyController extends Controller
             'website.required' => 'Please enter the company\'s website.',
         ]);
     
-        // Créer la Company avec les données validées
         $companyData = $request->only(['name', 'area', 'website']);
         $company = Company::create($companyData);
     
-        // Créer la Location avec les données validées
         $locationData = $request->only(['postal_code', 'city', 'location']);
         $location = Location::create($locationData);
         $company->locations()->attach($location->id);
@@ -99,11 +93,11 @@ class CompanyController extends Controller
         ]);
 
         $company = Company::find($id);
-        // Créer la Company avec les données validées
+        
         $companyData = $request->only(['name', 'area', 'website']);
         $company->update($companyData);
     
-        // Créer la Location avec les données validées
+        
         $locationData = $request->only(['postal_code', 'city', 'location']);
         $location = $company->locations->first();
         $location->update($locationData);
@@ -154,7 +148,7 @@ class CompanyController extends Controller
         $pending = Waiting_User::all();
         $count = count($pending);
         if (!$company) {
-            // Gérer l'erreur, par exemple rediriger vers une page d'erreur ou afficher un message
+            
             return redirect()->back()->with('error', 'Company not found.');
         }
         $locations = $company->locations->slice(1);
@@ -194,7 +188,7 @@ class CompanyController extends Controller
 
         $company = Company::find($id);
     
-        // Créer la Location avec les données validées
+        
         $locationData = $request->only(['postal_code', 'city', 'location']);
         $location = Location::create($locationData);
         $company->locations()->attach($location->id);
@@ -258,10 +252,10 @@ class CompanyController extends Controller
         $evaluation = Evaluation::with('noter.company')->find($id);
         $notes = [1, 2, 3, 4, 5];
         
-        // Récupérer l'entreprise associée à l'évaluation
+        
         $company = $evaluation->noter->company;
         
-        // Passer les variables nécessaires à la vue
+        
         return view('opinion.edit', compact('evaluation', 'notes', 'company'));
     }
 
@@ -283,7 +277,6 @@ class CompanyController extends Controller
 
         $companies = $companies->unique('id');
 
-        // Maintenant, $companies contient toutes les entreprises où $user_co a laissé un commentaire
         return view('opinion.index', compact('evaluations', 'companies'));
     }
 
@@ -343,8 +336,6 @@ class CompanyController extends Controller
                 $q->where('value', '>=', $request->input('note'));
             });
         }
-
-        // Ajoutez d'autres critères de recherche si nécessaire
 
         $companies = $query->get();
 

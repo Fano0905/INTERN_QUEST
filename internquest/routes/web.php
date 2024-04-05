@@ -109,6 +109,8 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
 
     Route::get('/offers/search', [OfferController::class, 'search'])->name('search');
 
+    Route::get('/offers/{offer_id}/applications', [OfferController::class, 'showApplications'])->name('applications');
+
 });
 
 //Routes candidatures
@@ -119,9 +121,9 @@ Route::prefix('/application')->name('applications.')->controller(ApplicationCont
     
     Route::post('/create/{offer}', 'store')->name('store');
 
-    Route::get('/{offer}', [ApplicationController::class, 'show'])->name('show');
+    Route::get('/{user}', [ApplicationController::class, 'show'])->name('show');
 
-    Route::get('/', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
+    Route::get('/{offer}', [ApplicationController::class, 'index'])->name('index')->middleware('auth');
 });
 
 //Routes authentifications

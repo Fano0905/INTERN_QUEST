@@ -18,7 +18,7 @@
         @if (Auth::user()->role == 'Admin'|| Auth::user()->role == 'Pilote')
             <div class="control">
                 <a href="{{route('offers.edit', $offer->id)}}"><button class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Modifier l'offre</button></a>
-                <a href="{{route('applications.show', $offer->id)}}"><button class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Voir candidatures</button></a>
+                <a href="{{route('offers.applications', $offer->id)}}"><button class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Voir candidatures</button></a>
                 <form action="{{ route('offers.destroy', $offer->id)}}" method="post">
                     @csrf
                     @method('DELETE')

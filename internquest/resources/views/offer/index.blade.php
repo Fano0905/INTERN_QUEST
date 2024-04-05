@@ -33,7 +33,9 @@
                     <p class="text-gray-900 text-lg font-semibold">Durée: {{$offer->duration}}</p>
                     <p class="text-gray-900 text-lg font-semibold">Date de début: {{$offer->date_offer}}</p>
                     <p class="text-gray-900 text-lg font-semibold">Nombre de places: {{$offer->place_offered}}</p>
-                    <p style=" text-gray-900 text-lg">{{$offer->nb_application}} personnes ont postulé à cette offre</p>
+                        @if ($offer->nb_application > 0 )
+                            <p style=" text-gray-900 text-lg">{{$offer->nb_application}} personnes ont postulé à cette offre</p>
+                        @endif
                     <div class="mt-4">
                         <form action="{{route('offers.show', $offer->id)}}" method="GET" class="flex justify-between">
                             @csrf

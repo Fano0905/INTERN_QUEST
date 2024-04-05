@@ -196,18 +196,32 @@ class OfferController extends Controller
     {
         $query = $request->input('search');
 
-        // Recherchez les offres en fonction du titre, de la ville ou de la description
         $offers = Offer::where('title', 'LIKE', '%'.$query.'%')
                     ->orWhere('city', 'LIKE', '%'.$query.'%')
                     ->orWhere('description', 'LIKE', '%'.$query.'%')
                     ->paginate(8);
 
-        // Comptez les utilisateurs en attente pour afficher dans la vue
         $pending = Waiting_User::paginate(10);
         $count = count($pending);
 
-        // Retournez la vue avec les offres trouvées et le nombre d'utilisateurs en attente
         return view('offer.index', compact('offers', 'count'));
     }
 
+    /**
+    * Display the applications for a specific offer.
+    * @param  int  $offer_id
+    * @return \Illuminate\Http\Response
+    */
+    public function showApplications($offer_id)
+    {
+        $offer = Offer::findOrFail($offer_id);
+        $pending = Waiting_User::paginate(10);
+        $count = count($pending);
+
+        $applications = $offer->applications;
+
+        return view('application.index', compact('offer', 'applications', 'count'));
+    }
+
+    
 }

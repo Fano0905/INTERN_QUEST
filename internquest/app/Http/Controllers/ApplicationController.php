@@ -14,10 +14,10 @@ class ApplicationController extends Controller
 {
     /**
     * Display a listing of the resource.
-    *
+    * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function index()
+    public function index($id)
     {
         $applications = Application::all();
         $pending = Waiting_User::all();
@@ -43,7 +43,7 @@ class ApplicationController extends Controller
     
         // Vérifier si l'utilisateur a déjà postulé
         $user_id = $request->input('user_id');
-        $existingApplication = Application::where('user_id', $user_id)->whereHas('offre', function ($query) use ($id) {
+        $existingApplication = Application::where('user_id', $user_id)->whereHas('offres', function ($query) use ($id) {
             $query->where('id', $id);
         })->first();
     
@@ -53,7 +53,7 @@ class ApplicationController extends Controller
         }
     
         $apply = Application::create($request->all());
-        $apply->offre()->attach($id);
+        $apply->offres()->attach($id);
     
         return redirect()->route('applications.index')
             ->with('success', 'Votre candidature a été prise en compte.');
@@ -82,11 +82,11 @@ class ApplicationController extends Controller
     */
     public function show($id)
     {
-        $offer = Offer::findOrFail($id);
-        $applications = $offer->applications;
+        $student = User::findOrFail($id);
+        $applications = $student->applications;
         $pending = Waiting_User::all();
         $count = count($pending);
     
-        return view('offer.show', compact('offer', 'applications', 'count'));
+        return view('application.show', compact('applications', 'count'));
     }    
 }  

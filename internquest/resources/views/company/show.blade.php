@@ -60,13 +60,19 @@
         </div>
 
         <div class="flex justify-end mt-4"> <!-- Flexbox pour aligner à droite -->
-            <a href="{{route('companies.edit', $company->id)}}"><button type="submit" class="w-32 h-16 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium ml-2 mr-1">Modifier l'entreprise</button></a>
 
-            <form action="{{ route('companies.destroy', $company->id)}}" method="post">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="w-32 h-16 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium ml-2">Supprimer l'entreprise</button>
-            </form>
+            <a href="{{route('companies.evaluate', $company->id)}}"><button type="submit" class="w-32 h-16 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium ml-2 mr-1">Laisser un avis</button></a>
+
+            @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Pilote')
+
+                <a href="{{route('companies.edit', $company->id)}}"><button type="submit" class="w-32 h-16 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium ml-2 mr-1">Modifier l'entreprise</button></a>
+
+                <form action="{{ route('companies.destroy', $company->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="w-32 h-16 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium ml-2">Supprimer l'entreprise</button>
+                </form>
+            @endif
         </div>
     </div>
 </div>
