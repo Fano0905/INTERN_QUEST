@@ -26,57 +26,57 @@
                 @csrf
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Nom</label>
-                    <input type="text" name="name" id="name" required placeholder="Nom" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                    <input type="text" name="name" id="name" required placeholder="Nom" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     @error('name')
-                        <p style="color: red;">{{$message}}</p>
+                        <p style="color:red;">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label required class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Secteur</label>
-                    <select name="area" id="area" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                    <select name="area" id="area" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                         @foreach ($areas as $area)
                             <option value="{{$area->name}}">{{$area->name}}</option>
                         @endforeach
                     </select>
                     @error('area')
-                        <p style="color: red;">{{$message}}</p>
+                        <p style="color:red;">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Site</label>
-                    <input type="text" name="website" id="website" required placeholder="example.fr" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                    <input type="text" name="website" id="website" required placeholder="example.fr" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     @error('website')
-                        <p style="color: red;">{{$message}}</p>
+                        <p style="color:red;">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Code postal</label>
-                    <input type="text" name="postal_code" id="postal_code" required placeholder="Code Postal" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                    <input type="text" name="postal_code" id="postal_code" required placeholder="Code Postal" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     @error('postal_code')
-                        <p style="color: red;">{{$message}}</p>
+                        <p style="color:red;">{{$message}}</p>
                     @enderror
                     <span class="error-message" id="error-postal_code"></span><br>
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label required class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Ville</label>
-                    <input type="text" name="cities" id="cities" placeholder="Ville" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                    <input type="text" name="cities" id="cities" placeholder="Ville" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     <input type="hidden" name="city" id="city" value="">
-                    <select name="select_city" id="select_city" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400" disabled>
+                    <select name="select_city" id="select_city" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400" disabled>
                         <option id="opt"></option>
                     </select>
                     @error('city')
-                        <p style="color: red;">{{$message}}</p>
+                        <p style="color:red;">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="relative mb-2 flex flex-col">
                     <label class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Adresse</label>
-                    <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
+                    <input type="text" name="location" id="location" required placeholder="Adresse de l'entreprise" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     @error('location')
-                        <p style="color: red;">{{$message}}</p>
+                        <p style="color:red;">{{$message}}</p>
                     @enderror
                 </div>
                 <div>
-                    <button type="submit" class="w-full h-11 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium">S'enregistrer</button>
+                    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">S'enregistrer</button>
                 </div>
             </form>
             <a href="{{ url()->previous() }}">

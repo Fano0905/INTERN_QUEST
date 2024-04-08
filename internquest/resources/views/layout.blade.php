@@ -22,6 +22,9 @@
             const signin_dialog = document.getElementById("AddAddress");
             signin_dialog.style.display = "none";
         };
+        document.getElementById("centre").addEventListener("input", function() {
+            this.value = this.value.toUpperCase();
+        });
         document.getElementById("postal_code").addEventListener("input", function() {
             var postalCode = this.value;
             var errorPostalCode = document.getElementById("error-postal_code");

@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('offers_skills', function(Blueprint $table){
-            $table->foreignIdFor(Offer::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Skill::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Offer::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Skill::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->primary(['offer_id', 'skill_id']);
         });
     }

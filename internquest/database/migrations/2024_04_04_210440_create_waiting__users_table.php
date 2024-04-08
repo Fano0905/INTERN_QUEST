@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('waiting__users', function (Blueprint $table) {
+        Schema::create('waiting_users', function (Blueprint $table) {
             $table->id();
+            $table->string('lname');
+            $table->string('fname');
+            $table->string('mail')->unique();
+            $table->string('password');
+            $table->string('username')->unique();
+            $table->string('role');
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('waiting__users');
+        Schema::dropIfExists('waiting_users');
     }
 };

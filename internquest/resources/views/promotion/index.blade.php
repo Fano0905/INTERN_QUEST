@@ -9,6 +9,7 @@
             <div class="p-4 flex justify-between items-center">
                 <h2 class="font-bold text-lg">{{$promo->name}}</h2>
                 <span class="text-sm bg-gray-200 rounded-full px-3 py-1">Pilote Responsable: {{$promo->pilote->username}}</span>
+                <span class="text-sm bg-gray-200 rounded-full px-3 py-1">Centre: {{$promo->centre}}</span>
             </div>
 
             

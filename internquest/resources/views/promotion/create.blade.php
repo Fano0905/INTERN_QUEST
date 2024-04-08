@@ -20,20 +20,34 @@
                             <option value="{{ $pilote->id }}" @if ($loop->first) selected @endif>{{ $pilote->username }}</option>
                         @endforeach
                     </select>
-                    <span>
-                        @error('pilote_id')
-                            <p style="color: red;">{{$message}}</p>
-                        @enderror
-                    </span>
+                    @error('pilote_id')
+                        <p style="color: red;">{{$message}}</p>
+                    @enderror
+                </div>
+                <div class="relative mb-6">
+                    <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Centre</label>
+                    <select name="centre" id="centre" class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+                        @foreach ($centres as $centre)
+                            <option value="{{$centre}}">{{$centre}}</option>
+                        @endforeach
+                    </select>
+                    @error('centre')
+                        <p style="color: red;">{{$message}}</p>
+                    @enderror
                 </div>
             <div>
-                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Créer promo</button>
+                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Créer</button>
+                <a href="{{ url()->previous() }}">
+                    <button class="w-full h-11 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium">
+                        Annuler
+                    </button>
+                </a>
             </div>
         </form>
-        <a href="{{ url()->previous() }}">
-            <button class="w-full h-11 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 font-medium">
-                Annuler
-            </button>
-        </a>  
     </div>
+    <script>
+        document.getElementById("centre").addEventListener("input", function() {
+        this.value = this.value.toUpperCase();
+    });
+    </script>
 @endsection

@@ -9,9 +9,9 @@
             @foreach ($applications as $application)
                 <div class="max-w-7xl mx-auto px-4">
                     @foreach ($application->offres as $offre)
-                        <p>{{ $offre->title }}</p>
+                        <strong><h1 style="font-size: 32px;text-align:center;">{{ $offre->title }}</h1></strong>
                         <p>{{ $offre->description }}</p>
-                        <p>{{ $offre->duration }}</p>
+                        <p>Durée: {{ $offre->duration }}</p>
                         <form action="{{ route('applications.destroy', $application->id)}}" method="post">
                             @csrf
                             @method('DELETE')

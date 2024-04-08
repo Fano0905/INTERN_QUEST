@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use App\Models\User;
 use App\Models\Waiting_User;
 use Illuminate\Http\Request;
@@ -31,8 +32,9 @@ class PromoController extends Controller
     public function create()
     {
         $pilotes = User::where('role', '=', 'Pilote')->orWhere('role', '=', 'Admin')->get();
+        $centres = Location::all()->pluck('city');
 
-        return view('promotion.create', compact('pilotes'));
+        return view('promotion.create', compact('pilotes', 'centres'));
     }
 
     /**
@@ -49,7 +51,8 @@ class PromoController extends Controller
                 'min:3',
                 Rule::unique('promos', 'name')
             ],
-            'pilote_id' => ['required'], // Remplacer 'users' par 'id'
+            'pilote_id' => ['required'],
+            'centre' => ['required']
         ]);        
 
         Promo::create($request->all());
@@ -87,8 +90,9 @@ class PromoController extends Controller
     {
         $promo = Promo::find($id);
         $pilotes = User::where('role', '=', 'Pilote')->orWhere('role', '=', 'Admin')->get();
+        $centres = Location::all()->pluck('city');
 
-        return view('promotion.edit', compact('promo', 'pilotes'));
+        return view('promotion.edit', compact('promo', 'pilotes', 'centres'));
     }
 
     /**
@@ -106,7 +110,8 @@ class PromoController extends Controller
                 'min:3',
                 Rule::unique('promos', 'name')->ignore($id)
             ],
-            'pilote_id' => ['required'], // Remplacer 'users' par 'id'
+            'pilote_id' => ['required'],
+            'centre' => ['required']
         ]);
 
         $promo = Promo::find($id);

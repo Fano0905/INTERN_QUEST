@@ -4,15 +4,15 @@
 
 @section('content')
 
-<div class="flex flex-col w-full h-screen"> <!-- Flexbox pour centrer verticalement et horizontalement -->
-    <div class="flex flex-col items-center"> <!-- Flexbox pour centrer les éléments verticalement -->
+<div class="flex flex-col w-full h-screen">
+    <div class="flex flex-col items-center">
 
         <strong><h1 style="text-align: center">{{$company->name}}</h1></strong>
 
         <strong><h2>Liste des adresses</h2></strong>
 
-        <div class="bg-gray-200 p-4 rounded-lg" style="width: 600px;"> <!-- Fixer la largeur à 600px -->
-            <div style="max-height: 400px; overflow-y: auto; width: 100%;"> <!-- Dimensions fixes et défilement vertical -->
+        <div class="bg-gray-200 p-4 rounded-lg" style="width: 600px;">
+            <div style="max-height: 400px; overflow-y: auto; width: 100%;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background-color: #f3f3f3; border-bottom: 2px solid #ddd;">
@@ -36,8 +36,8 @@
 
         <strong><h2>Selon les utilisateurs</h2></strong>
 
-        <div class="bg-gray-200 p-4 rounded-lg" style="width: 600px;"> <!-- Fixer la largeur à 600px -->
-            <div style="max-height: 400px; overflow-y: auto; width: 100%;"> <!-- Dimensions fixes et défilement vertical -->
+        <div class="bg-gray-200 p-4 rounded-lg" style="width: 600px;">
+            <div style="max-height: 400px; overflow-y: auto; width: 100%;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background-color: #f3f3f3; border-bottom: 2px solid #ddd;">
@@ -59,7 +59,7 @@
             </div>    
         </div>
 
-        <div class="flex justify-end mt-4"> <!-- Flexbox pour aligner à droite -->
+        <div class="flex justify-end mt-4">
 
             <a href="{{route('companies.evaluate', $company->id)}}"><button type="submit" class="w-32 h-16 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium ml-2 mr-1">Laisser un avis</button></a>
 

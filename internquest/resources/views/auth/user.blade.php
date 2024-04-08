@@ -37,7 +37,28 @@
                         Mail : {{$user->mail}}
                     </p>
                     <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
-
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Centre : {{$user->centre}}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    @if ($user->role == 'Admin' || $user->role == 'Pilote')
+                        <p class="text-lg text-black-700 font-medium transition-all">
+                            Promo : 
+                            @foreach ($user->promotion as $promo)
+                                {{ $promo->name }}
+                            @endforeach
+                        </p>                    
+                        <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    @endif
+                    @if ($user->role == 'Admin' || $user->role == 'Etudiant')
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Classe : 
+                        @foreach ($user->promos as $promo)
+                            {{ $promo->name }}
+                        @endforeach
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                @endif                
                 </div>
             </div>
 

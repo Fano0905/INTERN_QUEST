@@ -13,7 +13,7 @@ class Promo extends Model
 
     protected $table = 'promos';
 
-    protected $fillable = ['name', 'pilote_id'];
+    protected $fillable = ['name', 'pilote_id', 'centre'];
 
     public function pilote()
     {

@@ -6,13 +6,13 @@
     <div class="bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
         <p>Localité: {{$offer->city}}</p>
         <p>Durée: {{$offer->duration}}</p>
-        <p>Rémuneration: {{$offer->remuneration}}</p>
+        <p>Rémuneration: {{$offer->remuneration}} €</p>
         <p>Date de début: {{$offer->date_offer}}</p>
         <p>Nombre de places: {{$offer->place_offered}}</p>
-        <p>Offre proposée par: {{$offer->entreprise->name}}</p>
+        <p>Offre postée par: <strong>{{$offer->entreprise->name}}</strong></p>
         <p><strong>Description</strong><br></p>
     </div>
-    <textarea rows="20" cols="100">{{$offer->description}}</textarea>
+    <textarea rows="20" cols="100" class="bg-gray-200 p-4 m-4 rounded-lg shadow-lg">{{$offer->description}}</textarea>
 
     @auth
         @if (Auth::user()->role == 'Admin')

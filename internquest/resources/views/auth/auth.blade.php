@@ -36,6 +36,28 @@
                         Mail : {{Auth::user()->mail}}
                     </p>
                     <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Centre : {{Auth::user()->centre}}
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Pilote')
+                        <p class="text-lg text-black-700 font-medium transition-all">
+                            Promo : 
+                            @foreach (Auth::user()->promotion as $promo)
+                                {{ $promo->name }}
+                            @endforeach
+                        </p>                    
+                        <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                    @endif
+                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Etudiant')
+                    <p class="text-lg text-black-700 font-medium transition-all">
+                        Classe : 
+                        @foreach (Auth::user()->promos as $promo)
+                            {{ $promo->name }}
+                        @endforeach
+                    </p>
+                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
+                @endif                
                 </div>
             </div>
             <div class="control flex justify-center items-center mt-16">

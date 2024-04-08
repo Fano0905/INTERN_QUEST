@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('username')->unique();
             $table->string('role');
+            $table->string('centre');
         });
     }
 

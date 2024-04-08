@@ -27,7 +27,7 @@
             <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Candidat(e)</label>
             <select name="user_id" id="user_id" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                 @foreach ($users as $user)
-                    <option @if ($loop->first) selected @endif data-name="{{ $user->username }}" title="{{ $user->username }}">{{$user->id}}</option>
+                    <option @if ($loop->first) value = "{{$user->id}}" selected @endif data-name="{{ $user->username }}" title="{{ $user->username }}">{{$user->lname}}, {{$user->fname}}</option>
                 @endforeach
             </select>
             @error('user_id')

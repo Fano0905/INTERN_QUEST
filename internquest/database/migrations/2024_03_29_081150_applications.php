@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('cv');
             $table->string('cover_letter');
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

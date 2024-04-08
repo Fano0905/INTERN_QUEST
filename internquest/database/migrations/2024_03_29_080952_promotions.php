@@ -17,11 +17,11 @@ return new class extends Migration
         Schema::create('promos', function(Blueprint $table){
             $table->id()->autoIncrement();
             $table->string('name');
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
         Schema::create('promos_users', function(Blueprint $table){
-            $table->foreignIdFor(Promo::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Promo::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->primary('promo_id', 'user_id');
         });
     }
