@@ -74,7 +74,14 @@ class Promos_UserController extends Controller
             'promo_id' => [
                 'required',
             ],
-            'user_id' => 'required', Rule::unique('promos_users', 'user_id')
+            'user_id' => [
+                'required',
+                Rule::unique('promos_users')->where(function ($query) use ($request) {
+                    return $query->where('promo_id', $request->promo_id);
+                })
+            ]
+        ],[
+            'user_id.unique' => 'Cet étudiant se trouve déjà dans une autre promo'
         ]);
 
         return redirect()->route('promos.index')

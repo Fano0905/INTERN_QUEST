@@ -20,6 +20,7 @@
                             <th style="padding: 10px; text-align: left;">Nom</th>
                             <th style="padding: 10px; text-align: left;">Prénom</th>
                             <th style="padding: 10px; text-align: left;">Identifiant</th>
+                            <th style="padding: 10px; text-align: left;">Modifier</th>
                             <th style="padding: 10px; text-align: left;">supprimer</th>
                         </tr>
                     </thead>
@@ -29,6 +30,12 @@
                             <td class="py-2 pl-4 border-t border-b border-blue-500">{{$etudiant->lname}}</td>
                             <td class="py-2 pl-4 border-t border-b border-blue-500">{{$etudiant->fname}}</td>
                             <td class="py-2 pl-4 border-t border-b border-blue-500">{{$etudiant->username}}</td>
+                            <td class="py-2 pl-4 border-t border-b border-blue-500">
+                                <form action="{{route('classes.edit', $etudiant->id)}}" method="get">
+                                    @csrf
+                                    <button type="submit" class="w-16 h-16 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 font-medium"><ion-icon name="pencil-outline"></ion-icon></button>
+                                </form>
+                            </td>
                             <td class="py-2 pl-4 border-t border-b border-blue-500">
                                 <form action="{{route('classes.destroy', $etudiant->id)}}" method="post">
                                     @csrf

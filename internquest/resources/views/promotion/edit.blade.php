@@ -18,7 +18,7 @@
                     <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Pilote assigné</label>
                     <select type="number" name="pilote_id" id="pilote_id" required class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                         @foreach ($pilotes as $pilote)
-                            <option value="{{ $pilote->id }}" @if ($loop->first) selected @endif>{{ $pilote->id }}</option>
+                            <option value="{{ $pilote->id }}" @if ($loop->first) selected @endif>{{ $pilote->username }}</option>
                         @endforeach
                     </select>
                     <span>

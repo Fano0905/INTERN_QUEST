@@ -10,8 +10,8 @@
                 <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Promo concerné</label>
                 <select type="number" name="promo_id" id="promo_id" required class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     @foreach ($promos as $promo)
-                        <option value="{{ $promo->id }}" @if ($loop->first) selected @endif data-name="{{ $promo->name }}" title="{{ $promo->name }}">
-                            {{ $promo->id }}
+                        <option value="{{ $promo->id }}" @if ($loop->first) selected @endif>
+                            {{ $promo->name }}
                         </option>
                     @endforeach
                 </select>                
@@ -23,7 +23,7 @@
                 <label class="absolute left-2 -top-6 text-base text-gray-700 font-medium transition-all">Etudiant</label>
                 <select name="user_id" id="user_id" required class="w-full pl-7 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
                     @foreach ($etudiants as $etudiant)
-                        <option @if ($loop->first) selected @endif data-name="{{ $etudiant->fname }}, {{ $etudiant->lname }}" title="{{ $etudiant->fname }}, {{ $etudiant->lname }}">{{$etudiant->id}}</option>
+                        <option @if ($loop->first) selected @endif value="{{$etudiant->id}}" data-name="{{ $etudiant->username }}" title="{{ $etudiant->username }}">{{ $etudiant->fname }}, {{ $etudiant->lname }}</option>
                     @endforeach
                 </select>
                 <span>
