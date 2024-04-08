@@ -183,3 +183,15 @@ Route::prefix('/address')->name('locations.')->controller(LocationController::cl
 
     Route::delete('/{location}', 'destroy')->name('destroy');
 });
+
+Route::prefix('/owner')->name('owners.')->controller(CompanyOwnerController::class)->group(function(){
+    Route::get('/create', 'create')->name('assign');
+
+    Route::post('/create', 'store')->name('store');
+
+    Route::get('/{owner}/edit', 'edit')->name('edit');
+
+    Route::get('/{owner}', 'update')->name('edit');
+
+    Route::delete('/{owner}', 'destroy')->name('destroy');
+});

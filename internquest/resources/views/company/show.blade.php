@@ -7,7 +7,7 @@
 <div class="flex flex-col w-full h-screen">
     <div class="flex flex-col items-center">
 
-        <strong><h1 style="text-align: center">{{$company->name}}</h1></strong>
+        <strong><h1 style="text-align: center">{{$company->name}},{{ $company->owner->lname }}, {{ $company->owner->fname }}</h1></strong>
 
         <strong><h2>Liste des adresses</h2></strong>
 
@@ -66,6 +66,8 @@
             @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Pilote')
 
                 <a href="{{route('companies.edit', $company->id)}}"><button type="submit" class="w-32 h-16 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium ml-2 mr-1">Modifier l'entreprise</button></a>
+
+                <a href="{{route('owners.assign')}}"><button type="submit" class="w-32 h-16 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium ml-2 mr-1">Assigner un gérant</button></a>
 
                 <form action="{{ route('companies.destroy', $company->id)}}" method="post">
                     @csrf
