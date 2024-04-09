@@ -14,29 +14,26 @@ class AuthController extends Controller
 
     public function logout() {
         Auth::logout();
-        return \redirect()->intended(\route('internquest'))->with('success', 'Vous avez été déconnecté');
+        return redirect()->intended(\route('internquest'))->with('success', 'Vous avez été déconnecté');
     }
 
     public function doLogin(LoginRequest $request) {
         $credentials = $request->validated();
-
-        if (Auth::guard('waiting_user')->attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('internquest'))->with('success', 'Connexion établie avec succès');
-        } 
-        if (Auth::guard('web')->attempt($credentials)){
+        $remember = $request->has('remember_me'); // Check if the remember me checkbox is checked
+    
+        if (Auth::guard('web')->attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->intended(route('internquest'))->with('success', 'Connexion établie avec succès.');
-        }else {
+        } else {
             return redirect()->back()->withErrors([
                 'mail' => 'Identifiants invalides',
                 'password' => 'Mot de passe incorrect'
             ])->onlyInput('email');
         }
-    }
+    }    
 
     public function show(){
 
-        return \view('auth.auth');
+        return view('auth.auth');
     }
 }

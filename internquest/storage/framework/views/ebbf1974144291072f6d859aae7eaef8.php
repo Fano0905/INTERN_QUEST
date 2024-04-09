@@ -370,7 +370,7 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                     <div class="flex justify-between items-center mb-4">
                         <label class="flex items-center text-base text-gray-700 font-medium">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Se rappeler de moi
+                            <input type="checkbox" id="remember_me" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Se rappeler de moi
                         </label>
                         <a href="#" class="text-sm text-gray-700 hover:underline mx-3">Politique de confidentialité</a>
                     </div>
@@ -383,6 +383,24 @@ unset($__errorArgs, $__bag); ?>
                 </form>
             </div>
         </dialog>
+        <div class="flex justify-center">
+            <form action="<?php echo e(route('internquest.users.search')); ?>" method="GET" class="space-y-4">
+                <div class="flex space-x-2">
+                    <input type="search" name="lname" placeholder="Nom" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="fname" placeholder="Prénom" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="center" placeholder="Centre" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="promotion" placeholder="Promotion" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                    <select name="role" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                        <option value="">Sélectionner un rôle</option>
+                        <option value="pilote">Pilote</option>
+                        <option value="eleve">Etudiant</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
+                    Rechercher
+                </button>
+            </form>
+        </div>
 <?php echo $__env->yieldContent('content'); ?>
 <script>
     function login(){

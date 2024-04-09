@@ -161,7 +161,7 @@ class UserController extends Controller
         ],[
             'skill_id.unique' => 'Cet étudiant a déjà cette compétence'
         ]);
-        
+
         foreach ($request->input('skills') as $skill_id) {
             User_Skill::create([
                 'user_id' => $request->input('user_id'),
@@ -203,7 +203,7 @@ class UserController extends Controller
     public function disapprove($id)
     {
         $waiting_user = Waiting_User::find($id);
-        $waiting_user ->delete();
+        $waiting_user->delete();
 
         return redirect()->route('internquest')->with('success', "L'utilisateur a été supprimé");
     }
@@ -245,4 +245,44 @@ class UserController extends Controller
 
         return view('auth.edit', compact('user'));
     }
+
+    public function search(Request $request)
+    {
+        $pending_users = Waiting_User::all();
+        $count = count($pending_users);
+        $users = User::with('promos', 'company', 'applications', 'skills')->get();
+    
+        $filteredUsers = $users->filter(function ($user) use ($request) {
+            $matchesLname = true;
+            $matchesFname = true;
+            $matchesCenter = true;
+            $matchesPromotion = true;
+            $matchesRole = true;
+    
+            if ($request->filled('lname')) {
+                $matchesLname = str_contains(strtolower($user->lname), strtolower($request->lname));
+            }
+    
+            if ($request->filled('fname')) {
+                $matchesFname = str_contains(strtolower($user->fname), strtolower($request->fname));
+            }
+    
+            if ($request->filled('center')) {
+                // Adjust this line if 'center' is a relation
+                $matchesCenter = str_contains(strtolower($user->center), strtolower($request->center));
+            }
+    
+            if ($request->filled('promotion')) {
+                $matchesPromotion = $user->promos->pluck('name')->contains($request->promotion);
+            }
+    
+            if ($request->filled('role')) {
+                $matchesRole = strtolower($user->role) === strtolower($request->role);
+            }
+    
+            return $matchesLname && $matchesFname && $matchesCenter && $matchesPromotion && $matchesRole;
+        });
+    
+        return view('auth.list', ['users' => $filteredUsers], \compact('count'));
+    }    
 }

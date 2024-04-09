@@ -12,8 +12,8 @@
     <form action="{{route('companies.e_store', $company->id)}}" method="POST">
         @csrf
         <div class="relative mb-2 flex flex-col">
-            <label for="username" class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Identifiant</label>
-            <input type="number" name="user_id" id="user_id" value="{{Auth::user()->id}}" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <label for="username" hidden class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Identifiant</label>
+            <input type="number" hidden name="user_id" id="user_id" value="{{Auth::user()->id}}" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('user_id')
                 <p style="color: red;">{{$message}}</p>
             @enderror
@@ -30,8 +30,8 @@
             @enderror
         </div>          
         <div class="relative mb-2 flex flex-col">
-            <label for="company_id" class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Entreprise</label>
-            <input type="number" name="company_id" id="company_id" value="{{$company->id}}" data-name="{{ $company->name }}" title="{{ $company->name }}" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
+            <label for="company_id" hidden class=class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Entreprise</label>
+            <input type="number" hidden name="company_id" id="company_id" value="{{$company->id}}" data-name="{{ $company->name }}" title="{{ $company->name }}" class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('company_id')
                 <p style="color: red;">{{$message}}</p>
             @enderror

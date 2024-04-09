@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Company;
 use App\Models\Evaluation;
 use App\Models\Location;
@@ -25,16 +26,63 @@ class CompanyController extends Controller
         $pending = Waiting_User::all();
         $count = count($pending);
 
-        foreach ($companies as $company) {
-            if ($company->notes()->count() > 0) {
-                $averageEvaluation = $company->notes()->sum('note') / $company->notes()->count();
-                $company->evaluation = $averageEvaluation;
-                $company->save();
+        foreach ($companies as $company){
+            $notes = $company->notes; // use the loaded relationship
+            $notesCount = $notes->count();
+
+            if ($notesCount > 0) {
+                $totalSum = $notes->sum('note'); // sum of all notes for the company
+                $company->evaluation = $totalSum / $notesCount; // calculate average
+            } else {
+                $company->evaluation = 0; // set to 0 if no evaluations
             }
-        }        
-        
+            $company->save();
+            //$company->evaluation = (sum($company->notes()) / count($company->notes()));
+        }
+    
         return view('company.index', compact('companies', 'count'));
     }
+
+    public function filter(Request $request)
+    {
+        $companies = Company::with('offre', 'notes', 'area', 'locations')->get();
+        $pending = Waiting_User::all();
+        $count = count($pending);
+
+        $filteredCompanies = $companies->filter(function ($company) use ($request) {
+            $matchesName = true;
+            $matchesArea = true;
+            $matchesLocation = true;
+            $matchesInternsCount = true;
+            $matchesEvaluation = true;
+
+            if ($request->filled('name')) {
+                $matchesName = str_contains(strtolower($company->name), strtolower($request->name));
+            }
+
+            if ($request->filled('area')) {
+                $matchesArea = $company->area == $request->area;
+            }
+
+            if ($request->filled('location')) {
+                $matchesLocation = $company->locations->contains('name', $request->location);
+            }
+
+            if ($request->filled('internsCount')) {
+                $matchesInternsCount = $company->offre->count() >= $request->internsCount;
+            }
+
+            if ($request->filled('evaluation')) {
+                $matchesEvaluation = $company->evaluation >= $request->evaluation;
+            }
+
+            return $matchesName && $matchesArea && $matchesLocation && $matchesInternsCount && $matchesEvaluation;
+        });
+
+        return view('company.index', ['companies' => $filteredCompanies], \compact('count'));
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -252,12 +300,9 @@ class CompanyController extends Controller
 
     public function e_edit($id) {
         $evaluation = Evaluation::with('noter.company')->find($id);
-        $notes = [1, 2, 3, 4, 5];
-        
-        
+        $notes = [1, 2, 3, 4, 5];        
         $company = $evaluation->noter->company;
-        
-        
+
         return view('opinion.edit', compact('evaluation', 'notes', 'company'));
     }
 
@@ -300,6 +345,7 @@ class CompanyController extends Controller
             'title' => ['required', 'string', 'max:255'],
         ], [
             'title.required' => 'Le champ titre est obligatoire.',
+            'note.required' => 'La note est obligatoire'
         ]);        
  
         $evaluation = Evaluation::find($id);
@@ -307,40 +353,5 @@ class CompanyController extends Controller
  
         return redirect()->route('companies.index')
             ->with('success', 'Your opinion has been saved');
-    }
-
-    public function search(Request $request)
-    {
-        $query = Company::query();
-        $pending = Waiting_User::all();
-        $count = count($pending);
-
-        if ($request->has('name')) {
-            $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
-        }
-
-        if ($request->has('area')) {
-            $query->whereHas('area', function($q) use ($request) {
-                $q->where('name', 'LIKE', '%' . $request->input('area') . '%');
-            });
-        }
-
-        // Recherche par ville
-        if ($request->has('location')) {
-            $query->whereHas('locations', function($q) use ($request) {
-                $q->where('name', 'LIKE', '%' . $request->input('location') . '%');
-            });
-        }
-
-        // Recherche par notes
-        if ($request->has('note')) {
-            $query->whereHas('notes', function($q) use ($request) {
-                $q->where('value', '>=', $request->input('note'));
-            });
-        }
-
-        $companies = $query->get();
-
-        return view('company.index', compact('companies', 'count'));
     }
 }

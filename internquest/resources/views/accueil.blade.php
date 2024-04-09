@@ -312,7 +312,7 @@
                     </div>
                     <div class="flex justify-between items-center mb-4">
                         <label class="flex items-center text-base text-gray-700 font-medium">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Se rappeler de moi
+                            <input type="checkbox" id="remember_me" class="form-checkbox h-5 w-5 text-blue-600 mr-2">Se rappeler de moi
                         </label>
                         <a href="#" class="text-sm text-gray-700 hover:underline mx-3">Politique de confidentialité</a>
                     </div>

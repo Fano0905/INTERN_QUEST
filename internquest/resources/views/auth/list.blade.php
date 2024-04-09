@@ -2,7 +2,25 @@
 
 @section('content')
 <div class="flex justify-center items-center h-screen"> 
-    <div class="flex flex-col justify-center items-center"> 
+    <div class="flex flex-col justify-center items-center">
+        <div class="flex justify-center">
+            <form action="{{ route('internquest.users.search') }}" method="GET" class="space-y-4">
+                <div class="flex space-x-2">
+                    <input type="search" name="lname" placeholder="Nom" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="fname" placeholder="Prénom" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="center" placeholder="Centre" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="promotion" placeholder="Promotion" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                    <select name="role" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                        <option value="">Sélectionner un rôle</option>
+                        <option value="pilote">Pilote</option>
+                        <option value="eleve">Etudiant</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
+                    Rechercher
+                </button>
+            </form>
+        </div>
         <div class="rounded-3xl overflow-hidden bg-gray-300 p-6" style="max-width: 95vw; max-height: 90vh; overflow-y: auto;"> 
             <table class="border-collapse border-black">
                 <thead class="mb-4">

@@ -11,7 +11,8 @@
 <body style="height: 100vh;">
 <div class="w-full h-full bg-no-repeat bg-cover " style="background-image: url('/img/image-bg.jpg'); background-position: left bottom;">
     <div class="flex justify-center items-center h-screen">
-        <div class="border border-black bg-gray-200 rounded-3xl" style="width: 768px; height: 350px;">              <div class="flex">
+        <div class="border border-black bg-gray-200 rounded-3xl" style="width: 768px; height: 350px;">              
+            <div class="flex">
                 <div class="w-1/4 p-4 border photo-container mt-4 ml-2">
                     <img src="img/pdp.jpg" alt="photo de profil utilisateur" class="w-100 h-100">
                 </div>
@@ -62,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="control flex justify-center items-center mt-16">
+            <div class="control flex justify-center items-center mt-4"> <!-- Ici, la marge supérieure a été modifiée de mt-16 à mt-4 pour remonter les boutons -->
                 <a href="{{route('internquest.users.edit', $user->id)}}" class="mx-2">
                 <button type="submit" class="w-48 h-12 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium mr-4"> 
                     Modifier
@@ -78,7 +79,7 @@
                 <form action="{{ route('internquest.users.destroy', $user->id) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="w-48 h-12 bg-black text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 font-medium ml-4">
+                    <button type="submit" class="w-48 h-12 bg-black text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring">
                         Supprimer le compte
                     </button>
                 </form>

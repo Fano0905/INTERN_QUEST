@@ -52,6 +52,7 @@ Route::prefix('/internquest')->name('internquest.')->group(function () {
     Route::get('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
     Route::delete('users/{user}/disapprove', [UserController::class, 'disapprove'])->name('users.disapprove');
     Route::get('/skills/add', [UserController::class, 'learn'])->name('users.learn');
+    Route::get('/search', [UserController::class, 'search'])->name('users.search');
     Route::post('/skills/', [UserController::class, 'certificate'])->name('users.confirm');
 });
 
@@ -82,9 +83,9 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
 
     Route::post('/{company}', [CompanyController::class, 'e_store'])->name('e_store');
 
-    Route::post('/{company}/address', [CompanyController::class, 'addAddress'])->name('address')->middleware('auth');
+    Route::get('/companies/filter', [CompanyController::class, 'filter'])->name('filter');
 
-    Route::get('/search', [CompanyController::class, 'search'])->name('search');
+    Route::post('/{company}/address', [CompanyController::class, 'addAddress'])->name('address')->middleware('auth');
 
     Route::get('/{company}', [CompanyController::class, 'show'])->name('show')->middleware('auth');    
 

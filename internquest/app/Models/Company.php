@@ -15,6 +15,7 @@ class Company extends Model
         'name',
         'area',
         'website',
+        'evaluation'
     ];
 
     public function offre(){

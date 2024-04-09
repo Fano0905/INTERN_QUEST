@@ -22,7 +22,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::paginate(8);
+        $offers = Offer::with('skills')->paginate(8);
         $pending = Waiting_User::paginate(10);
         $count = count($pending);
 
@@ -64,12 +64,8 @@ class OfferController extends Controller
                 'skill_id' => $skill_id
             ]);
         }
-        foreach ($request->input('promos') as $promo_id) {
-            Offer_Promo::create([
-                'offer_id' => $offer->id,
-                'promo_id' => $promo_id
-            ]);
-        }
+
+        $offer->skills()->attach($request->input('skills'));
 
         return redirect()->route('offers.index')
             ->with('success', 'Offre créée avec succès.');
@@ -194,18 +190,65 @@ class OfferController extends Controller
      */
     public function search(Request $request)
     {
-        $query = $request->input('search');
-
-        $offers = Offer::where('title', 'LIKE', '%'.$query.'%')
-                    ->orWhere('city', 'LIKE', '%'.$query.'%')
-                    ->orWhere('description', 'LIKE', '%'.$query.'%')
-                    ->paginate(8);
-
-        $pending = Waiting_User::paginate(10);
+        $offers = Offer::with('entreprise', 'applications', 'promos', 'skills')->get();
+        $pending = Waiting_User::all();
         $count = count($pending);
 
-        return view('offer.index', compact('offers', 'count'));
+        $filteredOffers = $offers->filter(function ($offer) use ($request) {
+            $matchesSkills = true;
+            $matchesCity = true;
+            $matchesCompany = true;
+            $matchesPromos = true;
+            $matchesDuration = true;
+            $matchesRemuneration = true;
+            $matchesDateOffer = true;
+            $matchesPlaceOffered = true;
+            $matchesApplicationsCount = true;
+
+            if ($request->filled('skills')) {
+                $searchSkills = explode(',', $request->skills);
+                $matchesSkills = $offer->skills->pluck('name')->intersect($searchSkills)->isNotEmpty();
+            }
+
+            if ($request->filled('city')) {
+                $matchesCity = str_contains(strtolower($offer->city), strtolower($request->city));
+            }
+
+            if ($request->filled('company')) {
+                $matchesCompany = $offer->entreprise->name == $request->company;
+            }
+
+            if ($request->filled('promos')) {
+                $searchPromos = explode(',', $request->promos);
+                $matchesPromos = $offer->promos->pluck('name')->intersect($searchPromos)->isNotEmpty();
+            }
+
+            if ($request->filled('duration')) {
+                $matchesDuration = $offer->duration == $request->duration;
+            }
+
+            if ($request->filled('remuneration')) {
+                $matchesRemuneration = $offer->remuneration >= $request->remuneration;
+            }
+
+            if ($request->filled('date_offer')) {
+                $matchesDateOffer = $offer->date_offer == $request->date_offer;
+            }
+
+            if ($request->filled('place_offered')) {
+                $matchesPlaceOffered = $offer->place_offered >= $request->place_offered;
+            }
+
+            if ($request->filled('applications_count')) {
+                $matchesApplicationsCount = $offer->applications->count() >= $request->applications_count;
+            }
+
+            return $matchesSkills && $matchesCity && $matchesCompany && $matchesPromos && $matchesDuration && $matchesRemuneration && $matchesDateOffer && $matchesPlaceOffered && $matchesApplicationsCount;
+        });
+
+        return view('offer.index', ['offers' => $filteredOffers], \compact('count'));
     }
+
 
     /**
     * Display the applications for a specific offer.

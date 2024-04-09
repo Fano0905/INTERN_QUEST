@@ -7,7 +7,7 @@
 <div class="flex flex-col w-full h-screen">
     <div class="flex flex-col items-center">
 
-        <strong><h1 style="text-align: center">{{$company->name}},{{ $company->owner->lname }}, {{ $company->owner->fname }}</h1></strong>
+        <strong><h1 style="text-align: center">{{$company->name}}</h1></strong>
 
         <strong><h2>Liste des adresses</h2></strong>
 

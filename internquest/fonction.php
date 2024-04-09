@@ -179,3 +179,40 @@ dd(Auth::user()); // Vérifier si un utilisateur est connecté
         </button>
     </div>
 </form>
+
+
+
+public function search(Request $request)
+{
+    $query = Company::query();
+    $pending = Waiting_User::all();
+    $count = count($pending);
+
+    if ($request->has('name')) {
+        $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
+    }
+
+    if ($request->has('area')) {
+        $query->whereHas('area', function($q) use ($request) {
+            $q->where('name', 'LIKE', '%' . $request->input('area') . '%');
+        });
+    }
+
+    // Recherche par ville
+    if ($request->has('location')) {
+        $query->whereHas('locations', function($q) use ($request) {
+            $q->where('name', 'LIKE', '%' . $request->input('location') . '%');
+        });
+    }
+
+    // Recherche par notes
+    if ($request->has('note')) {
+        $query->whereHas('notes', function($q) use ($request) {
+            $q->where('value', '>=', $request->input('note'));
+        });
+    }
+
+    $companies = $query->get();
+
+    return view('company.index', compact('companies', 'count'));
+}
