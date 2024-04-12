@@ -42,4 +42,8 @@ class Offer extends Model
     public function skills(){
         return $this->belongsToMany(Skill::class, 'offers_skills', 'offer_id', 'skill_id');
     }
+
+    public function wish(){
+        return $this->belongsToMany(User::class, 'wishlist', 'offer_id', 'user_id');
+    }
 }

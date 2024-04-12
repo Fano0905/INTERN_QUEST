@@ -22,22 +22,21 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::paginate(5);
         $pending = Waiting_User::all();
         $count = count($pending);
 
         foreach ($companies as $company){
-            $notes = $company->notes; // use the loaded relationship
+            $notes = $company->notes;
             $notesCount = $notes->count();
 
             if ($notesCount > 0) {
-                $totalSum = $notes->sum('note'); // sum of all notes for the company
-                $company->evaluation = $totalSum / $notesCount; // calculate average
+                $totalSum = $notes->sum('note');
+                $company->evaluation = $totalSum / $notesCount;
             } else {
-                $company->evaluation = 0; // set to 0 if no evaluations
+                $company->evaluation = 0;
             }
             $company->save();
-            //$company->evaluation = (sum($company->notes()) / count($company->notes()));
         }
     
         return view('company.index', compact('companies', 'count'));
@@ -81,8 +80,6 @@ class CompanyController extends Controller
 
         return view('company.index', ['companies' => $filteredCompanies], \compact('count'));
     }
-
-
 
     /**
      * Store a newly created resource in storage.

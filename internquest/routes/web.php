@@ -24,7 +24,18 @@ use Illuminate\Auth\Events\Logout;
 
 //Routes principales
 
-Route::get('/user/list', [WebController::class, 'index'])->name('users.list');
+/*
+Route::get('/', function(){
+    return \view('welcome');
+});
+*/
+
+Route::prefix('/home')->name('accueil.')->group(function () {
+    Route::get('/user/list', [WebController::class, 'index'])->name('users.list');
+    Route::get('/pilote', [WebController::class, 'pilote'])->name('pilote');
+    Route::get('/etudiant', [WebController::class, 'etudiant'])->name('etudiant');
+
+});
 
 Route::get('/', [WebController::class, 'web'])->name('internquest');
 
@@ -105,6 +116,10 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     Route::put('/{offer}', [OfferController::class, 'update'])->name('update')->middleware('auth');
     
     Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy')->middleware('auth');
+
+    Route::post('/create', 'AddInWishlist')->name('add.wl')->middleware('auth');
+
+    Route::delete('/{offer}', [OfferController::class, 'suppFromWishlist'])->name('supp.wl')->middleware('auth');
 
     Route::get('/', [OfferController::class, 'index'])->name('index');
 

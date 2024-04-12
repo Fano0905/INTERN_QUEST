@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('layout')
 
 <div class="flex justify-center items-center min-h-screen">
     <div class="w-full max-w-xl bg-white p-10 rounded-lg shadow-lg">

@@ -18,7 +18,7 @@ class Company extends Model
         'evaluation'
     ];
 
-    public function offre(){
+    public function offers(){ // Renommé de offre à offers
         return $this->hasMany(Offer::class);
     }
 
@@ -41,5 +41,5 @@ class Company extends Model
 
     public function owner(){
         return $this->belongsToMany(User::class, 'company_owner', 'company_id', 'user_id');
-    }    
+    }
 }

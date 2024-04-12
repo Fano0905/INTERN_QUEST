@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function login() {
-        return \view('auth.login');
+        return view('auth.login');
     }
 
     public function logout() {
@@ -23,7 +23,13 @@ class AuthController extends Controller
     
         if (Auth::guard('web')->attempt($credentials, $remember)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('internquest'))->with('success', 'Connexion établie avec succès.');
+            if (Auth::user()->role == 'Etudiant')
+                return redirect()->intended(route('accueil.etudiant'))->with('success', 'Connexion établie avec succès.');
+            elseif (Auth::user()->role == 'Pilote')
+                return redirect()->intended(route('accueil.pilote'))->with('success', 'Connexion établie avec succès.');
+            else
+                return redirect()->intended(route('internquest'))->with('success', 'Connexion établie avec succès.');
+
         } else {
             return redirect()->back()->withErrors([
                 'mail' => 'Identifiants invalides',

@@ -3,107 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Accueil')</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+  <title>@yield('title', 'Accueil')</title>
 </head>
 
 
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-auto" style="background-image: url('/img/image-bg.jpg')">
     @auth
-        @if (Auth::user()->role == 'Admin')
-            <nav class="bg-gray-100" id ="nav_admin">
-                <div class="max-w-7xl mx-auto px-4">
-                    <div class="flex justify-center">
-                        <div class="flex ">   
-                            <div class="text-gray-700 hidden md:flex space-x-16">
-                                <div class="py-3 px-1 hover:text-black">
-                                    <a href="{{route('internquest')}}">
-                                    <ion-icon name="home"></ion-icon>
-                                    Accueil</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
-                                        Offres</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
-                                    <ion-icon name="business"></ion-icon>
-                                    Entreprises</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="person"></ion-icon>
-                                    <a href="{{route('users.list')}}">Utilisateurs</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="school"></ion-icon>
-                                    <a href="{{route('promos.index')}}">Promotions</a>
-                                </div>
-                                <div class="py-5 px-3 hover:text-black">
-                                    <ion-icon name="archive"></ion-icon>
-                                    <a href="{{route('applications.show', Auth::user()->id)}}" class="py-5 px-3 hover:text-black">Mes candidatures</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    @if ($count > 0)
-                                        <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
-                                    @else
-                                        <ion-icon name="mail"></ion-icon>Notifications
-                                    @endif
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="person-circle"></ion-icon>
-                                    <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
-                                </div>
-                                <form action="{{route('auth.logout')}}" method="POST">
-                                    @method('delete')
-                                    @csrf
-                                    <div class="py-3 px-1 hover:text-black">
-                                        <ion-icon name="log-out"></ion-icon>
-                                        <button>Se deconnecter</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        @elseif (Auth::user()->role == 'Pilote')
-        <nav class="bg-gray-100" id ="nav_admin">
+        <nav class="bg-gray-100" id="nav_admin">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex justify-center">
                     <div class="flex ">   
                         <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
                                 <a href="{{route('internquest')}}">
                                 <ion-icon name="home"></ion-icon>
                                 Accueil</a>
                             </div>
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
                                 <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
                                     Offres</a>
                             </div>
-                            <div class="py-5 px-3 hover:text-black"><a href="{{route('companies.index')}}">
+                            <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
                                 <ion-icon name="business"></ion-icon>
                                 Entreprises</a>
                             </div>
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
+                                <ion-icon name="person"></ion-icon>
+                                <a href="{{route('accueil.users.list')}}">Utilisateurs</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
                                 <ion-icon name="school"></ion-icon>
-                                <a href="{{route('promos.index')}}" class="py-5 px-3 hover:text-black">Promotions</a>
+                                <a href="{{route('promos.index')}}">Promotions</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                <ion-icon name="archive"></ion-icon>
+                                <a href="{{route('applications.show', Auth::user()->id)}}" class="hover:text-black">Mes candidatures</a>
                             </div>
                             <div class="py-3 px-1 hover:text-black">
                                 @if ($count > 0)
-                                <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
-                            @else
-                                <ion-icon name="mail"></ion-icon>Notifications
-                            @endif
+                                    <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
+                                @else
+                                    <ion-icon name="mail"></ion-icon>Notifications
+                                @endif
                             </div>
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>
                                 <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
                             </div>
-                            <form action="{{route('auth.logout')}}" method="POST">
+                            <form action="{{route('auth.logout')}}" method="POST" class="py-3 px-1 hover:text-black">
                                 @method('delete')
                                 @csrf
-                                <div class="py-5 px-3 hover:text-black">
+                                <div>
                                     <ion-icon name="log-out"></ion-icon>
                                     <button>Se deconnecter</button>
                                 </div>
@@ -112,56 +64,7 @@
                     </div>
                 </div>
             </div>
-            </nav>
-        @elseif (Auth::user()->role == 'Etudiant')
-        <nav class="bg-gray-100" id ="nav_admin">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-center">
-                    <div class="flex ">   
-                        <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-5 px-3 hover:text-black">
-                                <a href="{{route('internquest')}}">
-                                <ion-icon name="home"></ion-icon>
-                                Accueil</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
-                                    Offres</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black"><a href="{{route('companies.index')}}">
-                                <ion-icon name="business"></ion-icon>
-                                Entreprises</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <ion-icon name="school"></ion-icon>
-                                <a href="#" class="py-5 px-3 hover:text-black">Ma promo</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <ion-icon name="archive"></ion-icon>
-                                <a href="{{route('applications.show', Auth::user()->id)}}" class="py-5 px-3 hover:text-black">Mes candidatures</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <ion-icon name="list"></ion-icon>
-                                <a href="#" class="py-5 px-3 hover:text-black">Ma wishlist</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <ion-icon name="person-circle"></ion-icon>
-                                <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
-                            </div>
-                            <form action="{{route('auth.logout')}}" method="POST">
-                                @method('delete')
-                                @csrf
-                                <div class="py-5 px-3 hover:text-black">
-                                    <ion-icon name="log-out"></ion-icon>
-                                    <button>Se deconnecter</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </nav>
-        @endif
+        </nav>    
     @endauth
     @guest
         <nav class="bg-gray-100" id ="nav_guest">
@@ -195,6 +98,80 @@
             </div>
         </nav>
     @endguest
+
+    <div class="flex flex-wrap">
+        <div class="w-1/2">
+            @foreach ($companies as $company)
+                <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
+                    <div class="p-4 border-b">
+                        <h2 class="text-xl font-bold">{{ $company->name }}</h2>
+                        <p>Secteur: {{ $company->area }}</p>
+                        <p>Vous pouvez nous trouver sur {{ $company->website }}</p>
+                        <p>Note: {{ $company->evaluation }}</p>
+                        <div class="mt-4">
+                            <a href="{{route('companies.show', $company->id)}}">
+                                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            <div class="mt-4">
+                {{ $companies->links() }}
+            </div>
+        </div>
+        
+        <div class="w-1/2">
+            @foreach ($companies as $company)
+                <div class="p-4 border-b">
+                    <h2 class="text-xl font-bold">Offres de {{ $company->name }}</h2>
+                    <select class="w-full p-2 border rounded">
+                        @foreach ($company->offers as $offer)
+                            <option onclick="{{route('offers.show', $offer->id)}}" value="{{ $offer->id }}">{{ $offer->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endforeach
+            <div class="mt-4">
+                {{ $companies->links() }}
+            </div>
+            @auth
+                @foreach($promos as $promo)
+                    <div class="flex flex-col w-full">
+                        <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
+                            <strong><h2 class="text-xl font-bold">{{$promo->name}}</h2></strong>
+                            <div class="mt-4">
+                                <a href="{{route('companies.show', $promo->id)}}">
+                                    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Consulter</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endauth
+        </div>
+    </div>
+
+    <strong><h2 style="color: white">Entreprises sous ma responsabilité</h2></strong>
+
+    @auth
+        @foreach($mycompany as $company)
+            <div class="flex flex-col w-full">
+                <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
+                    <strong><h2 class="text-xl font-bold">{{$company->name}}</h2></strong>
+                    <p class="text-gray-900 text-lg font-semibold">Secteur {{$company->area}}</p>
+                    <p class="text-gray-900 text-lg font-semibold">Vous pouvez nous trouver sur {{$company->website}}</p>
+                    <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="{{$company->evaluation}}"></span></p>
+                    <div class="mt-4">
+                        <a href="{{route('companies.show', $company->id)}}">
+                            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endauth
+
     <div class="container">
         @if (session('success'))
             <div class="alert alert-success">

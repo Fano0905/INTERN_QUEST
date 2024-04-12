@@ -63,7 +63,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Promo::class, 'promos_users', 'user_id', 'promo_id');
     }
 
-    public function company(){
+    public function my_company(){
         return $this->belongsToMany(Company::class, 'company_owner', 'user_id', 'company_id');
     }
 
@@ -74,5 +74,9 @@ class User extends Authenticatable
 
     public function skills() {
         return $this->belongsToMany(Skill::class, 'user_skills', 'user_id', 'skill_id');
+    }
+
+    public function wish(){
+        return $this->belongsToMany(Offer::class, 'wishlist', 'user_id', 'offer_id');
     }
 }    

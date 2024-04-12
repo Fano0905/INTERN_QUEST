@@ -1,1 +1,1 @@
-@extends('accueil')
+@extends('layout')

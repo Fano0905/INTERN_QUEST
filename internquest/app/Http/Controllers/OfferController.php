@@ -11,6 +11,8 @@ use App\Models\Offer;
 use App\Models\Offer_Promo;
 use App\Models\Offer_Skills;
 use App\Models\Promo;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
@@ -266,5 +268,40 @@ class OfferController extends Controller
         return view('application.index', compact('offer', 'applications', 'count'));
     }
 
+    /**
+    * Search for offers based on a query.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function AddInwishlist(Request $request){
+        $request->validate([
+            'offer_id' => ['required']
+        ]);
+
+        Wishlist::create([
+            'offer_id' => $request->input('offer_id'),
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect()->route('offers.index')
+        ->with('success', "L'offre a été ajouté à la wishlist");
+    }
+
+    /**
+    * Display the applications for a specific offer.
+    * @param  int  $offer_id
+    * @return \Illuminate\Http\Response
+    */
+    public function suppFromWishlist($offer_id){
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user->wish()->detach($offer_id);
     
+            return redirect()->route('offers.index')
+                ->with('success', "L'offre a été retiré de la wishlist");
+        }
+    
+        return redirect()->route('login')->with('error', 'Vous devez être connecté pour effectuer cette action.');
+    }    
 }

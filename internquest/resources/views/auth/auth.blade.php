@@ -10,6 +10,41 @@
 
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-hidden" style="background-image: url('/img/image-bg.jpg'); background-position: left bottom;">
+    <nav class="bg-gray-100" id ="nav_admin">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-center">
+                <div class="flex ">   
+                    <div class="text-gray-700 hidden md:flex space-x-16">
+                        <div class="py-3 px-1 hover:text-black">
+                            <a href="{{route('internquest')}}">
+                            <ion-icon name="home"></ion-icon>
+                            Accueil</a>
+                        </div>
+                        <div class="py-3 px-1 hover:text-black">
+                            <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
+                                Offres</a>
+                        </div>
+                        <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
+                            <ion-icon name="business"></ion-icon>
+                            Entreprises</a>
+                        </div>
+                        <div class="py-3 px-1 hover:text-black">
+                            <ion-icon name="person-circle"></ion-icon>
+                            <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
+                        </div>
+                        <form action="{{route('auth.logout')}}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <div class="py-3 px-1 hover:text-black">
+                                <ion-icon name="log-out"></ion-icon>
+                                <button>Se deconnecter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="flex justify-center items-center h-screen">
         <div class="border border-black bg-gray-200 rounded-3xl" style="width: 768px; height: 350px;">              <div class="flex">
                 <div class="w-1/4 p-4 border photo-container mt-4 ml-2">
@@ -34,10 +69,6 @@
 
                     <p class="text-lg text-black-700 font-medium transition-all">
                         Mail : {{Auth::user()->mail}}
-                    </p>
-                    <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
-                    <p class="text-lg text-black-700 font-medium transition-all">
-                        Centre : {{Auth::user()->centre}}
                     </p>
                     <div class="block w-full h-0.5 bg-blue-500 bottom-0 left-0"> </div>
                     @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Pilote')

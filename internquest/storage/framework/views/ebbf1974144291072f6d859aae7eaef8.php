@@ -3,107 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo $__env->yieldContent('title', 'Accueil'); ?></title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+  <title><?php echo $__env->yieldContent('title', 'Accueil'); ?></title>
 </head>
 
 
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-auto" style="background-image: url('/img/image-bg.jpg')">
     <?php if(auth()->guard()->check()): ?>
-        <?php if(Auth::user()->role == 'Admin'): ?>
-            <nav class="bg-gray-100" id ="nav_admin">
-                <div class="max-w-7xl mx-auto px-4">
-                    <div class="flex justify-center">
-                        <div class="flex ">   
-                            <div class="text-gray-700 hidden md:flex space-x-16">
-                                <div class="py-3 px-1 hover:text-black">
-                                    <a href="<?php echo e(route('internquest')); ?>">
-                                    <ion-icon name="home"></ion-icon>
-                                    Accueil</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
-                                        Offres</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
-                                    <ion-icon name="business"></ion-icon>
-                                    Entreprises</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="person"></ion-icon>
-                                    <a href="<?php echo e(route('users.list')); ?>">Utilisateurs</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="school"></ion-icon>
-                                    <a href="<?php echo e(route('promos.index')); ?>">Promotions</a>
-                                </div>
-                                <div class="py-5 px-3 hover:text-black">
-                                    <ion-icon name="archive"></ion-icon>
-                                    <a href="<?php echo e(route('applications.show', Auth::user()->id)); ?>" class="py-5 px-3 hover:text-black">Mes candidatures</a>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <?php if($count > 0): ?>
-                                        <a href="<?php echo e(route('internquest.admin.notifications')); ?>"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
-                                    <?php else: ?>
-                                        <ion-icon name="mail"></ion-icon>Notifications
-                                    <?php endif; ?>
-                                </div>
-                                <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="person-circle"></ion-icon>
-                                    <a href="<?php echo e(route('auth.show')); ?>"><?php echo e(Auth::user()->username); ?></a>
-                                </div>
-                                <form action="<?php echo e(route('auth.logout')); ?>" method="POST">
-                                    <?php echo method_field('delete'); ?>
-                                    <?php echo csrf_field(); ?>
-                                    <div class="py-3 px-1 hover:text-black">
-                                        <ion-icon name="log-out"></ion-icon>
-                                        <button>Se deconnecter</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        <?php elseif(Auth::user()->role == 'Pilote'): ?>
-        <nav class="bg-gray-100" id ="nav_admin">
+        <nav class="bg-gray-100" id="nav_admin">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="flex justify-center">
                     <div class="flex ">   
                         <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
                                 <a href="<?php echo e(route('internquest')); ?>">
                                 <ion-icon name="home"></ion-icon>
                                 Accueil</a>
                             </div>
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
                                 <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
                                     Offres</a>
                             </div>
-                            <div class="py-5 px-3 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
+                            <div class="py-3 px-1 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
                                 <ion-icon name="business"></ion-icon>
                                 Entreprises</a>
                             </div>
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
+                                <ion-icon name="person"></ion-icon>
+                                <a href="<?php echo e(route('accueil.users.list')); ?>">Utilisateurs</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
                                 <ion-icon name="school"></ion-icon>
-                                <a href="<?php echo e(route('promos.index')); ?>" class="py-5 px-3 hover:text-black">Promotions</a>
+                                <a href="<?php echo e(route('promos.index')); ?>">Promotions</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                <ion-icon name="archive"></ion-icon>
+                                <a href="<?php echo e(route('applications.show', Auth::user()->id)); ?>" class="hover:text-black">Mes candidatures</a>
                             </div>
                             <div class="py-3 px-1 hover:text-black">
                                 <?php if($count > 0): ?>
-                                <a href="<?php echo e(route('internquest.admin.notifications')); ?>"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
-                            <?php else: ?>
-                                <ion-icon name="mail"></ion-icon>Notifications
-                            <?php endif; ?>
+                                    <a href="<?php echo e(route('internquest.admin.notifications')); ?>"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
+                                <?php else: ?>
+                                    <ion-icon name="mail"></ion-icon>Notifications
+                                <?php endif; ?>
                             </div>
-                            <div class="py-5 px-3 hover:text-black">
+                            <div class="py-3 px-1 hover:text-black">
                                 <ion-icon name="person-circle"></ion-icon>
                                 <a href="<?php echo e(route('auth.show')); ?>"><?php echo e(Auth::user()->username); ?></a>
                             </div>
-                            <form action="<?php echo e(route('auth.logout')); ?>" method="POST">
+                            <form action="<?php echo e(route('auth.logout')); ?>" method="POST" class="py-3 px-1 hover:text-black">
                                 <?php echo method_field('delete'); ?>
                                 <?php echo csrf_field(); ?>
-                                <div class="py-5 px-3 hover:text-black">
+                                <div>
                                     <ion-icon name="log-out"></ion-icon>
                                     <button>Se deconnecter</button>
                                 </div>
@@ -112,56 +64,7 @@
                     </div>
                 </div>
             </div>
-            </nav>
-        <?php elseif(Auth::user()->role == 'Etudiant'): ?>
-        <nav class="bg-gray-100" id ="nav_admin">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-center">
-                    <div class="flex ">   
-                        <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-5 px-3 hover:text-black">
-                                <a href="<?php echo e(route('internquest')); ?>">
-                                <ion-icon name="home"></ion-icon>
-                                Accueil</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
-                                    Offres</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
-                                <ion-icon name="business"></ion-icon>
-                                Entreprises</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <ion-icon name="school"></ion-icon>
-                                <a href="#" class="py-5 px-3 hover:text-black">Ma promo</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <ion-icon name="archive"></ion-icon>
-                                <a href="<?php echo e(route('applications.show', Auth::user()->id)); ?>" class="py-5 px-3 hover:text-black">Mes candidatures</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <ion-icon name="list"></ion-icon>
-                                <a href="#" class="py-5 px-3 hover:text-black">Ma wishlist</a>
-                            </div>
-                            <div class="py-5 px-3 hover:text-black">
-                                <ion-icon name="person-circle"></ion-icon>
-                                <a href="<?php echo e(route('auth.show')); ?>"><?php echo e(Auth::user()->username); ?></a>
-                            </div>
-                            <form action="<?php echo e(route('auth.logout')); ?>" method="POST">
-                                <?php echo method_field('delete'); ?>
-                                <?php echo csrf_field(); ?>
-                                <div class="py-5 px-3 hover:text-black">
-                                    <ion-icon name="log-out"></ion-icon>
-                                    <button>Se deconnecter</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </nav>
-        <?php endif; ?>
+        </nav>    
     <?php endif; ?>
     <?php if(auth()->guard()->guest()): ?>
         <nav class="bg-gray-100" id ="nav_guest">
@@ -195,6 +98,82 @@
             </div>
         </nav>
     <?php endif; ?>
+
+    <div class="flex flex-wrap">
+        <div class="w-1/2">
+            <?php $__currentLoopData = $companies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
+                    <div class="p-4 border-b">
+                        <h2 class="text-xl font-bold"><?php echo e($company->name); ?></h2>
+                        <p>Secteur: <?php echo e($company->area); ?></p>
+                        <p>Vous pouvez nous trouver sur <?php echo e($company->website); ?></p>
+                        <p>Note: <?php echo e($company->evaluation); ?></p>
+                        <div class="mt-4">
+                            <a href="<?php echo e(route('companies.show', $company->id)); ?>">
+                                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <div class="mt-4">
+                <?php echo e($companies->links()); ?>
+
+            </div>
+        </div>
+        
+        <div class="w-1/2">
+            <?php $__currentLoopData = $companies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="p-4 border-b">
+                    <h2 class="text-xl font-bold">Offres de <?php echo e($company->name); ?></h2>
+                    <select class="w-full p-2 border rounded">
+                        <?php $__currentLoopData = $company->offers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $offer): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option onclick="<?php echo e(route('offers.show', $offer->id)); ?>" value="<?php echo e($offer->id); ?>"><?php echo e($offer->title); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </select>
+                </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <div class="mt-4">
+                <?php echo e($companies->links()); ?>
+
+            </div>
+            <?php if(auth()->guard()->check()): ?>
+                <?php $__currentLoopData = $promos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $promo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="flex flex-col w-full">
+                        <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
+                            <strong><h2 class="text-xl font-bold"><?php echo e($promo->name); ?></h2></strong>
+                            <div class="mt-4">
+                                <a href="<?php echo e(route('companies.show', $promo->id)); ?>">
+                                    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Consulter</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <strong><h2 style="color: white">Entreprises sous ma responsabilité</h2></strong>
+
+    <?php if(auth()->guard()->check()): ?>
+        <?php $__currentLoopData = $mycompany; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="flex flex-col w-full">
+                <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
+                    <strong><h2 class="text-xl font-bold"><?php echo e($company->name); ?></h2></strong>
+                    <p class="text-gray-900 text-lg font-semibold">Secteur <?php echo e($company->area); ?></p>
+                    <p class="text-gray-900 text-lg font-semibold">Vous pouvez nous trouver sur <?php echo e($company->website); ?></p>
+                    <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="<?php echo e($company->evaluation); ?>"></span></p>
+                    <div class="mt-4">
+                        <a href="<?php echo e(route('companies.show', $company->id)); ?>">
+                            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endif; ?>
+
     <div class="container">
         <?php if(session('success')): ?>
             <div class="alert alert-success">
@@ -383,24 +362,6 @@ unset($__errorArgs, $__bag); ?>
                 </form>
             </div>
         </dialog>
-        <div class="flex justify-center">
-            <form action="<?php echo e(route('internquest.users.search')); ?>" method="GET" class="space-y-4">
-                <div class="flex space-x-2">
-                    <input type="search" name="lname" placeholder="Nom" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                    <input type="search" name="fname" placeholder="Prénom" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                    <input type="search" name="center" placeholder="Centre" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                    <input type="search" name="promotion" placeholder="Promotion" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                    <select name="role" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                        <option value="">Sélectionner un rôle</option>
-                        <option value="pilote">Pilote</option>
-                        <option value="eleve">Etudiant</option>
-                    </select>
-                </div>
-                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
-                    Rechercher
-                </button>
-            </form>
-        </div>
 <?php echo $__env->yieldContent('content'); ?>
 <script>
     function login(){

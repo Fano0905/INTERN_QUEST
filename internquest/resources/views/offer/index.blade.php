@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('layout')
 
 @section('title', 'Rechercher des offres')
 
@@ -9,30 +9,46 @@
             <input type="search" name="skills" placeholder="Compétences" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
             <input type="search" name="city" placeholder="Localité" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
             <input type="search" name="company" placeholder="Entreprise" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-            <!-- Ajoutez d'autres champs de recherche ici en fonction des critères. -->
         </div>
         <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
             Rechercher
         </button>
     </form>
 </div>
-
-<div class="w-full max-w-4xl">
-    <!-- ... -->
-    <div class="flex flex-col w-full">
-        @foreach ($offers as $offer)
+    @foreach ($offers as $offer)
         <div class="bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
-            <strong><h1 class="text-xl font-bold">{{$offer->title}}</h1></strong>
-            <!-- ... Affichez d'autres détails de l'offre ici. -->
+            <strong><h2 class="text-xl font-bold">{{$offer->title}}</h2></strong>
+            <div class="text-gray-900 text-lg font-semibold">
+                @if(Auth::user()->wish->contains($offer->id))
+                    <form action="{{route('offers.supp.wl', $offer->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">
+                            <ion-icon name="bookmark"></ion-icon>
+                        </button>
+                    </form>
+                @else
+                    <form action="{{route('offers.add.wl')}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                        <button type="submit">
+                            <ion-icon name="bookmark-outline"></ion-icon>
+                        </button>
+                    </form>
+                @endif
+            </div>
             <p class="text-gray-900 text-lg font-semibold">Nombre d'élèves ayant postulé: {{$offer->applications->count()}}</p>
+            <p class="text-gray-900 text-lg font-semibold">Note de l'Entreprise: {{$offer->entreprise->evaluation}}</p>
             <div class="mt-4">
                 <form action="{{route('offers.show', $offer->id)}}" method="GET" class="flex justify-between">
                     @csrf
-                    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus...</button>
+                    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Consulter</button>
                 </form>
             </div>
         </div>
-        @endforeach
+    @endforeach
+    <div class="mt-4">
+        {{ $offers->links() }}
     </div>
 </div>
 @endsection

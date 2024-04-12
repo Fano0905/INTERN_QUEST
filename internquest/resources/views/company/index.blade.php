@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('layout')
 
 @section('title', 'Entreprises')
 
@@ -28,7 +28,7 @@
             <div class="flex flex-col w-full">
                 @foreach ($companies as $company)
                 <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
-                    <strong><h1 class="text-xl font-bold">{{$company->name}}</h1></strong>
+                    <strong><h2 class="text-xl font-bold">{{$company->name}}</h2></strong>
                     <p class="text-gray-900 text-lg font-semibold">Secteur {{$company->area}}</p>
                     <p class="text-gray-900 text-lg font-semibold">data-interns={{ $company->interns_count }}</p>
                     <p class="text-gray-900 text-lg font-semibold">Vous pouvez nous trouver sur {{$company->website}}</p>
@@ -40,6 +40,9 @@
                     </div>
                     </div>
                 @endforeach
+                <div class="mt-4">
+                    {{ $companies->links() }}
+                </div>
             </div>
         </div>
     </div>

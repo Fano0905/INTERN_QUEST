@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('layout')
 
 @section('title', 'Secteurs présents sur le site')
 

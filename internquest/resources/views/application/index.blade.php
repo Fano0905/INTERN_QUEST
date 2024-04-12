@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('layout')
 
 @section('title', 'My Applications')
 

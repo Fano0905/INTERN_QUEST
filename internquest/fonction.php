@@ -181,38 +181,21 @@ dd(Auth::user()); // Vérifier si un utilisateur est connecté
 </form>
 
 
-
-public function search(Request $request)
-{
-    $query = Company::query();
-    $pending = Waiting_User::all();
-    $count = count($pending);
-
-    if ($request->has('name')) {
-        $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
-    }
-
-    if ($request->has('area')) {
-        $query->whereHas('area', function($q) use ($request) {
-            $q->where('name', 'LIKE', '%' . $request->input('area') . '%');
-        });
-    }
-
-    // Recherche par ville
-    if ($request->has('location')) {
-        $query->whereHas('locations', function($q) use ($request) {
-            $q->where('name', 'LIKE', '%' . $request->input('location') . '%');
-        });
-    }
-
-    // Recherche par notes
-    if ($request->has('note')) {
-        $query->whereHas('notes', function($q) use ($request) {
-            $q->where('value', '>=', $request->input('note'));
-        });
-    }
-
-    $companies = $query->get();
-
-    return view('company.index', compact('companies', 'count'));
-}
+@auth
+<h2>Entreprises à sa charge</h2>
+<div class="flex flex-col w-full">
+    @foreach (Auth::user()->mycompany as $my_company)
+        <div class="companies bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
+            <strong><h2 class="text-xl font-bold">{{$my_company->name}}</h2></strong>
+            <p class="text-gray-900 text-lg font-semibold">Secteur {{$my_company->area}}</p>
+            <p class="text-gray-900 text-lg font-semibold">Vous pouvez nous trouver sur {{$my_company->website}}</p>
+            <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="{{$my_company->evaluation}}"></span></p>
+            <div class="mt-4">
+                <a href="{{route('companies.show', $my_company->id)}}">
+                    <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
+                </a>
+            </div>
+        </div>
+    @endforeach
+</div>
+@endauth

@@ -268,7 +268,6 @@ class UserController extends Controller
             }
     
             if ($request->filled('center')) {
-                // Adjust this line if 'center' is a relation
                 $matchesCenter = str_contains(strtolower($user->center), strtolower($request->center));
             }
     

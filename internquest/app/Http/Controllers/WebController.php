@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Offer;
+use App\Models\Promo;
 use App\Models\User;
 use App\Models\Waiting_User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class WebController extends Controller
@@ -14,18 +17,23 @@ class WebController extends Controller
         $pending = Waiting_User::all();
         $count = count($pending);
 
-        return view('auth.list', \compact('users', 'count'));
+        return view('auth.list', compact('users', 'count'));
     }
 
     public function web(){
         $pending = Waiting_User::all();
-        $offers = Offer::paginate(5);
         $count = count($pending);
-
-        foreach ($pending as $users)
-            $count++;
-        return \view('accueil', \compact('count', 'offers'));
-    }
+        $offers = Offer::paginate(5);
+        $companies = Company::paginate(5);
+    
+        if (Auth::check()) {
+            $promos = Promo::where('pilote_id', Auth::user()->id)->get();
+            $mycompany = Auth::user()->my_company;
+            return view('accueil', compact('count', 'offers', 'companies', 'mycompany', 'promos'));
+        }
+    
+        return view('accueil', compact('count', 'offers', 'companies'));
+    }    
 
     public function etudiant(){
         $offers = Offer::all();
@@ -35,8 +43,12 @@ class WebController extends Controller
     }
 
     public function pilote(){
+        $pending = Waiting_User::all();
+        $count = count($pending);
         $users = User::whereRole('Etudiant');
+        $mycompany = Auth::user()->my_company;
+        $promos = Promo::wherePiloteId(Auth::user()->id)->get();
 
-        return \view('pilote');
+        return view('pilote', compact('count', 'users', 'mycompany', 'promos'));
     }
 }

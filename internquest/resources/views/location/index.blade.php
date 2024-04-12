@@ -1,4 +1,4 @@
-@extends('accueil')
+@extends('layout')
 
 @section('content')
     @foreach ($locations as $location)
