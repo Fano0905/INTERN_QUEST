@@ -79,4 +79,4 @@ class User extends Authenticatable
     public function wish(){
         return $this->belongsToMany(Offer::class, 'wishlist', 'user_id', 'offer_id');
     }
-}    
+}

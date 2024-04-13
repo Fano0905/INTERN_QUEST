@@ -15,6 +15,7 @@
         </button>
     </form>
 </div>
+<a href="{{route('offers.stats')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="bar-chart"></ion-icon>Voir les statistiques</button></a>
     @foreach ($offers as $offer)
         <div class="bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
             <strong><h2 class="text-xl font-bold">{{$offer->title}}</h2></strong>

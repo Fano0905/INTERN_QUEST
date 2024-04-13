@@ -15,7 +15,7 @@ class PromoController extends Controller
 
         $promos = Promo::all();
 
-        return view('promotion.index', \compact('promos'));
+        return view('promotion.index', compact('promos'));
     }
 
     // routes functions

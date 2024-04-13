@@ -11,6 +11,7 @@
                     <a href="{{route('companies.create')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="add-outline"></ion-icon>Créer</button></a>
                 @endif
             @endauth
+            <a href="{{route('companies.stats')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="bar-chart"></ion-icon>Voir les statistiques</button></a>
             
             <div class="flex justify-center">
                 <form action="{{ route('companies.filter') }}" method="GET">
@@ -23,8 +24,7 @@
                         <button type="submit">Filtrer</button>
                     </div>
                 </form>
-            </div>                
-
+            </div>
             <div class="flex flex-col w-full">
                 @foreach ($companies as $company)
                 <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">

@@ -12,6 +12,6 @@ class Area extends Model
     protected $fillable = ['name'];
 
     public function company(){
-        return $this->hasMany(Company::class);
+        return $this->hasMany(Company::class, 'name');
     }
 }

@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Company;
 use App\Models\Evaluation;
 use App\Models\Location;
-use App\Models\Waiting_User;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Validation\Rule;
@@ -36,13 +35,20 @@ class CompanyController extends Controller
             }
             $company->save();
         }
-    
+
         return view('company.index', compact('companies'));
     }
 
     public function filter(Request $request)
     {
-        $companies = Company::with('offre', 'notes', 'area', 'locations')->get();
+        $companies = Company::with('offers', 'notes', 'area', 'locations')->get();
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 5;
+        $sectorsWithCounts = Area::withCount('company')->get();
+        
+        // Préparez les données pour le graphique
+        $sectorNames = $sectorsWithCounts->pluck('name')->toArray();
+        $sectorCounts = $sectorsWithCounts->pluck('company_count')->toArray();
 
         $filteredCompanies = $companies->filter(function ($company) use ($request) {
             $matchesName = true;
@@ -73,8 +79,12 @@ class CompanyController extends Controller
 
             return $matchesName && $matchesArea && $matchesLocation && $matchesInternsCount && $matchesEvaluation;
         });
+        $currentItems = $filteredCompanies->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $paginatedItems = new LengthAwarePaginator($currentItems, $filteredCompanies->count(), $perPage, $currentPage, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(),
+        ]);
 
-        return view('company.index', ['companies' => $filteredCompanies]);
+        return view('company.index', ['companies' => $paginatedItems, 'sectorNames' => $sectorNames, 'sectorCounts' => $sectorCounts]);
     }
 
     /**
@@ -145,6 +155,23 @@ class CompanyController extends Controller
 
         return redirect()->route('companies.index')
             ->with('success', 'Company updated successfully.');
+    }
+
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+
+    public function stats(){
+        // Obtenez tous les secteurs avec le nombre d'entreprises associées
+        $sectorsWithCounts = Area::withCount('company')->get();
+        
+        // Préparez les données pour le graphique
+        $sectorNames = $sectorsWithCounts->pluck('name')->toArray();
+        $sectorCounts = $sectorsWithCounts->pluck('company_count')->toArray();
+
+        return view('company.stat', compact('sectorNames', 'sectorCounts'));
     }
 
     /**

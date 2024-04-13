@@ -54,7 +54,6 @@ Route::prefix('/internquest')->name('internquest.')->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('users', [UserController::class, 'store'])->name('users.store');
-    Route::get('users/{user}', [UserController::class, 'show'])->name('users.show')->middleware('auth');
     Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('auth');
     Route::put('users/{user}', [UserController::class, 'update'])->name('users.update')->middleware('auth');
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
@@ -62,6 +61,7 @@ Route::prefix('/internquest')->name('internquest.')->group(function () {
     Route::get('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
     Route::delete('users/{user}/disapprove', [UserController::class, 'disapprove'])->name('users.disapprove');
     Route::get('/skills/add', [UserController::class, 'learn'])->name('users.learn');
+    Route::get('users/{user}', [UserController::class, 'show'])->name('users.show')->middleware('auth');
     Route::get('/search', [UserController::class, 'search'])->name('users.search');
     Route::post('/skills/', [UserController::class, 'certificate'])->name('users.confirm');
 });
@@ -81,7 +81,9 @@ Route::prefix('/company')->name('companies.')->controller(CompanyController::cla
 
     Route::delete('/{company}', [CompanyController::class, 'destroy'])->name('destroy')->middleware('auth');
 
-    Route::get('/', [CompanyController::class, 'index'])->name('index');
+    Route::get('', [CompanyController::class, 'index'])->name('index');
+
+    Route::get('/stats', [CompanyController::class, 'stats'])->name('stats');
 
     Route::get('/{company}/evaluate', [CompanyController::class, 'evaluate'])->name('evaluate')->middleware('auth');
 
@@ -107,8 +109,6 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     Route::get('/create', 'create')->name('create')->middleware('auth');
 
     Route::post('/create', 'store')->name('store');
-
-    Route::get('/{id}', [OfferController::class, 'show'])->name('show')->middleware('auth');
     
     Route::get('/{offer}/edit', [OfferController::class, 'edit'])->name('edit')->middleware('auth');
     
@@ -118,7 +118,11 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
 
     Route::get('/', [OfferController::class, 'index'])->name('index');
 
+    Route::get('/stats', [OfferController::class, 'stats'])->name('stats');
+
     Route::get('/offers/search', [OfferController::class, 'search'])->name('search');
+
+    Route::get('/{id}', [OfferController::class, 'show'])->name('show')->middleware('auth');
 
     Route::get('/offers/{offer_id}/applications', [OfferController::class, 'showApplications'])->name('applications');
 

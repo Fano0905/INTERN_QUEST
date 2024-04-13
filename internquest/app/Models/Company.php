@@ -27,8 +27,8 @@ class Company extends Model
     }
 
     public function area(){
-        return $this->belongsTo(Area::class);
-    }
+        return $this->belongsTo(Area::class, 'area'); // 'area' est le nom de la colonne de clé étrangère
+    }    
 
     public function locations(){
         return $this->belongsToMany(Location::class, 'companies_locations', 'company_id', 'location_id');

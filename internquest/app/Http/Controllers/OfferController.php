@@ -9,10 +9,9 @@ use App\Models\Offer;
 use App\Models\Offer_Promo;
 use App\Models\Offer_Skills;
 use App\Models\Promo;
-use App\Models\User;
-use App\Models\Wishlist;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
@@ -26,12 +25,68 @@ class OfferController extends Controller
     {
         $offers = Offer::with('skills')->paginate(8);
 
-        foreach ($offers as $offer){
+        foreach ($offers as $offer) {
             $offer->nb_application = $offer->applications()->count();
         }
-
-        return view('offer.index', \compact('offers'));
+        return view('offer.index', compact('offers'));
     }
+
+    public function stats()
+    {
+        // Statistiques des compétences
+        $skillsWithCounts = Skill::withCount('offers')->get();
+        $skillNames = $skillsWithCounts->pluck('name')->toArray();
+        $skillOffersCount = $skillsWithCounts->pluck('offers_count')->toArray();
+
+        // Statistiques des localités (en supposant que vous avez un modèle Location et une colonne city dans la table des offres)
+        $localityWithCounts = Offer::select('city', DB::raw('count(*) as offers_count'))
+                                    ->groupBy('city')
+                                    ->get();
+        $localityNames = $localityWithCounts->pluck('city')->toArray();
+        $localityOffersCount = $localityWithCounts->pluck('offers_count')->toArray();
+
+        // Statistiques des promotions
+        $promoWithCounts = Promo::withCount('offres')->get();
+        $promoNames = $promoWithCounts->pluck('name')->toArray();
+        $promoOffersCount = $promoWithCounts->pluck('offers_count')->toArray();
+
+        // Statistiques des durées (en supposant que vous avez une colonne duration dans la table des offres)
+        $durationWithCounts = Offer::select('duration', DB::raw('count(*) as offers_count'))
+                                    ->groupBy('duration')
+                                    ->get();
+        $durationNames = $durationWithCounts->pluck('duration')->toArray();
+        $durationOffersCount = $durationWithCounts->pluck('offers_count')->toArray();
+
+        // Statistiques de la liste de souhaits
+        $wishlistWithCounts = DB::table('wishlist')
+                                    ->select('offer_id', DB::raw('count(*) as wishlist_count'))
+                                    ->groupBy('offer_id')
+                                    ->get();
+        $wishlistOffersNames = Offer::whereIn('id', $wishlistWithCounts->pluck('offer_id'))
+                                    ->pluck('title')
+                                    ->toArray();
+        $wishlistCount = $wishlistWithCounts->pluck('wishlist_count')->toArray();
+        $skillNamesJson = json_encode($skillNames);
+        $skillOffersCountJson = json_encode($skillOffersCount);
+        $localityNamesJson = json_encode($localityNames);
+        $localityOffersCountJson = json_encode($localityOffersCount);
+        $promoNamesJson = json_encode($promoNames);
+        $promoOffersCountJson = json_encode($promoOffersCount);
+        $durationNamesJson = json_encode($durationNames);
+        $durationOffersCountJson = json_encode($durationOffersCount);
+        $wishlistOffersNamesJson = json_encode($wishlistOffersNames);
+        $wishlistCountJson = json_encode($wishlistCount);
+
+        // Assurez-vous que toutes les variables sont définies
+        return view('offer.stat', compact(
+            'skillNamesJson', 'skillOffersCountJson',
+            'localityNamesJson', 'localityOffersCountJson',
+            'promoNamesJson', 'promoOffersCountJson',
+            'durationNamesJson', 'durationOffersCountJson',
+            'wishlistOffersNamesJson', 'wishlistCountJson'
+        ));
+    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -187,6 +242,8 @@ class OfferController extends Controller
     public function search(Request $request)
     {
         $offers = Offer::with('entreprise', 'applications', 'promos', 'skills')->get();
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 5;
 
         $filteredOffers = $offers->filter(function ($offer) use ($request) {
             $matchesSkills = true;
@@ -239,10 +296,13 @@ class OfferController extends Controller
 
             return $matchesSkills && $matchesCity && $matchesCompany && $matchesPromos && $matchesDuration && $matchesRemuneration && $matchesDateOffer && $matchesPlaceOffered && $matchesApplicationsCount;
         });
+        $currentItems = $filteredOffers->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $paginatedItems = new LengthAwarePaginator($currentItems, $filteredOffers->count(), $perPage, $currentPage, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(),
+        ]);
 
-        return view('offer.index', ['offers' => $filteredOffers]);
+        return view('offer.index', ['offers' => $paginatedItems]);
     }
-
 
     /**
     * Display the applications for a specific offer.
