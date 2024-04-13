@@ -250,7 +250,7 @@ class UserController extends Controller
     {
         $pending_users = Waiting_User::all();
         $count = count($pending_users);
-        $users = User::with('promos', 'company', 'applications', 'skills')->get();
+        $users = User::with('promos', 'applications', 'skills')->get();
     
         $filteredUsers = $users->filter(function ($user) use ($request) {
             $matchesLname = true;

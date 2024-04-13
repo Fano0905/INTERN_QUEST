@@ -19,16 +19,17 @@
         <div class="bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
             <strong><h2 class="text-xl font-bold">{{$offer->title}}</h2></strong>
             <div class="text-gray-900 text-lg font-semibold">
-                @if(Auth::user()->wish->contains($offer->id))
-                    <form action="{{route('offers.supp.wl', $offer->id)}}" method="POST">
+                @if (Auth::user()->wish->contains($offer->id))
+                    <form action="{{route('wishlist.supp.wl', $offer->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                         <button type="submit">
                             <ion-icon name="bookmark"></ion-icon>
                         </button>
                     </form>
                 @else
-                    <form action="{{route('offers.add.wl')}}" method="POST">
+                    <form action="{{route('wishlist.add.wl')}}" method="POST">
                         @csrf
                         <input type="hidden" name="offer_id" value="{{$offer->id}}">
                         <button type="submit">

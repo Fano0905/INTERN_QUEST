@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Promos_UserController;
-use Illuminate\Auth\Events\Logout;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,7 +108,7 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
 
     Route::post('/create', 'store')->name('store');
 
-    Route::get('/{offer}', [OfferController::class, 'show'])->name('show')->middleware('auth');
+    Route::get('/{id}', [OfferController::class, 'show'])->name('show')->middleware('auth');
     
     Route::get('/{offer}/edit', [OfferController::class, 'edit'])->name('edit')->middleware('auth');
     
@@ -117,16 +116,20 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     
     Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy')->middleware('auth');
 
-    Route::post('/create', 'AddInWishlist')->name('add.wl')->middleware('auth');
-
-    Route::delete('/{offer}', [OfferController::class, 'suppFromWishlist'])->name('supp.wl')->middleware('auth');
-
     Route::get('/', [OfferController::class, 'index'])->name('index');
 
     Route::get('/offers/search', [OfferController::class, 'search'])->name('search');
 
     Route::get('/offers/{offer_id}/applications', [OfferController::class, 'showApplications'])->name('applications');
 
+});
+
+Route::prefix('/wishlist')->name('wishlist.')->controller(WishlistController::class)->group(function(){
+    Route::post('/add', [WishlistController::class, 'AddInWishlist'])->name('add.wl')->middleware('auth');
+
+    Route::get('/show', 'wishlist')->name('show')->middleware('auth');
+
+    Route::delete('/wishlist/{offer}', [WishlistController::class, 'suppFromWishlist'])->name('supp.wl')->middleware('auth');
 });
 
 //Routes candidatures

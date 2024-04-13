@@ -14,13 +14,8 @@ class PromoController extends Controller
     public function index(){
 
         $promos = Promo::all();
-        $pending = Waiting_User::all();
-        $count = count($pending);
 
-        foreach ($pending as $users)
-            $count++;
-
-        return view('promotion.index', \compact('promos', 'count'));
+        return view('promotion.index', \compact('promos'));
     }
 
     // routes functions
@@ -71,13 +66,8 @@ class PromoController extends Controller
     {
         $promo = Promo::with('pilote', 'etudiants')->find($id);
         $etudiants = $promo->etudiants;
-        $pending = Waiting_User::all();
-        $count = count($pending);
 
-        foreach ($pending as $users)
-            $count++;
-
-        return view('promotion.show', compact('promo', 'etudiants', 'count'));
+        return view('promotion.show', compact('promo', 'etudiants'));
     }      
 
     /**

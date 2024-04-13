@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Skill;
 use App\Models\Company;
 use App\Models\Location;
-use App\Models\Waiting_User;
-use Illuminate\Http\Request;
 use App\Models\Offer;
 use App\Models\Offer_Promo;
 use App\Models\Offer_Skills;
 use App\Models\Promo;
+use App\Models\User;
 use App\Models\Wishlist;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -25,17 +25,12 @@ class OfferController extends Controller
     public function index()
     {
         $offers = Offer::with('skills')->paginate(8);
-        $pending = Waiting_User::paginate(10);
-        $count = count($pending);
 
         foreach ($offers as $offer){
             $offer->nb_application = $offer->applications()->count();
         }
-        
-        foreach ($pending as $users)
-            $count++;
 
-        return view('offer.index', \compact('offers', 'count'));
+        return view('offer.index', \compact('offers'));
     }
 
     /**
@@ -136,10 +131,11 @@ class OfferController extends Controller
 
     // routes functions
     /**
-     * Show the form for creating a new offer.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Show the form for creating a new offer.
+    *
+    * @return \Illuminate\Http\Response
+    */
+
     public function create()
     {
         $companies = Company::all();
@@ -147,23 +143,21 @@ class OfferController extends Controller
         $skills = Skill::all();
         $promos = Promo::all();
 
-        return view('offer.create', \compact('companies', 'cities', 'skills', 'promos'));
+        return view('offer.create', compact('companies', 'cities', 'skills', 'promos'));
     }
 
-
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+
     public function show($id)
     {
         $offer = Offer::find($id);
-        $pending = Waiting_User::all();
-        $count = count($pending);
 
-        return view('offer.show', compact('offer', 'count'));
+        return view('offer.show', compact('offer'));
     }
 
     /**
@@ -193,8 +187,6 @@ class OfferController extends Controller
     public function search(Request $request)
     {
         $offers = Offer::with('entreprise', 'applications', 'promos', 'skills')->get();
-        $pending = Waiting_User::all();
-        $count = count($pending);
 
         $filteredOffers = $offers->filter(function ($offer) use ($request) {
             $matchesSkills = true;
@@ -248,7 +240,7 @@ class OfferController extends Controller
             return $matchesSkills && $matchesCity && $matchesCompany && $matchesPromos && $matchesDuration && $matchesRemuneration && $matchesDateOffer && $matchesPlaceOffered && $matchesApplicationsCount;
         });
 
-        return view('offer.index', ['offers' => $filteredOffers], \compact('count'));
+        return view('offer.index', ['offers' => $filteredOffers]);
     }
 
 
@@ -260,48 +252,9 @@ class OfferController extends Controller
     public function showApplications($offer_id)
     {
         $offer = Offer::findOrFail($offer_id);
-        $pending = Waiting_User::paginate(10);
-        $count = count($pending);
 
         $applications = $offer->applications;
 
-        return view('application.index', compact('offer', 'applications', 'count'));
+        return view('application.index', compact('offer', 'applications'));
     }
-
-    /**
-    * Search for offers based on a query.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
-    public function AddInwishlist(Request $request){
-        $request->validate([
-            'offer_id' => ['required']
-        ]);
-
-        Wishlist::create([
-            'offer_id' => $request->input('offer_id'),
-            'user_id' => Auth::user()->id
-        ]);
-
-        return redirect()->route('offers.index')
-        ->with('success', "L'offre a été ajouté à la wishlist");
-    }
-
-    /**
-    * Display the applications for a specific offer.
-    * @param  int  $offer_id
-    * @return \Illuminate\Http\Response
-    */
-    public function suppFromWishlist($offer_id){
-        if (Auth::check()) {
-            $user = Auth::user();
-            $user->wish()->detach($offer_id);
-    
-            return redirect()->route('offers.index')
-                ->with('success', "L'offre a été retiré de la wishlist");
-        }
-    
-        return redirect()->route('login')->with('error', 'Vous devez être connecté pour effectuer cette action.');
-    }    
 }

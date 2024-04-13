@@ -11,60 +11,83 @@
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-auto" style="background-image: url('/img/image-bg.jpg')">
     @auth
-        <nav class="bg-gray-100" id="nav_admin">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-center">
-                    <div class="flex ">   
-                        <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-3 px-1 hover:text-black">
-                                <a href="{{route('internquest')}}">
-                                <ion-icon name="home"></ion-icon>
-                                Accueil</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
-                                    Offres</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
-                                <ion-icon name="business"></ion-icon>
-                                Entreprises</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="person"></ion-icon>
-                                <a href="{{route('accueil.users.list')}}">Utilisateurs</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="school"></ion-icon>
-                                <a href="{{route('promos.index')}}">Promotions</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="archive"></ion-icon>
-                                <a href="{{route('applications.show', Auth::user()->id)}}" class="hover:text-black">Mes candidatures</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                @if ($count > 0)
-                                    <a href="{{route('internquest.admin.notifications')}}"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
-                                @else
-                                    <ion-icon name="mail"></ion-icon>Notifications
-                                @endif
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="person-circle"></ion-icon>
-                                <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
-                            </div>
-                            <form action="{{route('auth.logout')}}" method="POST" class="py-3 px-1 hover:text-black">
-                                @method('delete')
-                                @csrf
-                                <div>
-                                    <ion-icon name="log-out"></ion-icon>
-                                    <button>Se deconnecter</button>
-                                </div>
-                            </form>
-                        </div>
+    <nav class="bg-gray-100" id="nav_admin">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex space-x-4 md:space-x-8">
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="{{route('internquest')}}">
+                            <ion-icon name="home"></ion-icon>
+                            Accueil
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="{{route('offers.index')}}">
+                            <ion-icon name="briefcase"></ion-icon>
+                            Offres
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="{{route('companies.index')}}">
+                            <ion-icon name="business"></ion-icon>
+                            Entreprises
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="{{route('accueil.users.list')}}">
+                            <ion-icon name="person"></ion-icon>
+                            Utilisateurs
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="{{route('promos.index')}}">
+                            <ion-icon name="school"></ion-icon>
+                            Promotions
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="{{route('wishlist.show')}}">
+                            <ion-icon name="bookmark"></ion-icon>
+                            Wishlist
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="{{route('applications.show', Auth::user()->id)}}" class="hover:text-black">
+                            <ion-icon name="archive"></ion-icon>
+                            Mes candidatures
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        @if ($count > 0)
+                            <a href="{{route('internquest.admin.notifications')}}">
+                                <ion-icon name="mail-unread"></ion-icon>
+                                Notifications
+                            </a>
+                        @else
+                            <ion-icon name="mail"></ion-icon>
+                            Notifications
+                        @endif
                     </div>
                 </div>
+                <div class="flex items-center space-x-4">
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="{{route('auth.show')}}">
+                            <ion-icon name="person-circle"></ion-icon>
+                            {{Auth::user()->username}}
+                        </a>
+                    </div>
+                    <form action="{{route('auth.logout')}}" method="POST" class="py-3 px-1 hover:text-black">
+                        @method('delete')
+                        @csrf
+                        <button>
+                            <ion-icon name="log-out"></ion-icon>
+                            Se deconnecter
+                        </button>
+                    </form>
+                </div>
             </div>
-        </nav>    
+        </div>
+    </nav>    
     @endauth
     @guest
         <nav class="bg-gray-100" id ="nav_guest">
@@ -107,7 +130,7 @@
                         <h2 class="text-xl font-bold">{{ $company->name }}</h2>
                         <p>Secteur: {{ $company->area }}</p>
                         <p>Vous pouvez nous trouver sur {{ $company->website }}</p>
-                        <p>Note: {{ $company->evaluation }}</p>
+                        <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="{{$company->evaluation}}"></span></p>
                         <div class="mt-4">
                             <a href="{{route('companies.show', $company->id)}}">
                                 <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
@@ -380,6 +403,24 @@
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
+</script>
+<script>
+    var starsContainers = document.querySelectorAll('.stars');
+    starsContainers.forEach(function(starContainer) {
+
+      var evaluation = parseInt(starContainer.getAttribute('data-evaluation'));
+
+      if (evaluation == 0) {
+            starContainer.innerHTML = 'N/A';
+      } else {
+            for (var i = 0; i < evaluation; i++) {
+            starContainer.innerHTML += '<ion-icon name="star"></ion-icon>';
+            }
+            for (var j = evaluation; j < 5; j++) {
+            starContainer.innerHTML += '<ion-icon name="star-outline"></ion-icon>';
+        }
+      }
+    });
 </script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

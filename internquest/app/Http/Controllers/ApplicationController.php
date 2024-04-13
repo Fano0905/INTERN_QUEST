@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Offer;
 use App\Models\User;
-use App\Models\Waiting_User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -20,6 +19,7 @@ class ApplicationController extends Controller
     public function index($id)
     {
         $offer = Offer::find($id);
+
         if (!$offer) {
             abort(404);
         }
@@ -45,7 +45,6 @@ class ApplicationController extends Controller
             'user_id' => ['required']
         ]);
     
-        // Vérifier si l'utilisateur a déjà postulé
         $user_id = $request->input('user_id');
         $existingApplication = Application::where('user_id', $user_id)->whereHas('offres', function ($query) use ($id) {
             $query->where('id', $id);
@@ -88,10 +87,8 @@ class ApplicationController extends Controller
     {
         $student = User::findOrFail($id);
         $applications = $student->applications;
-        $pending = Waiting_User::all();
-        $count = count($pending);
     
-        return view('application.show', compact('applications', 'count'));
+        return view('application.show', compact('applications'));
     }
 
     /**

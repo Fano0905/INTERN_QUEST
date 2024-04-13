@@ -5,10 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
-    <title>Page étudiant</title>
+    <title>@yield('title', 'Page Etudiant')</title>
 </head>
 <body style="height: 200dvh">
     <div class="w-full h-full bg-no-repeat bg-cover overflow-auto" style="background-image: url('/img/image-bg.jpg')">
+        <nav class="bg-gray-100" id ="nav_admin">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-center">
+                    <div class="flex ">   
+                        <div class="text-gray-700 hidden md:flex space-x-16">
+                            <div class="py-3 px-1 hover:text-black">
+                                <a href="{{route('internquest')}}">
+                                <ion-icon name="home"></ion-icon>
+                                Accueil</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                <a href="{{route('offers.index')}}"><ion-icon name="briefcase"></ion-icon>
+                                    Offres</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black"><a href="{{route('companies.index')}}">
+                                <ion-icon name="business"></ion-icon>
+                                Entreprises</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black"><a href="{{route('wishlist.show')}}">
+                                <ion-icon name="bookmark"></ion-icon>
+                                Wishlist</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                <ion-icon name="archive"></ion-icon>
+                                <a href="{{route('applications.show', Auth::user()->id)}}" class="hover:text-black">Mes candidatures</a>
+                            </div>
+                            <div class="py-3 px-1 hover:text-black">
+                                <ion-icon name="person-circle"></ion-icon>
+                                <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
+                            </div>
+                            <form action="{{route('auth.logout')}}" method="POST">
+                                @method('delete')
+                                @csrf
+                                <div class="py-3 px-1 hover:text-black">
+                                    <ion-icon name="log-out"></ion-icon>
+                                    <button>Se deconnecter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
         <div class="flex justify-center">
             <form action="{{ route('internquest.users.search') }}" method="GET" class="space-y-4">
                 <div class="flex space-x-2">
@@ -27,6 +70,9 @@
                 </button>
             </form>    
         </div>
+        @yield('content')
     </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

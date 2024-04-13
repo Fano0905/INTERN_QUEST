@@ -11,60 +11,84 @@
 <body style="height: 200dvh">
 <div class="w-full h-full bg-no-repeat bg-cover overflow-auto" style="background-image: url('/img/image-bg.jpg')">
     <?php if(auth()->guard()->check()): ?>
-        <nav class="bg-gray-100" id="nav_admin">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="flex justify-center">
-                    <div class="flex ">   
-                        <div class="text-gray-700 hidden md:flex space-x-16">
-                            <div class="py-3 px-1 hover:text-black">
-                                <a href="<?php echo e(route('internquest')); ?>">
-                                <ion-icon name="home"></ion-icon>
-                                Accueil</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <a href="<?php echo e(route('offers.index')); ?>"><ion-icon name="briefcase"></ion-icon>
-                                    Offres</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black"><a href="<?php echo e(route('companies.index')); ?>">
-                                <ion-icon name="business"></ion-icon>
-                                Entreprises</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="person"></ion-icon>
-                                <a href="<?php echo e(route('accueil.users.list')); ?>">Utilisateurs</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="school"></ion-icon>
-                                <a href="<?php echo e(route('promos.index')); ?>">Promotions</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="archive"></ion-icon>
-                                <a href="<?php echo e(route('applications.show', Auth::user()->id)); ?>" class="hover:text-black">Mes candidatures</a>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <?php if($count > 0): ?>
-                                    <a href="<?php echo e(route('internquest.admin.notifications')); ?>"><ion-icon name="mail-unread"></ion-icon>Notifications</a>
-                                <?php else: ?>
-                                    <ion-icon name="mail"></ion-icon>Notifications
-                                <?php endif; ?>
-                            </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="person-circle"></ion-icon>
-                                <a href="<?php echo e(route('auth.show')); ?>"><?php echo e(Auth::user()->username); ?></a>
-                            </div>
-                            <form action="<?php echo e(route('auth.logout')); ?>" method="POST" class="py-3 px-1 hover:text-black">
-                                <?php echo method_field('delete'); ?>
-                                <?php echo csrf_field(); ?>
-                                <div>
-                                    <ion-icon name="log-out"></ion-icon>
-                                    <button>Se deconnecter</button>
-                                </div>
-                            </form>
-                        </div>
+    <nav class="bg-gray-100" id="nav_admin">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="flex space-x-4 md:space-x-8">
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="<?php echo e(route('internquest')); ?>">
+                            <ion-icon name="home"></ion-icon>
+                            Accueil
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="<?php echo e(route('offers.index')); ?>">
+                            <ion-icon name="briefcase"></ion-icon>
+                            Offres
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="<?php echo e(route('companies.index')); ?>">
+                            <ion-icon name="business"></ion-icon>
+                            Entreprises
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="<?php echo e(route('accueil.users.list')); ?>">
+                            <ion-icon name="person"></ion-icon>
+                            Utilisateurs
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="<?php echo e(route('promos.index')); ?>">
+                            <ion-icon name="school"></ion-icon>
+                            Promotions
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="<?php echo e(route('wishlist.show')); ?>">
+                            <ion-icon name="bookmark"></ion-icon>
+                            Wishlist
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="<?php echo e(route('applications.show', Auth::user()->id)); ?>" class="hover:text-black">
+                            <ion-icon name="archive"></ion-icon>
+                            Mes candidatures
+                        </a>
+                    </div>
+                    <div class="py-3 px-1 hover:text-black">
+                        <?php if($count > 0): ?>
+                            <a href="<?php echo e(route('internquest.admin.notifications')); ?>">
+                                <ion-icon name="mail-unread"></ion-icon>
+                                Notifications
+                            </a>
+                        <?php else: ?>
+                            <ion-icon name="mail"></ion-icon>
+                            Notifications
+                        <?php endif; ?>
                     </div>
                 </div>
+                <div class="flex items-center space-x-4">
+                    <div class="py-3 px-1 hover:text-black">
+                        <a href="<?php echo e(route('auth.show')); ?>">
+                            <ion-icon name="person-circle"></ion-icon>
+                            <?php echo e(Auth::user()->username); ?>
+
+                        </a>
+                    </div>
+                    <form action="<?php echo e(route('auth.logout')); ?>" method="POST" class="py-3 px-1 hover:text-black">
+                        <?php echo method_field('delete'); ?>
+                        <?php echo csrf_field(); ?>
+                        <button>
+                            <ion-icon name="log-out"></ion-icon>
+                            Se deconnecter
+                        </button>
+                    </form>
+                </div>
             </div>
-        </nav>    
+        </div>
+    </nav>    
     <?php endif; ?>
     <?php if(auth()->guard()->guest()): ?>
         <nav class="bg-gray-100" id ="nav_guest">
@@ -107,7 +131,7 @@
                         <h2 class="text-xl font-bold"><?php echo e($company->name); ?></h2>
                         <p>Secteur: <?php echo e($company->area); ?></p>
                         <p>Vous pouvez nous trouver sur <?php echo e($company->website); ?></p>
-                        <p>Note: <?php echo e($company->evaluation); ?></p>
+                        <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="<?php echo e($company->evaluation); ?>"></span></p>
                         <div class="mt-4">
                             <a href="<?php echo e(route('companies.show', $company->id)); ?>">
                                 <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
@@ -440,6 +464,24 @@ unset($__errorArgs, $__bag); ?>
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
+</script>
+<script>
+    var starsContainers = document.querySelectorAll('.stars');
+    starsContainers.forEach(function(starContainer) {
+
+      var evaluation = parseInt(starContainer.getAttribute('data-evaluation'));
+
+      if (evaluation == 0) {
+            starContainer.innerHTML = 'N/A';
+      } else {
+            for (var i = 0; i < evaluation; i++) {
+            starContainer.innerHTML += '<ion-icon name="star"></ion-icon>';
+            }
+            for (var j = evaluation; j < 5; j++) {
+            starContainer.innerHTML += '<ion-icon name="star-outline"></ion-icon>';
+        }
+      }
+    });
 </script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

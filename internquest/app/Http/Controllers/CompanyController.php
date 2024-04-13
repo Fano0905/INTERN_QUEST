@@ -23,8 +23,6 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::paginate(5);
-        $pending = Waiting_User::all();
-        $count = count($pending);
 
         foreach ($companies as $company){
             $notes = $company->notes;
@@ -39,14 +37,12 @@ class CompanyController extends Controller
             $company->save();
         }
     
-        return view('company.index', compact('companies', 'count'));
+        return view('company.index', compact('companies'));
     }
 
     public function filter(Request $request)
     {
         $companies = Company::with('offre', 'notes', 'area', 'locations')->get();
-        $pending = Waiting_User::all();
-        $count = count($pending);
 
         $filteredCompanies = $companies->filter(function ($company) use ($request) {
             $matchesName = true;
@@ -78,7 +74,7 @@ class CompanyController extends Controller
             return $matchesName && $matchesArea && $matchesLocation && $matchesInternsCount && $matchesEvaluation;
         });
 
-        return view('company.index', ['companies' => $filteredCompanies], \compact('count'));
+        return view('company.index', ['companies' => $filteredCompanies]);
     }
 
     /**
@@ -190,15 +186,14 @@ class CompanyController extends Controller
     public function show($id)
     {
         $company = Company::find($id);
-        $pending = Waiting_User::all();
-        $count = count($pending);
+
         if (!$company) {
             
             return redirect()->back()->with('error', 'Company not found.');
         }
         $locations = $company->locations->slice(1);
         $siege = $company->locations->first();
-        return view('company.show', compact('company', 'locations', 'siege', 'count'));
+        return view('company.show', compact('company', 'locations', 'siege'));
     }    
 
     /**
@@ -253,10 +248,8 @@ class CompanyController extends Controller
 
         $company = Company::find($id);
         $notes = [1, 2, 3, 4, 5];
-        $pending = Waiting_User::all();
-        $count = count($pending);
 
-        return \view('opinion.avis', \compact('company', 'notes', 'count'));
+        return \view('opinion.avis', \compact('company', 'notes'));
     }
 
     /**
