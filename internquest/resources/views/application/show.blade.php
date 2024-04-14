@@ -19,6 +19,12 @@
                         </form>
                     @endforeach
                 </div>
+
+                @if ($application->status == 'en attente')
+                    <p style="padding: 10px; border-radius: 5px; color: white; {{ $application->status == 'accepté' ? 'background-color: green;' : 'background-color: red;' }}">
+                        Statut de la candidature: {{ $application->status }}
+                    </p>
+                @endif
             @endforeach
         </div>
         <form action="{{ route('offers.index')}}" method="get">

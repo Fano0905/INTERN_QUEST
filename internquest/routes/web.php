@@ -141,6 +141,10 @@ Route::prefix('/wishlist')->name('wishlist.')->controller(WishlistController::cl
 
 Route::prefix('/application')->name('applications.')->controller(ApplicationController::class)->group(function(){
     
+    Route::get('/accept/{application}', 'accept_application')->name('accept')->middleware('auth');
+
+    Route::get('/reject/{application}','reject_application')->name('reject')->middleware('auth');
+
     Route::get('/create/{offer}', 'create')->name('create')->middleware('auth');
     
     Route::post('/create/{offer}', 'store')->name('store');

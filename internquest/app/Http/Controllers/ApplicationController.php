@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Models\Company;
 use App\Models\Offer;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -117,5 +118,57 @@ class ApplicationController extends Controller
 
         return redirect()->back()
             ->with('success', 'Votre candidature a été retiré');
+    }
+
+    
+    /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+
+    public function accept_application($id){
+
+        if (Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+
+        $application = Application::find($id);
+        $application->status = 'Accepté';
+        $application->save();
+
+        $offer = $application->offres()->first();
+
+        if ($offer) {
+            $offer->place_offered -= 1;
+            $offer->save();
+        
+            $company = Company::find($offer->company_id);
+            if ($company) {
+                $company->nb_intern += 1;
+                $company->save();
+            }
+        }
+
+        return redirect()->back()->with('success', 'un candidat a été accepté en tant que stagiaire');
+    }
+
+    public function reject_application($id){
+
+        if (Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+        $application = Application::find($id);
+        $application->status = 'Refusé';
+        $application->save();
+
+        return \redirect()->back()->with('success', 'un candidat a été refusé en tant que stagiaire');
     }
 }  

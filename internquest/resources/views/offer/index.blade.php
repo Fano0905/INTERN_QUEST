@@ -5,7 +5,7 @@
 @section('content')
 <div class="flex justify-end"> 
     @if (Auth::user()->role == 'Admin' or Auth::user()->role == 'Pilote')
-    <a href="{{route('offers.create')}}"><button type="submit" class="h-14 w-14 bg-black text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-black-400 font-medium mt-2 mr-2"><ion-icon name="add-outline"></ion-icon></button></a>
+        <a href="{{route('offers.create')}}"><button type="submit" class="h-14 w-14 bg-black text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-black-400 font-medium mt-2 mr-2"><ion-icon name="add-outline"></ion-icon></button></a>
     @endif
     <a href="{{route('offers.stats')}}"><button type="submit" class="h-14 w-14 bg-black text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-black-400 font-medium mt-2 mr-2"><ion-icon name="bar-chart"></ion-icon></button></a>
 </div>
@@ -23,41 +23,10 @@
 </div>
 @foreach ($offers as $offer)
     <div class="bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
-        <strong><h2 class="text-xl font-bold">{{$offer->title}}</h2></strong>
+    <strong><h2 class="text-xl font-bold">{{$offer->title}}</h2></strong>
         <div class="text-gray-900 text-lg font-semibold">
             @if (Auth::user()->wish->contains($offer->id))
                 <form action="{{route('wishlist.supp.wl', $offer->id)}}" method="POST">
-@if (Auth::user()->role == 'Admin' or Auth::user()->role == 'Pilote')
-    <a href="{{route('offers.create')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="add-outline"></ion-icon>Publier</button></a>
-@endif
-<a href="{{route('offers.stats')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="bar-chart"></ion-icon>Voir les statistiques</button></a>
-    @foreach ($offers as $offer)
-        <div class="bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
-            <strong><h2 class="text-xl font-bold">{{$offer->title}}</h2></strong>
-            <div class="text-gray-900 text-lg font-semibold">
-                @if (Auth::user()->wish->contains($offer->id))
-                    <form action="{{route('wishlist.supp.wl', $offer->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                        <button type="submit">
-                            <ion-icon name="bookmark"></ion-icon>
-                        </button>
-                    </form>
-                @else
-                    <form action="{{route('wishlist.add.wl')}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="offer_id" value="{{$offer->id}}">
-                        <button type="submit">
-                            <ion-icon name="bookmark-outline"></ion-icon>
-                        </button>
-                    </form>
-                @endif
-            </div>
-            <p class="text-gray-900 text-lg font-semibold">Nombre d'élèves ayant postulé: {{$offer->applications->count()}}</p>
-            <p class="text-gray-900 text-lg font-semibold">Note de l'Entreprise: {{$offer->entreprise->evaluation}}</p>
-            <div class="mt-4">
-                <form action="{{route('offers.show', $offer->id)}}" method="GET" class="flex justify-between">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
@@ -77,14 +46,15 @@
         </div>
         <p class="text-gray-900 text-lg font-semibold">Nombre d'élèves ayant postulé: {{$offer->applications->count()}}</p>
         <p class="text-gray-900 text-lg font-semibold">Note de l'Entreprise: {{$offer->entreprise->evaluation}}</p>
-        <div class="mt-4">
-            <form action="{{route('offers.show', $offer->id)}}" method="GET" class="flex justify-between">
-                @csrf
-                <button type="submit" class="w-full h-14 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Consulter</button>
-            </form>
-        </div>
+    </div>
+    <div class="mt-4">
+        <form action="{{route('offers.show', $offer->id)}}" method="GET" class="flex justify-between">
+            @csrf
+            <button type="submit" class="w-full h-14 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Consulter</button>
+        </form>
     </div>
 @endforeach
+</div>
 <div class="mt-4">
     {{ $offers->links() }}
 </div>

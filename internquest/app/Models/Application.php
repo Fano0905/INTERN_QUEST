@@ -14,7 +14,8 @@ class Application extends Model
     protected $fillable = [
         'cv',
         'cover_letter',
-        'user_id'
+        'user_id',
+        'statut'
     ];
 
     public function etudiant() {
@@ -23,5 +24,5 @@ class Application extends Model
 
     public function offres(){
         return $this->belongsToMany(Offer::class, 'offers_applications', 'application_id', 'offer_id');
-    }    
+    }
 }

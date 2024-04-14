@@ -33,6 +33,7 @@
                     <strong><h2 class="text-xl font-bold">{{$company->name}}</h2></strong>
                     <p class="text-gray-900 text-lg font-semibold">Secteur {{$company->area}}</p>
                     <p class="text-gray-900 text-lg font-semibold">Vous pouvez nous retrouver sur {{$company->website}}</p>
+                    <p class="text-gray-900 text-lg font-semibold">Nombre de stagiaires présents dans l'entreprise : {{$company->nb_intern}}</p>
                     <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="{{$company->evaluation}}"></span></p>
                     <div class="mt-4">
                         <a href="{{route('companies.show', $company->id)}}">
