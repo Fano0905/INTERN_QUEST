@@ -46,8 +46,8 @@
         </div>
     </nav>
     <div class="flex justify-center items-center h-screen">
-        <div class="border border-black bg-gray-200 rounded-3xl" style="width: 768px; height: 350px;">              <div class="flex">
-                <div class="w-1/4 p-4 border photo-container mt-4 ml-2">
+        <div class="border border-black bg-gray-200 rounded-3xl" style="width: 900px; height: 400px;">              <div class="flex">
+                <div class="w-1/4 p-4 border photo-container mt-8 ml-3">
                     <img src="img/pdp.jpg" alt="photo de profil utilisateur" class="w-100 h-100">
                 </div>
                 <div class="w-3/4 p-4 mt-8">
