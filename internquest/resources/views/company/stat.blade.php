@@ -3,7 +3,6 @@
 @section('title', 'Statistiques des Entreprises')
 
 @section('content')
-<!-- Reste de votre contenu -->
 
 <!-- Graphique pour les secteurs -->
 <div class="mt-8">

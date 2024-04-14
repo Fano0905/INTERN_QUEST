@@ -51,7 +51,7 @@ class ApplicationController extends Controller
         })->first();
     
         if ($existingApplication) {
-            return redirect()->route('applications.index')
+            return redirect()->route('offers.index')
                 ->with('error', 'Vous avez déjà postulé à cette offre.');
         }
     

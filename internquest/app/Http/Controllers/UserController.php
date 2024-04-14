@@ -120,7 +120,7 @@ class UserController extends Controller
         $user->delete();
 
         if (Auth::check()) {
-            return redirect()->route('users.list')->with('success', "L'utilisateur a été supprimé.");
+            return redirect()->route('accueil.users.list')->with('success', "L'utilisateur a été supprimé.");
         }
 
         return redirect()->route('auth.login')
@@ -131,7 +131,7 @@ class UserController extends Controller
         $pending_users = Waiting_User::all();
         $count = count($pending_users);
 
-        return \view('auth.notifications', \compact('pending_users', 'count'));
+        return view('auth.notifications', \compact('pending_users', 'count'));
     }
 
     /**
@@ -282,6 +282,6 @@ class UserController extends Controller
             return $matchesLname && $matchesFname && $matchesCenter && $matchesPromotion && $matchesRole;
         });
     
-        return view('auth.list', ['users' => $filteredUsers], \compact('count'));
+        return view('auth.list', ['users' => $filteredUsers], compact('count'));
     }    
 }

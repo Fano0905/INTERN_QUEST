@@ -130,7 +130,7 @@
                     <div class="p-4 border-b">
                         <h2 class="text-xl font-bold"><?php echo e($company->name); ?></h2>
                         <p>Secteur: <?php echo e($company->area); ?></p>
-                        <p>Vous pouvez nous trouver sur <?php echo e($company->website); ?></p>
+                        <p>Vous pouvez nous retrouver sur <?php echo e($company->website); ?></p>
                         <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="<?php echo e($company->evaluation); ?>"></span></p>
                         <div class="mt-4">
                             <a href="<?php echo e(route('companies.show', $company->id)); ?>">
@@ -186,7 +186,7 @@
                 <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
                     <strong><h2 class="text-xl font-bold"><?php echo e($company->name); ?></h2></strong>
                     <p class="text-gray-900 text-lg font-semibold">Secteur <?php echo e($company->area); ?></p>
-                    <p class="text-gray-900 text-lg font-semibold">Vous pouvez nous trouver sur <?php echo e($company->website); ?></p>
+                    <p class="text-gray-900 text-lg font-semibold">Vous pouvez nous retrouver sur <?php echo e($company->website); ?></p>
                     <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="<?php echo e($company->evaluation); ?>"></span></p>
                     <div class="mt-4">
                         <a href="<?php echo e(route('companies.show', $company->id)); ?>">

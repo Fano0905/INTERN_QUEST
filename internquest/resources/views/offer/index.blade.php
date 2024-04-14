@@ -15,6 +15,9 @@
         </button>
     </form>
 </div>
+@if (Auth::user()->role == 'Admin' or Auth::user()->role == 'Pilote')
+<a href="{{route('offers.create')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="add-outline"></ion-icon>Publier</button></a>
+@endif
 <a href="{{route('offers.stats')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="bar-chart"></ion-icon>Voir les statistiques</button></a>
     @foreach ($offers as $offer)
         <div class="bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
