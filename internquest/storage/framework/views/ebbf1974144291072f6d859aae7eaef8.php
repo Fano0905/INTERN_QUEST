@@ -211,7 +211,7 @@
             </div>
         <?php endif; ?>
     </div>
-        <dialog id="signin_dialog" class="fixed inset-0 m-auto w-100 h-110  bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
+    <dialog id="signin_dialog" class="fixed inset-0 m-auto w-full max-w-lg h-auto bg-white border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex flex-col items-center justify-center overflow-hidden p-6" style="backdrop-filter: blur(20px); display: none;" open>
             <div class="w-full p-10 flex flex-col items-center">
                 <button class="absolute top-0 right-0 mt-4 mr-4 bg-gray-300 text-gray-700 hover:bg-gray-400 rounded-2xl p-2 focus:outline-none" onclick="closesignin(), preventReload(event)">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
@@ -331,14 +331,14 @@ unset($__errorArgs, $__bag); ?>
             </form>
         </div>
         </dialog>
-        <dialog id="login_dialog" class="fixed inset-0 m-auto w-100 h-100 bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
-            <div class="w-full p-10 flex flex-col items-center">
+        <dialog id="login_dialog" class="fixed inset-0 m-auto w-full max-w-lg h-auto bg-transparent border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex flex-col items-center justify-center overflow-hidden" style="backdrop-filter: blur(20px); display: none;" open>
+             <div class="w-full p-6 flex flex-col items-center">
                 <button class="absolute top-0 right-0 mt-4 mr-4 bg-gray-300 text-gray-700 hover:bg-gray-400 rounded-2xl p-2 focus:outline-none" onclick="closelogin(), preventReload(event)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <h2 class="text-4xl text-blue-600 mb-6">Se connecter</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl text-blue-600 mb-6">Se connecter</h2>
                 <form action="<?php echo e(route('auth.login')); ?>" class="w-full" method="POST">
                     <?php echo csrf_field(); ?>
                     <div class="relative mb-6">

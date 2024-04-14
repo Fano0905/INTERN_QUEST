@@ -45,7 +45,7 @@
             @endif
         </div>
         <p class="text-gray-900 text-lg font-semibold">Nombre d'élèves ayant postulé: {{$offer->applications->count()}}</p>
-        <p class="text-gray-900 text-lg font-semibold">Note de l'Entreprise: {{$offer->entreprise->evaluation}}</p>
+        <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="{{$offer->entreprise->evaluation}}"></span></p>
     </div>
     <div class="mt-4">
         <form action="{{route('offers.show', $offer->id)}}" method="GET" class="flex justify-between">
@@ -58,4 +58,24 @@
 <div class="mt-4">
     {{ $offers->links() }}
 </div>
+
+<script>
+    var starsContainers = document.querySelectorAll('.stars');
+    starsContainers.forEach(function(starContainer) {
+
+      var evaluation = parseInt(starContainer.getAttribute('data-evaluation'));
+
+      if (evaluation == 0) {
+            starContainer.innerHTML = 'N/A';
+      } else {
+            for (var i = 0; i < evaluation; i++) {
+            starContainer.innerHTML += '<ion-icon name="star"></ion-icon>';
+            }
+            for (var j = evaluation; j < 5; j++) {
+            starContainer.innerHTML += '<ion-icon name="star-outline"></ion-icon>';
+        }
+      }
+    });
+</script>
+
 @endsection

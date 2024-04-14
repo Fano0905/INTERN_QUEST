@@ -1,0 +1,28 @@
+{
+    "name": "InternQuest",
+    "short_name": "ITQUEST",
+    "description": "Notre application a pour objectif de faciliter la recherche de stage d'un étudiant.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+      {
+        "src": "public/img/ITQUEST.jpg",
+        "sizes": "48x48",
+        "type": "image/jpg"
+      },
+      {
+        "src": "icon/hd_hi.ico",
+        "sizes": "72x72 96x96 128x128 256x256",
+        "type": "image/x-icon"
+      },
+      {
+        "src": "icon/hd_hi.svg",
+        "sizes": "any",
+        "type": "image/svg+xml",
+        "purpose": "any maskable"
+      }
+    ]
+  }
+  
