@@ -14,7 +14,6 @@ class Offer extends Model
     protected $fillable = [
         'title',
         'city',
-        'class',
         'duration',
         'remuneration',
         'date_offer',

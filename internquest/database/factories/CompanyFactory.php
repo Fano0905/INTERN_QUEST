@@ -6,6 +6,7 @@ use App\Models\Area;
 use App\Models\Location;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\File;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Company>
@@ -30,34 +31,33 @@ class CompanyFactory extends Factory
             'name' => strtoupper($companyName),
             'area' => $area,
             'website' => strtolower(str_replace(' ', '', $companyName)) . '.com',
-            // Pas besoin d'inclure la location ici, elle sera attachée après la création
         ];
     }
 
     /**
-     * Configure the model factory.
-     *
-     * @return $this
-     */
+    * Configure the model factory.
+    *
+    * @return $this
+    */
     public function configure()
     {
         return $this->afterCreating(function (Company $company) {
-            $faker = \Faker\Factory::create('fr_FR');
-            $city = $faker->city();
-            $postalCode = $faker->postcode();
 
-            // Créer une instance de Location et l'attacher à la Company
+            $json = File::get(database_path('base_api.json'));
+            $addresses = json_decode($json, true);
+
+            $randomIndex = array_rand($addresses);
+            $selectedAddress = $addresses[$randomIndex];
+            $postalCode = $selectedAddress['code_postal'];
+            $city = $selectedAddress['nom_de_la_commune'];
+
             $location = new Location([
                 'postal_code' => $postalCode,
                 'city' => strtoupper($city),
-                'location' => $faker->address()
+                'location' => 'Rue ' . $this->faker->streetName . ' ' . rand(1, 100) // Ajout d'un numéro de bâtiment aléatoire
             ]);
 
-            // Supposons que la relation entre Company et Location est hasMany
             $company->locations()->save($location);
-
-            // Si la relation est hasOne, utilisez cette ligne à la place :
-            // $company->location()->save($location);
         });
     }
 }

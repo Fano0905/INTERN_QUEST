@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
-use Illuminate\Http\Request;
+use App\Models\Offer;
+use App\Models\User;
 use App\Models\Company;
 use App\Models\Evaluation;
 use App\Models\Location;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
@@ -164,14 +165,27 @@ class CompanyController extends Controller
     */
 
     public function stats(){
-        // Obtenez tous les secteurs avec le nombre d'entreprises associées
-        $sectorsWithCounts = Area::withCount('company')->get();
-        
-        // Préparez les données pour le graphique
-        $sectorNames = $sectorsWithCounts->pluck('name')->toArray();
-        $sectorCounts = $sectorsWithCounts->pluck('company_count')->toArray();
 
-        return view('company.stat', compact('sectorNames', 'sectorCounts'));
+        // Collecter les données pour les secteurs
+        $sectorsWithCounts = Area::all();
+        $sectorNames = $sectorsWithCounts->pluck('name')->toArray();
+        $sectorCounts = $sectorsWithCounts->toArray();
+
+        // Collecter les données pour les localités
+        $locationsWithCounts = Location::withCount('companies')->get();
+        $locationNames = $locationsWithCounts->pluck('city')->toArray();
+        $locationCounts = $locationsWithCounts->pluck('companies_count')->toArray();
+
+        // Collecter les données pour les annonces les plus sollicitées
+        $topOffers = Offer::withCount('applications')
+                        ->orderBy('applications_count', 'desc')
+                        ->take(5) // Prendre les 5 annonces les plus sollicitées
+                        ->get();
+        $offerNames = $topOffers->pluck('title')->toArray();
+        $offerCounts = $topOffers->pluck('applications_count')->toArray();
+
+        // Passer les données à la vue
+        return view('company.stat', compact('sectorNames', 'sectorCounts', 'locationNames', 'locationCounts', 'offerNames', 'offerCounts'));
     }
 
     /**

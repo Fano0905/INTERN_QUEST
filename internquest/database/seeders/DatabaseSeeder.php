@@ -10,6 +10,7 @@ use App\Models\Offer;
 use App\Models\Post;
 use App\Models\Promo;
 use App\Models\User;
+use App\Models\Waiting_User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,10 +27,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        //User::factory(1)->create();
+        //Waiting_User::factory(10)->create();
         //Offer::factory(10)->create();
         //Company::factory(10)->create();
         //Promo::factory(5)->create();
         //Application::factory(5)->create();
+        //User::factory(10)->create();
     }
 }

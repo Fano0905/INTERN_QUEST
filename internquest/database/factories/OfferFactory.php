@@ -4,7 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Company;
 use App\Models\Location;
-use Faker\Provider\fi_FI\Company as Fi_FICompany;
+use App\Models\Promo;
+use App\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -37,8 +38,28 @@ class OfferFactory extends Factory
             'duration' => $duration,
             'remuneration' => rand(665, 1200),
             'date_offer' => fake()->dateTimeBetween('now', '+2 years')->format('d/m/Y'),
-            'place_offered' => \rand(1, 20),
-            'description' => \fake()->text(2000)
+            'place_offered' => rand(1, 20),
+            'description' => fake()->text(2000)
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function ($offer) {
+            // Associer des promos à l'offre
+            $promoIds = Promo::pluck('id');
+            $randomPromoIds = $promoIds->random(rand(1, 3));
+            $offer->promos()->attach($randomPromoIds);
+
+            // Associer des skills à l'offre
+            $skillIds = Skill::pluck('id');
+            $randomSkillIds = $skillIds->random(rand(1, 5));
+            $offer->skills()->attach($randomSkillIds);
+        });
     }
 }

@@ -37,7 +37,7 @@ class ApplicationFactory extends Factory
         return $this->afterCreating(function (Application $application) {
             $offer = Offer::pluck('id');
             $offer->random();
-            $application->offre()->attach($offer);
+            $application->offres()->attach($offer);
         });
     }
 }

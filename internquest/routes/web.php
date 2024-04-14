@@ -67,7 +67,7 @@ Route::prefix('/internquest')->name('internquest.')->group(function () {
 });
 
 
-//Routes entreprise
+//Routes entreprises
 
 Route::prefix('/company')->name('companies.')->controller(CompanyController::class)->group(function(){
     
@@ -128,6 +128,8 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
 
 });
 
+//Routes wishlist
+
 Route::prefix('/wishlist')->name('wishlist.')->controller(WishlistController::class)->group(function(){
     Route::post('/add', [WishlistController::class, 'AddInWishlist'])->name('add.wl')->middleware('auth');
 
@@ -181,6 +183,8 @@ Route::prefix('/promo')->name('promos.')->controller(PromoController::class)->gr
     Route::delete('/{promo}', 'destroy')->name('destroy')->middleware('auth');
 });
 
+//Routes promos etudiants
+
 Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserController::class)->group(function(){
     Route::get('/create', 'create')->name('create')->middleware('auth');
 
@@ -192,6 +196,8 @@ Route::prefix('/promo/etudiant')->name('classes.')->controller(Promos_UserContro
 
     Route::delete('/{user}', 'destroy')->name('destroy')->middleware('auth');
 });
+
+//Routes adresses
 
 Route::prefix('/address')->name('locations.')->controller(LocationController::class)->group(function(){
     Route::get('/', 'index')->name('index');
@@ -206,6 +212,8 @@ Route::prefix('/address')->name('locations.')->controller(LocationController::cl
 
     Route::delete('/{location}', 'destroy')->name('destroy');
 });
+
+//Routes entreprise proprio
 
 Route::prefix('/owner')->name('owners.')->controller(CompanyOwnerController::class)->group(function(){
     Route::get('/create', 'create')->name('assign');

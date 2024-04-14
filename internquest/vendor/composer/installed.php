@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '85f5ef1463935a3aa3554d55621cf3f68f7efbb3',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '4d1d68b45c8bfd44c67eb55deae9356751b68c15',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -424,6 +424,15 @@
                 0 => '*',
             ),
         ),
+        'kylekatarnls/vicopo' => array(
+            'pretty_version' => '1.3.0',
+            'version' => '1.3.0.0',
+            'reference' => '1d5f318a33a2690b6025580ee6e133822a07d518',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../kylekatarnls/vicopo',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'laravel/framework' => array(
             'pretty_version' => 'v10.46.0',
             'version' => '10.46.0.0',
@@ -434,9 +443,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '85f5ef1463935a3aa3554d55621cf3f68f7efbb3',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '4d1d68b45c8bfd44c67eb55deae9356751b68c15',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

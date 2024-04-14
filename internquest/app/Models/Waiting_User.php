@@ -27,8 +27,7 @@ class Waiting_User extends User
         'mail',
         'password',
         'username',
-        'role', 
-        'centre'
+        'role',
     ];
 
     /**
