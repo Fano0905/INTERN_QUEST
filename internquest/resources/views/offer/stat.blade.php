@@ -4,20 +4,30 @@
 
 @section('content')
 <div class="chart-container bg-white">
-    <div class="chart-container">
-        <canvas id="skillsChart" width="300" height="150"></canvas>
+    <div class="chart-wrapper">
+        <div class="chart-background">
+            <canvas id="skillsChart" width="400" height="200"></canvas>
+        </div>
     </div>
-    <div class="chart-container">
-        <canvas id="localityChart" width="300" height="150"></canvas>
+    <div class="chart-wrapper">
+        <div class="chart-background">
+            <canvas id="localityChart" width="400" height="200"></canvas>
+        </div>
     </div>
-    <div class="chart-container">
-        <canvas id="promotionChart" width="300" height="150"></canvas>
+    <div class="chart-wrapper">
+        <div class="chart-background">
+            <canvas id="promotionChart" width="400" height="200"></canvas>
+        </div>
     </div>
-    <div class="chart-container">
-        <canvas id="durationChart" width="300" height="150"></canvas>
+    <div class="chart-wrapper">
+        <div class="chart-background">
+            <canvas id="durationChart" width="400" height="200"></canvas>
+        </div>
     </div>
-    <div class="chart-container">
-        <canvas id="wishlistChart" width="300" height="150"></canvas>
+    <div class="chart-wrapper">
+        <div class="chart-background">
+            <canvas id="wishlistChart" width="400" height="200"></canvas>
+        </div>
     </div>
 </div>
 @endsection
@@ -103,3 +113,18 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endsection
+
+<style>
+.chart-wrapper {
+    width: 48%; /* Met deux diagrammes par ligne */
+    margin: 1%; /* Espacement entre les diagrammes */
+    float: left; /* Alignement côte à côte */
+    border: 1px solid #000; /* Contour noir */
+    padding: 1px; /* Espacement entre les bordures des cadres et les diagrammes */
+}
+
+.chart-background {
+    background-color: #f2f2f2; /* Couleur de fond gris */
+    padding: 10px; /* Espacement interne */
+}
+</style>
