@@ -6,14 +6,16 @@
     <div class="flex justify-center">
         
         <div class="w-full max-w-4xl">
-            @auth
-                @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Pilote')
-                    <a href="{{route('companies.create')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="add-outline"></ion-icon>Créer</button></a>
-                @endif
-            @endauth
-            <a href="{{route('companies.stats')}}"><button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="bar-chart"></ion-icon>Voir les statistiques</button></a>
+            <div class="flex justify-end">
+                @auth
+                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Pilote')
+                        <a href="{{route('companies.create')}}"><button type="submit" class="w-14 h-14 mb-8 mt-2 mr-2 bg-black text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="add-outline"></ion-icon></button></a>
+                    @endif
+                @endauth
+                <a href="{{route('companies.stats')}}"><button type="submit" class="w-14 h-14 mt-2 mb-8 mr-2 bg-black text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium"><ion-icon name="bar-chart"></ion-icon></button></a>
+            </div>
             
-            <div class="flex justify-center">
+            <div class="flex justify-center h-20"> <!-- Modifier la classe h-20 pour une hauteur un peu plus haute -->
                 <form action="{{ route('companies.filter') }}" method="GET">
                     <div class="flex space-x-2">
                         <input type="text" name="name" placeholder="Nom de l'entreprise" value="{{ request('name') }}">
@@ -21,7 +23,7 @@
                         <input type="text" name="location" placeholder="Localité" value="{{ request('location') }}">
                         <input type="number" name="internsCount" placeholder="Nombre de stagiaires" value="{{ request('internsCount') }}">
                         <input type="number" name="evaluation" placeholder="Évaluation minimum" value="{{ request('evaluation') }}">
-                        <button type="submit">Filtrer</button>
+                        <button type="submit" class="w-14 h-full bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Filtrer</button>
                     </div>
                 </form>
             </div>
@@ -34,12 +36,12 @@
                     <p class="text-gray-900 text-lg font-semibold">Note: <span class="stars" data-evaluation="{{$company->evaluation}}"></span></p>
                     <div class="mt-4">
                         <a href="{{route('companies.show', $company->id)}}">
-                            <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
+                            <button type="submit" class="w-full h-14 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">En savoir plus</button>
                         </a>
                     </div>
                     </div>
                 @endforeach
-                <div class="mt-4">
+                <div class="mt-4 flex justify-center">
                     {{ $companies->links() }}
                 </div>
             </div>
@@ -74,4 +76,4 @@
             });
         });
     </script>
-@endsection()
+@endsection
