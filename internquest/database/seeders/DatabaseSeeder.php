@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Application;
 use App\Models\Company;
+use App\Models\Evaluation;
 use App\Models\Offer;
 use App\Models\Post;
 use App\Models\Promo;
@@ -33,5 +34,6 @@ class DatabaseSeeder extends Seeder
         //Promo::factory(5)->create();
         //Application::factory(5)->create();
         //User::factory(10)->create();
+        //Evaluation::factory(30)->create();
     }
 }
