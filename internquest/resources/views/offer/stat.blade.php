@@ -3,21 +3,21 @@
 @section('title', 'Statistiques offres')
 
 @section('content')
-<div class="charts-container">
-    <div class="chart">
-        <canvas id="skillsChart" width="400" height="200"></canvas>
+<div class="chart-container bg-white">
+    <div class="chart-container">
+        <canvas id="skillsChart" width="300" height="150"></canvas>
     </div>
-    <div class="chart">
-        <canvas id="localityChart" width="400" height="200"></canvas>
+    <div class="chart-container">
+        <canvas id="localityChart" width="300" height="150"></canvas>
     </div>
-    <div class="chart">
-        <canvas id="promotionChart" width="400" height="200"></canvas>
+    <div class="chart-container">
+        <canvas id="promotionChart" width="300" height="150"></canvas>
     </div>
-    <div class="chart">
-        <canvas id="durationChart" width="400" height="200"></canvas>
+    <div class="chart-container">
+        <canvas id="durationChart" width="300" height="150"></canvas>
     </div>
-    <div class="chart">
-        <canvas id="wishlistChart" width="400" height="200"></canvas>
+    <div class="chart-container">
+        <canvas id="wishlistChart" width="300" height="150"></canvas>
     </div>
 </div>
 @endsection
