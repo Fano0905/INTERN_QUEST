@@ -40,10 +40,10 @@ Route::get('/', [WebController::class, 'web'])->name('internquest');
 
 //Routes secteur
 Route::prefix('/area')->name('areas.')->controller(AreaController::class)->group(function(){
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
+    Route::get('/', 'index')->name('index')->middleware('auth');
+    Route::get('/create', 'create')->name('create')->middleware('auth');
     Route::post('/create', 'store')->name('store');
-    Route::get('/{area}/edit/', 'edit')->name('edit');
+    Route::get('/{area}/edit/', 'edit')->name('edit')->middleware('auth');
     Route::put('/{area}', 'edit');
     Route::delete('/{area}');
 });
@@ -56,11 +56,11 @@ Route::prefix('/internquest')->name('internquest.')->group(function () {
     Route::post('users', [UserController::class, 'store'])->name('users.store');
     Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware('auth');
     Route::put('users/{user}', [UserController::class, 'update'])->name('users.update')->middleware('auth');
-    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('admin', [UserController::class, 'notifs'])->name('admin.notifications');
-    Route::get('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve');
-    Route::delete('users/{user}/disapprove', [UserController::class, 'disapprove'])->name('users.disapprove');
-    Route::get('/skills/add', [UserController::class, 'learn'])->name('users.learn');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy')->middleware('auth');
+    Route::get('admin', [UserController::class, 'notifs'])->name('admin.notifications')->middleware('auth');
+    Route::get('users/{user}/approve', [UserController::class, 'approve'])->name('users.approve')->middleware('auth');
+    Route::delete('users/{user}/disapprove', [UserController::class, 'disapprove'])->name('users.disapprove')->middleware('auth');
+    Route::get('/skills/add', [UserController::class, 'learn'])->name('users.learn')->middleware('auth');
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show')->middleware('auth');
     Route::get('/search', [UserController::class, 'search'])->name('users.search');
     Route::post('/skills/', [UserController::class, 'certificate'])->name('users.confirm');
