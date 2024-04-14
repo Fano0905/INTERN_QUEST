@@ -66,7 +66,6 @@ Route::prefix('/internquest')->name('internquest.')->group(function () {
     Route::post('/skills/', [UserController::class, 'certificate'])->name('users.confirm');
 });
 
-
 //Routes entreprises
 
 Route::prefix('/company')->name('companies.')->controller(CompanyController::class)->group(function(){
@@ -116,9 +115,9 @@ Route::prefix('/offer')->name('offers.')->controller(OfferController::class)->gr
     
     Route::delete('/{offer}', [OfferController::class, 'destroy'])->name('destroy')->middleware('auth');
 
-    Route::get('/', [OfferController::class, 'index'])->name('index');
+    Route::get('/', [OfferController::class, 'index'])->name('index')->middleware('auth');
 
-    Route::get('/stats', [OfferController::class, 'stats'])->name('stats');
+    Route::get('/stats', [OfferController::class, 'stats'])->name('stats')->middleware('auth');
 
     Route::get('/offers/search', [OfferController::class, 'search'])->name('search');
 
@@ -156,6 +155,7 @@ Route::prefix('/application')->name('applications.')->controller(ApplicationCont
 //Routes authentifications
 
 Route::prefix('/auth')->name('auth.')->controller(AuthController::class)->group(function(){
+
     Route::get('/login', [AuthController::class, 'login'])->name('login');
 
     Route::post('/login', [AuthController::class, 'doLogin'])->name('doLogin');

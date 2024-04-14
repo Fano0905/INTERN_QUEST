@@ -9,6 +9,7 @@ use App\Models\Offer;
 use App\Models\Offer_Promo;
 use App\Models\Offer_Skills;
 use App\Models\Promo;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
@@ -198,6 +199,13 @@ class OfferController extends Controller
         $skills = Skill::all();
         $promos = Promo::all();
 
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+
         return view('offer.create', compact('companies', 'cities', 'skills', 'promos'));
     }
 
@@ -228,6 +236,13 @@ class OfferController extends Controller
         $cities = Location::all()->pluck('city');
         $skills = Skill::all();
         $promos = Promo::all();
+
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
 
         return view('offer.edit', compact('offer', 'companies', 'cities', 'skills', 'promos'));
     }

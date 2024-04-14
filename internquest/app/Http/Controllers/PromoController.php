@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use App\Models\User;
-use App\Models\Waiting_User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Models\Promo;
 
@@ -28,6 +28,13 @@ class PromoController extends Controller
     {
         $pilotes = User::where('role', '=', 'Pilote')->orWhere('role', '=', 'Admin')->get();
         $centres = Location::all()->pluck('city');
+
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
 
         return view('promotion.create', compact('pilotes', 'centres'));
     }
@@ -81,6 +88,12 @@ class PromoController extends Controller
         $promo = Promo::find($id);
         $pilotes = User::where('role', '=', 'Pilote')->orWhere('role', '=', 'Admin')->get();
         $centres = Location::all()->pluck('city');
+
+        if(Auth::check()){
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
 
         return view('promotion.edit', compact('promo', 'pilotes', 'centres'));
     }

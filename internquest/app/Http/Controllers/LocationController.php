@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Location;
-use App\Models\Waiting_User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class LocationController extends Controller
@@ -17,6 +17,13 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
+
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
 
         return view('location.index', compact('locations'));
     }
@@ -71,6 +78,13 @@ class LocationController extends Controller
     public function destroy($id)
     {
 
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+
         $location = Location::find($id);
         $location->delete();
 
@@ -86,6 +100,13 @@ class LocationController extends Controller
      */
     public function create()
     {
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+
         return view('location.create');
     }
 
@@ -99,6 +120,13 @@ class LocationController extends Controller
     public function edit($id)
     {
         $location = Location::find($id);
+
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
 
         return view('location.edit', compact('location'));
     }

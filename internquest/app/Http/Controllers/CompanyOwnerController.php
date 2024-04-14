@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Company_Owner;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,11 @@ class CompanyOwnerController extends Controller
         $owners = User::whereRole('Pilote')->orWhere('role', '=', 'Admin')->get();
         $companies = Company::all();
 
-        return \view('company.owner.create', \compact('owners', 'companies'));
+        if (Auth::user()->role == 'Etudiant') {
+            abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+        }
+
+        return view('company.owner.create', \compact('owners', 'companies'));
     }
 
     public function store(Request $request){
@@ -42,6 +47,10 @@ class CompanyOwnerController extends Controller
     {
         $owners = User::whereRole('Pilotes')->orWhere('role', '=', 'Admin')->get();
         $companies = Company::all();
+
+        if (Auth::user()->role == 'Etudiant') {
+            abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+        }
 
         return view('company.owner.edit', \compact('owners', 'companies'));
     }
@@ -78,6 +87,12 @@ class CompanyOwnerController extends Controller
     {
         $user = User::find($id);
 
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
         // Utilisez la méthode promos() pour détacher l'utilisateur de toutes les promotions
         $user->company()->detach();
     

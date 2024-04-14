@@ -17,6 +17,13 @@ class WebController extends Controller
         $pending = Waiting_User::all();
         $count = count($pending);
 
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+
         return view('auth.list', compact('users', 'count'));
     }
 
@@ -26,7 +33,13 @@ class WebController extends Controller
         $offers = Offer::paginate(5);
         $companies = Company::paginate(5);
     
+
         if (Auth::check()) {
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+
             $promos = Promo::where('pilote_id', Auth::user()->id)->get();
             $mycompany = Auth::user()->my_company;
             return view('accueil', compact('count', 'offers', 'companies', 'mycompany', 'promos'));
@@ -48,6 +61,13 @@ class WebController extends Controller
         $users = User::whereRole('Etudiant');
         $mycompany = Auth::user()->my_company;
         $promos = Promo::wherePiloteId(Auth::user()->id)->get();
+
+        if (Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
 
         return view('pilote', compact('count', 'users', 'mycompany', 'promos'));
     }

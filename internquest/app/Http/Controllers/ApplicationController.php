@@ -21,7 +21,7 @@ class ApplicationController extends Controller
         $offer = Offer::find($id);
 
         if (!$offer) {
-            abort(404);
+            abort(404, 'Cette offre n\'exsite pas.');
         }
     
         $applications = $offer->applications;
@@ -74,6 +74,12 @@ class ApplicationController extends Controller
         $offer = Offer::find($id);
         $users = User::where('role', '=', 'Etudiant')->orWhere('role', '=', 'Admin')->get();
 
+
+        if (Auth::check()) {
+            if (Auth::user()->role == 'Pilote') {
+                abort(404, 'Vous n\'êtes pas autorisés à postuler.');
+            }
+        }
         return view('application.create', compact('offer', 'users'));
     }
 
@@ -88,6 +94,12 @@ class ApplicationController extends Controller
         $student = User::findOrFail($id);
         $applications = $student->applications;
     
+        if (Auth::check()) {
+            if (Auth::user()->role == 'Pilote') {
+                abort(404, 'Vous n\'êtes pas autorisés à postuler.');
+            }
+        }
+
         return view('application.show', compact('applications'));
     }
 

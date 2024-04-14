@@ -213,8 +213,15 @@ class CompanyController extends Controller
     public function create()
     {
         $areas = Area::all();
-    
-        return view('company.create', \compact('areas'));
+
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+
+        return view('company.create', compact('areas'));
     }
 
 

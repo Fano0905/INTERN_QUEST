@@ -167,7 +167,7 @@
                         <div class="company bg-gray-200 p-4 m-4 rounded-lg shadow-lg">
                             <strong><h2 class="text-xl font-bold"><?php echo e($promo->name); ?></h2></strong>
                             <div class="mt-4">
-                                <a href="<?php echo e(route('companies.show', $promo->id)); ?>">
+                                <a href="<?php echo e(route('promos.show', $promo->id)); ?>">
                                     <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">Consulter</button>
                                 </a>
                             </div>

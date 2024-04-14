@@ -131,6 +131,13 @@ class UserController extends Controller
         $pending_users = Waiting_User::all();
         $count = count($pending_users);
 
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Etudiant') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+
         return view('auth.notifications', \compact('pending_users', 'count'));
     }
 
@@ -189,8 +196,10 @@ class UserController extends Controller
             'username' => $waiting_user->username,
             'role' => $waiting_user->role,
             'centre' => $waiting_user->centre
-        ]);        
+        ]);
+      
         $waiting_user->delete();
+
         return redirect()->route('internquest')->with('success', "Utilisateur approuvé");
     }
 
@@ -208,7 +217,6 @@ class UserController extends Controller
         return redirect()->route('internquest')->with('success', "L'utilisateur a été supprimé");
     }
 
-    // routes functions
     /**
      * Show the form for creating a new user.
      *
@@ -234,11 +242,11 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Show the form for editing the specified user.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function edit($id)
     {
         $user = User::find($id);

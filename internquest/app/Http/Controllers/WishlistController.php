@@ -17,6 +17,13 @@ class WishlistController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function AddInwishlist(Request $request){
+
+        if (Auth::check()) {
+            if (Auth::user()->role == 'Pilote') {
+                return redirect()->back()->with('error', "Vous n'avez pas les droits suffisants pour effectuer cette action");
+            }
+        }
+
         $request->validate([
             'offer_id' => ['required']
         ]);
@@ -36,6 +43,14 @@ class WishlistController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function suppFromWishlist($offer_id){
+
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Pilote') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
+
         if (Auth::check()) {
             $user = User::find(Auth::user()->id);
             $user->wish()->detach($offer_id);
@@ -56,6 +71,13 @@ class WishlistController extends Controller
 
     public function wishlist(){
         $offers = Auth::user()->wish;
+
+        if(Auth::check()){
+
+            if (Auth::user()->role == 'Pilote') {
+                abort(404, 'Vous n\'avez pas les droits nécessaires pour accéder à cette page.');
+            }
+        }
 
         return view('wishlist', compact('offers'));
     }
