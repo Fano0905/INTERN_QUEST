@@ -5,23 +5,23 @@
     <div class="flex flex-col justify-center items-center">
         <div class="flex justify-center">
             <form action="{{ route('internquest.users.search') }}" method="GET" class="space-y-4">
-                <div class="flex space-x-2">
-                    <input type="search" name="lname" placeholder="Nom" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                    <input type="search" name="fname" placeholder="Prénom" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                    <input type="search" name="center" placeholder="Centre" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                    <input type="search" name="promotion" placeholder="Promotion" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
-                    <select name="role" class="bg-white h-10 px-5 rounded text-sm focus:outline-none">
+                <div class="mt-12 mb-2 flex space-x-2">
+                    <input type="search" name="lname" placeholder="Nom" class="bg-white h-9 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="fname" placeholder="Prénom" class="bg-white h-9 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="center" placeholder="Centre" class="bg-white h-9 px-5 rounded text-sm focus:outline-none">
+                    <input type="search" name="promotion" placeholder="Promotion" class="bg-white h-9 px-5 rounded text-sm focus:outline-none">
+                    <select name="role" class="bg-white h-9 px-5 rounded text-sm focus:outline-none">
                         <option value="">Sélectionner un rôle</option>
                         <option value="pilote">Pilote</option>
                         <option value="eleve">Etudiant</option>
                     </select>
+                    <button type="submit" class="w-40 h-9 bg-blue-800 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
+                        Rechercher
+                    </button>
                 </div>
-                <button type="submit" class="w-full h-11 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 font-medium">
-                    Rechercher
-                </button>
             </form>
         </div>
-        <div class="rounded-3xl overflow-hidden bg-gray-300 p-6" style="max-width: 95vw; max-height: 90vh; overflow-y: auto;"> 
+        <div class="rounded-3xl overflow-hidden bg-gray-300 p-6 mt-3" style="max-width: 95vw; max-height: 90vh; overflow-y: auto;"> 
             <table class="border-collapse border-black">
                 <thead class="mb-4">
                     <tr>
@@ -52,7 +52,7 @@
         </div>
     </div>
     <a href="#" onclick="signin(); preventReload(event)" class="text-black hidden md:flex absolute top-0 right-0 mt-4 mr-4"> 
-        <button class="w-16 h-16 mt-24 bg-black text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-black-400 font-medium">
+        <button class="w-16 h-16 mt-28 bg-black text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-black-400 font-medium">
             <ion-icon name="add"></ion-icon> 
         </button>
     </a>
