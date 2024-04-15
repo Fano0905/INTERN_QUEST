@@ -16,11 +16,6 @@
     </div>
     <div class="chart-wrapper">
         <div class="chart-background">
-            <canvas id="promotionChart" width="400" height="200"></canvas>
-        </div>
-    </div>
-    <div class="chart-wrapper">
-        <div class="chart-background">
             <canvas id="durationChart" width="400" height="200"></canvas>
         </div>
     </div>
@@ -61,21 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: JSON.parse(`{!! $localityOffersCountJson !!}`),
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        }
-    });
-
-    var ctxPromotion = document.getElementById('promotionChart').getContext('2d');
-    var promotionChart = new Chart(ctxPromotion, {
-        type: 'bar',
-        data: {
-            labels: JSON.parse(`{!! $promoNamesJson !!}`),
-            datasets: [{
-                label: 'Nombre d\'offres par promotion',
-                data: JSON.parse(`{!! $promoOffersCountJson !!}`),
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
             }]
         }

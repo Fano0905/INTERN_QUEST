@@ -46,11 +46,6 @@ class OfferController extends Controller
         $localityNames = $localityWithCounts->pluck('city')->toArray();
         $localityOffersCount = $localityWithCounts->pluck('offers_count')->toArray();
 
-        // Statistiques des promotions
-        $promoWithCounts = Promo::withCount('offres')->get();
-        $promoNames = $promoWithCounts->pluck('name')->toArray();
-        $promoOffersCount = $promoWithCounts->pluck('offers_count')->toArray();
-
         // Statistiques des durées (en supposant que vous avez une colonne duration dans la table des offres)
         $durationWithCounts = Offer::select('duration', DB::raw('count(*) as offers_count'))
                                     ->groupBy('duration')
@@ -71,8 +66,6 @@ class OfferController extends Controller
         $skillOffersCountJson = json_encode($skillOffersCount);
         $localityNamesJson = json_encode($localityNames);
         $localityOffersCountJson = json_encode($localityOffersCount);
-        $promoNamesJson = json_encode($promoNames);
-        $promoOffersCountJson = json_encode($promoOffersCount);
         $durationNamesJson = json_encode($durationNames);
         $durationOffersCountJson = json_encode($durationOffersCount);
         $wishlistOffersNamesJson = json_encode($wishlistOffersNames);
@@ -82,7 +75,6 @@ class OfferController extends Controller
         return view('offer.stat', compact(
             'skillNamesJson', 'skillOffersCountJson',
             'localityNamesJson', 'localityOffersCountJson',
-            'promoNamesJson', 'promoOffersCountJson',
             'durationNamesJson', 'durationOffersCountJson',
             'wishlistOffersNamesJson', 'wishlistCountJson'
         ));

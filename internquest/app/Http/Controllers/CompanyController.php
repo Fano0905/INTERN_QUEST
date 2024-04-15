@@ -166,11 +166,6 @@ class CompanyController extends Controller
 
     public function stats(){
 
-        // Collecter les données pour les secteurs
-        $sectorsWithCounts = Area::all();
-        $sectorNames = $sectorsWithCounts->pluck('name')->toArray();
-        $sectorCounts = $sectorsWithCounts->toArray();
-
         // Collecter les données pour les localités
         $locationsWithCounts = Location::withCount('companies')->get();
         $locationNames = $locationsWithCounts->pluck('city')->toArray();
@@ -185,7 +180,7 @@ class CompanyController extends Controller
         $offerCounts = $topOffers->pluck('applications_count')->toArray();
 
         // Passer les données à la vue
-        return view('company.stat', compact('sectorNames', 'sectorCounts', 'locationNames', 'locationCounts', 'offerNames', 'offerCounts'));
+        return view('company.stat', compact('locationNames', 'locationCounts', 'offerNames', 'offerCounts'));
     }
 
     /**
