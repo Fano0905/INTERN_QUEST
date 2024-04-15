@@ -10,6 +10,9 @@
 
 <body style="height: 100vh;">
 <div class="w-full h-full bg-no-repeat bg-cover " style="background-image: url('/img/image-bg.jpg'); background-position: left bottom;">
+    <div class="flex justify-end"> 
+        <a href="{{route('internquest.users.stats', $user->id)}}"><button type="submit" class="h-14 w-14 bg-black text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-black-400 font-medium mt-2 mr-2"><ion-icon name="bar-chart"></ion-icon></button></a>
+    </div>
     <div class="flex justify-center items-center h-screen">
         <div class="border border-black bg-gray-200 rounded-3xl" style="width: 768px; height: 350px;">              
             <div class="flex">

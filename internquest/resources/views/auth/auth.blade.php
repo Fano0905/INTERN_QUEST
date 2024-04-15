@@ -45,6 +45,9 @@
             </div>
         </div>
     </nav>
+    <div class="flex justify-end"> 
+        <a href="{{route('internquest.users.stats', Auth::user()->id)}}"><button type="submit" class="h-14 w-14 bg-black text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-black-400 font-medium mt-2 mr-2"><ion-icon name="bar-chart"></ion-icon></button></a>
+    </div>
     <div class="flex justify-center items-center h-screen">
         <div class="border border-black bg-gray-200 rounded-3xl" style="width: 900px; height: 400px;">              <div class="flex">
                 <div class="w-1/4 p-4 border photo-container mt-8 ml-3">

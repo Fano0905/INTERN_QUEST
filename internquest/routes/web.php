@@ -64,6 +64,7 @@ Route::prefix('/internquest')->name('internquest.')->group(function () {
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show')->middleware('auth');
     Route::get('/search', [UserController::class, 'search'])->name('users.search');
     Route::post('/skills/', [UserController::class, 'certificate'])->name('users.confirm');
+    Route::get('/stats/{user}', [UserController::class, 'stats'])->name('users.stats');
 });
 
 //Routes entreprises

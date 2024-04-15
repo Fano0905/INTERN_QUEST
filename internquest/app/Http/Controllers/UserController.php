@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
+use App\Models\Offer;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -27,6 +29,69 @@ class UserController extends Controller
 
         return view('accueil', compact('users', 'count'));
     }
+
+    /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $userId
+    * @return \Illuminate\Http\Response
+    */
+
+    public function stats($userId)
+    {
+        // Récupérer les candidatures de l'utilisateur
+        $userApplications = Application::where('user_id', $userId)->get();
+    
+        // Préparer les données pour les histogrammes des secteurs et des localités
+        $sectorNames = [];
+        $sectorCounts = [];
+        $locationNames = [];
+        $locationCounts = [];
+    
+        // Compter les candidatures par secteur et par localité
+        foreach ($userApplications as $application) {
+            // Récupérer l'offre liée à la candidature
+            $offer = $application->offres()->first();
+    
+            if ($offer) {
+                $sectorName = $offer->entreprise->area;
+                $locationName = $offer->city;
+    
+                if (!in_array($sectorName, $sectorNames)) {
+                    $sectorNames[] = $sectorName;
+                    $sectorCounts[] = 1;
+                } else {
+                    $sectorCounts[array_search($sectorName, $sectorNames)]++;
+                }
+    
+                if (!in_array($locationName, $locationNames)) {
+                    $locationNames[] = $locationName;
+                    $locationCounts[] = 1;
+                } else {
+                    $locationCounts[array_search($locationName, $locationNames)]++;
+                }
+            }
+        }
+    
+        // Compter le nombre total de candidatures
+        $totalApplications = $userApplications->count();
+    
+        // Compter le nombre de candidatures acceptées et refusées
+        $acceptedApplications = $userApplications->where('statut', 'acceptée')->count();
+        $refusedApplications = $userApplications->where('statut', 'refusée')->count();
+    
+        // Passer les nouvelles données à la vue
+        return view('auth.stat', [
+            'sectorNames' => $sectorNames,
+            'sectorCounts' => $sectorCounts,
+            'locationNames' => $locationNames,
+            'locationCounts' => $locationCounts,
+            'totalApplications' => $totalApplications,
+            'acceptedApplications' => $acceptedApplications,
+            'refusedApplications' => $refusedApplications,
+        ]);
+    }
+    
 
     /**
      * Store a newly created resource in storage.
