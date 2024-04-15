@@ -123,6 +123,29 @@
         </nav>
     @endguest
 
+    <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{session('success')}}
+            </div>
+        @elseif (session('error'))
+            <div class="alert alert-error">
+                {{session('error')}}
+            </div>
+        @endif
+    </div>
+    @if ($errors->any()) {
+        <div>
+            <div style="font-style: italic; color:red;">Something went wrong</div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    }
+    @endif
+
     <div class="flex flex-wrap">
         <div class="w-1/2">
             @foreach ($companies as $company)
@@ -176,7 +199,7 @@
         </div>
     </div>
 
-    <strong><h2 style="color: white">Entreprises sous ma responsabilité</h2></strong>
+    <strong><h2>Entreprises sous ma responsabilité</h2></strong>
 
     @auth
         @foreach($mycompany as $company)
@@ -196,17 +219,6 @@
         @endforeach
     @endauth
 
-    <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{session('success')}}
-            </div>
-        @elseif (session('error'))
-            <div class="alert alert-error">
-                {{session('error')}}
-            </div>
-        @endif
-    </div>
     <dialog id="signin_dialog" class="fixed inset-0 m-auto w-full max-w-lg h-auto bg-white border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex flex-col items-center justify-center overflow-hidden p-6" style="backdrop-filter: blur(20px); display: none;" open>
             <div class="w-full p-10 flex flex-col items-center">
                 <button class="absolute top-0 right-0 mt-4 mr-4 bg-gray-300 text-gray-700 hover:bg-gray-400 rounded-2xl p-2 focus:outline-none" onclick="closesignin(), preventReload(event)">

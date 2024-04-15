@@ -43,7 +43,6 @@ class UserController extends Controller
             'password' => ['required', 'min:6'],
             'username' => ['required','unique:users,username'],
             'role' => ['required'],
-            'centre' => ['required']
         ]);
         
         $validator->after(function ($validator) use ($request) {
@@ -68,7 +67,7 @@ class UserController extends Controller
             Waiting_User::create($request->all());
         }
     
-        return redirect()->route('internquest') // Redirige vers la page de connexion
+        return redirect()->route('internquest')
             ->with('success', "Votre compte a été créé, il a été soumis à la validation d'un Pilote ou de l'Admin");
     }
 
@@ -94,7 +93,6 @@ class UserController extends Controller
                 Rule::unique('users')->ignore(request()->route('user')),
             ],
             'role' => ['required'],
-            'centre' => ['required']
         ]);
 
         $user = User::find($id);
@@ -128,6 +126,7 @@ class UserController extends Controller
     }
 
     public function notifs(){
+    
         $pending_users = Waiting_User::all();
         $count = count($pending_users);
 
@@ -138,7 +137,7 @@ class UserController extends Controller
             }
         }
 
-        return view('auth.notifications', \compact('pending_users', 'count'));
+        return view('auth.notifications', compact('pending_users', 'count'));
     }
 
     /**

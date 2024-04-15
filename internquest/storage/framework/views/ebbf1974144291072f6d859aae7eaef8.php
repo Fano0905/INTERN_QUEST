@@ -124,6 +124,31 @@
         </nav>
     <?php endif; ?>
 
+    <div class="container">
+        <?php if(session('success')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success')); ?>
+
+            </div>
+        <?php elseif(session('error')): ?>
+            <div class="alert alert-error">
+                <?php echo e(session('error')); ?>
+
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php if($errors->any()): ?> {
+        <div>
+            <div style="font-style: italic; color:red;">Something went wrong</div>
+            <ul>
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+        </div>
+    }
+    <?php endif; ?>
+
     <div class="flex flex-wrap">
         <div class="w-1/2">
             <?php $__currentLoopData = $companies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -179,7 +204,7 @@
         </div>
     </div>
 
-    <strong><h2 style="color: white">Entreprises sous ma responsabilité</h2></strong>
+    <strong><h2>Entreprises sous ma responsabilité</h2></strong>
 
     <?php if(auth()->guard()->check()): ?>
         <?php $__currentLoopData = $mycompany; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -199,19 +224,6 @@
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <?php endif; ?>
 
-    <div class="container">
-        <?php if(session('success')): ?>
-            <div class="alert alert-success">
-                <?php echo e(session('success')); ?>
-
-            </div>
-        <?php elseif(session('error')): ?>
-            <div class="alert alert-error">
-                <?php echo e(session('error')); ?>
-
-            </div>
-        <?php endif; ?>
-    </div>
     <dialog id="signin_dialog" class="fixed inset-0 m-auto w-full max-w-lg h-auto bg-white border-2 border-white border-opacity-50 rounded-3xl shadow-2xl flex flex-col items-center justify-center overflow-hidden p-6" style="backdrop-filter: blur(20px); display: none;" open>
             <div class="w-full p-10 flex flex-col items-center">
                 <button class="absolute top-0 right-0 mt-4 mr-4 bg-gray-300 text-gray-700 hover:bg-gray-400 rounded-2xl p-2 focus:outline-none" onclick="closesignin(), preventReload(event)">

@@ -55,7 +55,7 @@
             </span>
         </div>
         <div class="relative mb-6">
-            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Username/label>
+            <label class="absolute left-2 -top-4 text-base text-gray-700 font-medium transition-all">Username</label>
             <input type="text" name="username" id="username" required class="w-full pl-10 pr-3 py-1 bg-transparent border-b-2 border-blue-600 outline-none focus:border-blue-400">
             @error('username')
             <p style="color: red;">{{$message}}</p>

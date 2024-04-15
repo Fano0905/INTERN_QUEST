@@ -21,7 +21,7 @@
                 <label class="absolute left-2 top-0 text-sm text-gray-700 font-medium transition-all">Utilisateur</label>
                 <select name="user_id" id="user_id" required class="w-full pl-3 pr-3 py-2 bg-transparent border-b-2 border-red-600 outline-none focus:border-red-400">
                     @foreach ($users as $user)
-                        <option @if ($loop->first) selected @endif value="{{ $user->id }}" data-name="{{ $user->username }}" title="{{ $user->username }}">{{ $user->id }}</option>
+                        <option @if ($loop->first) selected @endif value="{{ $user->id }}">{{ $user->lname }}, {{$user->fname}}</option>
                     @endforeach
                 </select>
                 @error('user_id')
