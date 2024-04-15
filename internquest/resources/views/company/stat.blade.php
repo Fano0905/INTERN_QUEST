@@ -3,17 +3,18 @@
 @section('title', 'Statistiques des Entreprises')
 
 @section('content')
+<div class="flex justify-center">
+    <!-- Cadre pour le graphique des localités -->
+    <div class="mt-20 w-1/2 mx-4 bg-gray-200 rounded-lg p-4 border border-black">
+        <h2 class="text-center text-xl font-bold mb-4">Répartition par localité</h2>
+        <canvas id="locationChart" class="w-full h-60"></canvas>
+    </div>
 
-<!-- Graphique pour les localités -->
-<div class="mt-8">
-    <h2 class="text-center text-xl font-bold mb-4">Répartition par localité</h2>
-    <canvas id="locationChart" width="400" height="200"></canvas>
-</div>
-
-<!-- Graphique pour les annonces les plus sollicitées -->
-<div class="mt-8">
-    <h2 class="text-center text-xl font-bold mb-4">Top des annonces les plus sollicitées</h2>
-    <canvas id="offerChart" width="400" height="200"></canvas>
+    <!-- Cadre pour le graphique des annonces les plus sollicitées -->
+    <div class="mt-20 w-1/2 mx-4 bg-gray-200 rounded-lg p-4 border border-black">
+        <h2 class="text-center text-xl font-bold mb-4">Top des annonces les plus sollicitées</h2>
+        <canvas id="offerChart" class="w-full h-60"></canvas>
+    </div>
 </div>
 @endsection
 

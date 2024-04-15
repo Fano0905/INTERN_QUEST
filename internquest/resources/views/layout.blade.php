@@ -31,18 +31,20 @@
                                 <ion-icon name="business"></ion-icon>
                                 Entreprises</a>
                             </div>
-                            <div class="py-3 px-1 hover:text-black">
-                                <ion-icon name="person-circle"></ion-icon>
-                                <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
-                            </div>
-                            <form action="{{route('auth.logout')}}" method="POST">
-                                @method('delete')
-                                @csrf
+                            @auth
                                 <div class="py-3 px-1 hover:text-black">
-                                    <ion-icon name="log-out"></ion-icon>
-                                    <button>Se deconnecter</button>
+                                    <ion-icon name="person-circle"></ion-icon>
+                                    <a href="{{route('auth.show')}}">{{Auth::user()->username}}</a>
                                 </div>
-                            </form>
+                                <form action="{{route('auth.logout')}}" method="POST">
+                                    @method('delete')
+                                    @csrf
+                                    <div class="py-3 px-1 hover:text-black">
+                                        <ion-icon name="log-out"></ion-icon>
+                                        <button>Se deconnecter</button>
+                                    </div>
+                                </form>
+                            @endauth
                         </div>
                     </div>
                 </div>
